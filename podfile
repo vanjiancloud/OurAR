@@ -10,9 +10,9 @@ platform:ios,'10.0'
       #在全局指定不显示所有所引用的库中的警告信息
       use_frameworks!
 #      inhibit_all_warnings!
-#      pod 'Alamofire', '5.7.1'
-#      pod 'SVProgressHUD' , '~> 2.2'
-#      pod 'Starscream', '~> 4.0.6'
+      pod 'Alamofire', '5.7.1'
+      pod 'SVProgressHUD' , '~> 2.2'
+      pod 'Starscream', '~> 4.0.6'
 
 #post_install do |installer|
 #    installer.pods_project.targets.each do |target|

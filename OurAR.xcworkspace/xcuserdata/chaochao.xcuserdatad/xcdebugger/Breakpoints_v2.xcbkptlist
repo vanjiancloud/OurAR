@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "CB38107D-347D-4FB4-AADD-DFF6F63DD972"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D26B36C9-7B21-408C-8819-494A48C6A5D5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OurAR/Main/Func/UserEventFunc.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "535"
+            endingLineNumber = "535"
+            landmarkName = "sendModelQuit(completion:)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "D26B36C9-7B21-408C-8819-494A48C6A5D5 - 1493a3af6f813f05"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Swift.Optional&lt;Foundation.Data&gt;, Alamofire.AFError&gt;) -&gt; () in OurAR.sendModelQuit(completion: (Swift.Bool, Swift.String) -&gt; ()) -&gt; ()"
+                  moduleName = "OurAR"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chaochao/Desktop/CompanyProject/OurAR/OurAR/Main/Func/UserEventFunc.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "535"
+                  endingLineNumber = "535"
+                  offsetFromSymbolStart = "340">
+               </Location>
+               <Location
+                  uuid = "D26B36C9-7B21-408C-8819-494A48C6A5D5 - 1493a3af6f813f05"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Swift.Optional&lt;Foundation.Data&gt;, Alamofire.AFError&gt;) -&gt; () in OurAR.sendModelQuit(completion: (Swift.Bool, Swift.String) -&gt; ()) -&gt; ()"
+                  moduleName = "OurAR"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chaochao/Desktop/CompanyProject/OurAR/OurAR/Main/Func/UserEventFunc.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "535"
+                  endingLineNumber = "535"
+                  offsetFromSymbolStart = "364">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

@@ -16,4 +16,8 @@ struct ProjectItem
     var size: String? = nil
     var type: String? = nil
     var status: String? = nil
+    
+    var currVersion: String? = nil
+    var applidStatus: String? = nil
+    var progress: String? = nil
 }

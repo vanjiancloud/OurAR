@@ -24,7 +24,7 @@ class ThreedModelController: UIViewController,WKNavigationDelegate,ThreeDURLProt
     }
     
     override func viewDidLoad() {
-        self.view = ThreeDModelView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+//        self.view = ThreeDModelView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         
         // 创建 WKWebView 实例
         let webConfiguration = WKWebViewConfiguration()
@@ -38,13 +38,16 @@ class ThreedModelController: UIViewController,WKNavigationDelegate,ThreeDURLProt
         self.view.addSubview(webView)
         
         // 设置约束，这里使用 AutoLayout 进行布局
-        webView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            webView.topAnchor.constraint(equalTo: view.topAnchor),
-            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
+//        webView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            webView.topAnchor.constraint(equalTo: view.topAnchor),
+//            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+//        ])
+        webView.snp.makeConstraints { make in
+            make.right.left.top.bottom.equalTo(self.view)
+        }
     }
     
     

@@ -15,21 +15,21 @@ class PropertyItem: UIView
     var key: UILabel!
     var value: UILabel!
     
-    let offset_x: CGFloat = 5.0
+    let offset_x: CGFloat = 15.0
     let fontSize: CGFloat = 12.0
     
     init(x:CGFloat,y:CGFloat,width:CGFloat,height:CGFloat) {
         super.init(frame: CGRect(x: x, y: y, width: width, height: height))
-        let halfWidth = bounds.width / 2
+        let halfWidth = bounds.width / 2 - offset_x
         let halfHeight = bounds.height / 2
         
-        key = UILabel(frame: CGRect(x: offset_x, y: halfHeight - fontSize / 2, width: halfWidth - offset_x, height: bounds.height))
+        key = UILabel(frame: CGRect(x: offset_x, y: halfHeight - fontSize / 2, width: halfWidth, height: bounds.height))
         key.font = .boldSystemFont(ofSize: fontSize)
         key.textColor = .white
         key.textAlignment = .left
         key.numberOfLines = 3
         
-        value = UILabel(frame: CGRect(x: halfWidth + offset_x, y: halfHeight - fontSize / 2, width: halfWidth - offset_x, height: bounds.height))
+        value = UILabel(frame: CGRect(x: halfWidth + offset_x, y: halfHeight - fontSize / 2, width: halfWidth, height: bounds.height))
         value.font = .boldSystemFont(ofSize: fontSize)
         value.textColor = .white
         value.textAlignment = .left
@@ -101,7 +101,12 @@ class VJPropertyView: UIView
         property_start_y = title_btn_center_y + max(title.bounds.height, closeBtn.bounds.height) / 2 + propertyItems_up_offset
         scrollView = UIScrollView(frame: CGRect(x: 0, y: property_start_y, width: bounds.width, height: bounds.height - property_start_y))
         addSubview(scrollView)
-        
+        if getIsIphone() {
+            scrollView.snp.makeConstraints { make in
+                make.top.equalTo(title.snp.bottom).offset(10)
+                make.left.right.bottom.equalTo(self)
+            }
+        }
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -64,6 +64,12 @@ class GoujianshuView: MTSidebarView , UITableViewDataSource, UITableViewDelegate
         tableview.separatorStyle = .none //隐藏分割线
         tableview.backgroundColor = UIColor(white: 0, alpha: 0)
         addSubview(tableview)
+        if getIsIphone() {
+            tableview.snp.makeConstraints { make in
+                make.top.equalTo(searchview.snp.bottom).offset(10)
+                make.left.right.bottom.equalTo(self)
+            }
+        }
     }
     
     // 实现VJMTSidebarView的函数

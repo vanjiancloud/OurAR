@@ -10,6 +10,7 @@ import UIKit
 import CloudAR
 import Alamofire
 import SVProgressHUD
+//import SnapKit
 
 class LoginController: UIViewController
 {
@@ -17,34 +18,35 @@ class LoginController: UIViewController
     var registerView: RegisterView! //注册页
     var forgetView: ForgetView! //忘记页
     var leftBg: UIImageView! //左边背景页
-    
+    var lblInfo:UILabel!
+    var lblLogo:UILabel!
     var settingBtn: UIButton! //底部设置按钮
     
     lazy var settingController = SettingController()
     
     override func viewDidLoad() {
         self.modalPresentationStyle = .fullScreen
-        
-        let left_width: CGFloat = view.bounds.width * 0.36
-        let right_width: CGFloat =  view.bounds.width * 0.6
-        
         let segment_start_y: CGFloat = view.bounds.height * 0.4
         let inputView_start_y: CGFloat = segment_start_y
+        let right_width: CGFloat =  view.bounds.width * 0.6
+        let left_width: CGFloat = view.bounds.width * 0.36
         
-        let nameImg = UIImageView(frame: CGRect(x: left_width + right_width * 0.2, y: view.bounds.height * 0.2, width: right_width * 0.3, height: 30))
-        nameImg.image = UIImage(named: "OurARar")
-        nameImg.contentMode = .scaleAspectFit
-        view.addSubview(nameImg)
+//        let nameImg = UIImageView(frame: CGRect(x: left_width + right_width * 0.2, y: view.bounds.height * 0.2, width: right_width * 0.3, height: 30))
+////        let nameImg = UIImageView()
+//        nameImg.image = UIImage(named: "OurARar")
+//        nameImg.contentMode = .scaleAspectFit
+//        view.addSubview(nameImg)
         
-        let label2 = UILabel(frame: CGRect(x: left_width + right_width * 0.2, y: view.bounds.height * 0.2 + 40, width: right_width, height: 15))
-        label2.text = "欢迎使用OurAR 云AR平台"
-        label2.font = .systemFont(ofSize: 12)
-        label2.textColor = .black.withAlphaComponent(0.8)
-        view.addSubview(label2)
+        lblLogo = UILabel(frame: CGRect(x: left_width + right_width * 0.2, y: view.bounds.height * 0.2, width: right_width * 0.3, height: 30))
+        lblLogo.text = "OurAR"
+        lblLogo.font = .boldSystemFont(ofSize: 25)
+        view.addSubview(lblLogo)
         
-        leftBg = UIImageView(frame: CGRect(x: 0, y: 0, width: left_width, height: self.view.bounds.height))
-        leftBg.image = UIImage(named: "loginleftbg")
-        view.addSubview(leftBg)
+        lblInfo = UILabel(frame: CGRect(x: left_width + right_width * 0.2, y: view.bounds.height * 0.2 + 40, width: right_width, height: 15))
+        lblInfo.text = "欢迎使用OurBIM 云AR平台"
+        lblInfo.font = .systemFont(ofSize: 12)
+        lblInfo.textColor = .black.withAlphaComponent(0.8)
+        view.addSubview(lblInfo)
         
         loginView = LoginView(frame: CGRect(x: 0, y: inputView_start_y, width: right_width * 0.6, height: view.bounds.height * 0.5))
         loginView.center.x = left_width + right_width * 0.5
@@ -52,6 +54,8 @@ class LoginController: UIViewController
         registerView.center.x = left_width + right_width * 0.5
         forgetView = ForgetView(frame: CGRect(x: 0, y: inputView_start_y, width: right_width * 0.6, height: view.bounds.height * 0.5))
         forgetView.center.x  = left_width + right_width * 0.5
+        // 默认进入登录页面
+        view.addSubview(loginView)
         
         settingBtn = UIButton(frame: CGRect(x: view.bounds.width-50, y: view.bounds.height - 50, width: 30, height: 30))
         settingBtn.setBackgroundImage(UIImage(named: "setting"), for: .normal)
@@ -63,12 +67,36 @@ class LoginController: UIViewController
         }), for: .touchUpInside)
         view.addSubview(settingBtn)
         settingController.initConfig()
-        
         // AR默认配置
 //        car_URL.javaWS = ""
-        
-        // 默认进入登录页面
-        view.addSubview(loginView)
+
+        if getIsIphone() {
+            lblLogo.snp.makeConstraints { make in
+                make.leading.equalToSuperview().offset(40)
+                make.top.equalToSuperview().offset(90)
+                make.height.equalTo(45)
+            }
+            lblInfo.snp.makeConstraints { make in
+                make.top.equalTo(lblLogo.snp.bottom).offset(20)
+                make.leading.equalTo(lblLogo)
+                make.height.equalTo(15)
+            }
+            loginView.snp.makeConstraints { make in
+                make.top.equalTo(lblInfo.snp.bottom).offset(30)
+                make.leading.equalTo(lblLogo)
+                make.trailing.equalToSuperview().offset(-30)
+                make.bottom.equalToSuperview().offset(-30)
+            }
+            settingBtn.snp.makeConstraints { make in
+                make.bottom.equalToSuperview().offset(-30)
+                make.right.equalTo(-30)
+                make.height.width.equalTo(30)
+            }
+        }else {
+            leftBg = UIImageView(frame: CGRect(x: 0, y: 0, width: left_width, height: self.view.bounds.height))
+            leftBg.image = UIImage(named: "loginleftbg")
+            view.addSubview(leftBg)
+        }
     }
     
     private func login(url: String) {
@@ -244,16 +272,31 @@ class LoginController: UIViewController
         case 0:
             //登录页
             self.view.addSubview(loginView)
+            loginView.snp.makeConstraints { make in
+                make.top.equalTo(lblInfo.snp.bottom).offset(30)
+                make.leading.equalTo(lblLogo)
+                make.trailing.bottom.equalToSuperview().offset(-30)
+            }
             loginView?.enter(info: info)
             break
         case 1:
             //注册页
             self.view.addSubview(registerView)
+            registerView.snp.makeConstraints { make in
+                make.top.equalTo(lblInfo.snp.bottom).offset(30)
+                make.leading.equalTo(lblLogo)
+                make.trailing.bottom.equalToSuperview().offset(-30)
+            }
             registerView?.enter(info: info)
             break
         case 2:
             //忘记密码页
             self.view.addSubview(forgetView)
+            forgetView.snp.makeConstraints { make in
+                make.top.equalTo(lblInfo.snp.bottom).offset(30)
+                make.leading.equalTo(lblLogo)
+                make.trailing.bottom.equalToSuperview().offset(-30)
+            }
             forgetView?.enter(info: info)
             break
         default:

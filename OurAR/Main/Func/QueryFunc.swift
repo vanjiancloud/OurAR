@@ -240,7 +240,7 @@ public func queryARModelClose(completion: @escaping (Bool) -> Void) {
 
 //MARK: 查询属性信息
 public func queryPropertyInfo(projectID: String,actorID: String,completion: @escaping (Result<Data,Error>) -> Void) {
-    //https://api.OurBim.com:11022/vjapi/comControl/getComInfoByActorId?appId=BIM2022031210421053&actorId=436967
+    //  api.OurBim.com:11022/vjapi/comControl/getComInfoByActorId?appId=BIM2022031210421053&actorId=436967
     let url = car_URL.urlPre + "comControl/getComInfoByActorId?appId=\(projectID)&actorId=\(actorID)"
     AF.request(url,method: .get).response { (response: AFDataResponse) in
         switch response.result {

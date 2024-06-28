@@ -82,7 +82,7 @@ struct MainToolsInfo
         info[.MainView]       = MainToolInfo(.MainView,.ThreeD, "mainview", "主视图")
         info[.KeJianXing]     = MainToolInfo(.KeJianXing,.Both,"kejianxing","可见性")
         info[.PersonView]     = MainToolInfo(.PersonView,.ThreeD,"personview","视角切换")
-        info[.PouQie]         = MainToolInfo(.PouQie,.ThreeD,"pouqie","剖切")
+        info[.PouQie]         = MainToolInfo(.PouQie,.None,"pouqie","剖切")
         info[.Celiang]        = MainToolInfo(.Celiang,.Both,"celiang","测量")
         info[.BiaoQian]       = MainToolInfo(.BiaoQian,.Both,"biaoqian","标签")
         info[.FenJie]         = MainToolInfo(.FenJie,.Both,"fenjie","分解")
@@ -103,7 +103,7 @@ enum PersonViewType : UInt8
 //MARK: 测量类型
 enum MeasurementType: UInt8 {
     case coordinate                 = 0
-    case distace                    = 1
+    case distance                   = 1
     case angle                      = 2
     case changePrecisionOrUnit      = 3
 }
@@ -198,7 +198,7 @@ func getSecondToolsByMainTool(_ toolType: MainToolType) -> [SecondToolType:Secon
     case .GouJianShu: break
     case .ShuXing: break
     case .Celiang:
-        info[SecondToolType.MMT(.distace)] = SecondToolInfo(.MMT(.distace),"measure_distance","distance")
+        info[SecondToolType.MMT(.distance)] = SecondToolInfo(.MMT(.distance),"measure_distance","distance")
         info[SecondToolType.MMT(.angle)] = SecondToolInfo(.MMT(.angle),"measure_angle","angle")
         info[SecondToolType.MMT(.coordinate)] = SecondToolInfo(.MMT(.coordinate),"measure_coordinate","coordinate")
         info[SecondToolType.MMT(.changePrecisionOrUnit)] = SecondToolInfo(.MMT(.changePrecisionOrUnit),"measure_change","change")
@@ -282,7 +282,7 @@ func getSecondToolsByOrder(_ mainTool: MainToolType) -> [SecondToolType]? {
                 orders[type] = []
                 break
             case .Celiang:
-                orders[type] = [.MMT(.coordinate),.MMT(.distace),.MMT(.angle),.MMT(.changePrecisionOrUnit)]
+                orders[type] = [.MMT(.coordinate),.MMT(.distance),.MMT(.angle),.MMT(.changePrecisionOrUnit)]
                 break
             case .BiaoQian:
                 orders[type] = []

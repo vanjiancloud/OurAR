@@ -283,7 +283,12 @@ class TagView : MTSidebarView, UITableViewDataSource, UITableViewDelegate, TagCe
         tableview.separatorStyle = .none //隐藏分割线
         tableview.backgroundColor = UIColor(white: 0, alpha: 0)
         addSubview(tableview)
-        
+        if getIsIphone() {
+            tableview.snp.makeConstraints { make in
+                make.top.equalTo(searchview.snp.bottom).offset(10)
+                make.left.right.bottom.equalTo(self)
+            }
+        }
     }
     
     override func handleClose() {

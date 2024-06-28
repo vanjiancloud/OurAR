@@ -78,6 +78,8 @@
 		BB7909ED2C0722E900A347E8 /* CloudAR.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BB7909E72C0722CC00A347E8 /* CloudAR.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BBB89F282BECD62D00A4F11F /* ModelFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB89F272BECD62D00A4F11F /* ModelFunc.swift */; };
 		BBD07B5C2C1BF085007DE254 /* Starscream.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBD07B562C1BF018007DE254 /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BBD07B8E2C2183EC007DE254 /* OurManagerTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD07B8D2C2183EC007DE254 /* OurManagerTool.swift */; };
+		BBDD4E592C240AAF00B8ECC3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = BBDD4E562C240AAF00B8ECC3 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -186,6 +188,9 @@
 		BB7909E72C0722CC00A347E8 /* CloudAR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudAR.framework; sourceTree = "<group>"; };
 		BBB89F272BECD62D00A4F11F /* ModelFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelFunc.swift; sourceTree = "<group>"; };
 		BBD07B502C1BF018007DE254 /* Starscream.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Starscream.xcodeproj; path = ../../Starscream/Starscream.xcodeproj; sourceTree = "<group>"; };
+		BBD07B8D2C2183EC007DE254 /* OurManagerTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurManagerTool.swift; sourceTree = "<group>"; };
+		BBD07B8F2C2198B4007DE254 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		BBDD4E562C240AAF00B8ECC3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		D0C87F6B9FEFA9EDB3854E86 /* Pods_OurAR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OurAR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -295,6 +300,7 @@
 		9B57BD4E2A540B2000CE9820 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				BBD07B8A2C2183B8007DE254 /* Public */,
 				9BA7C8802A7765A900776B60 /* Object */,
 				9B50C6DB2A67CCB800FA52CD /* WS */,
 				9B5E49392A56B692008F2CCC /* Protocol */,
@@ -500,6 +506,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		BBD07B8A2C2183B8007DE254 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				BBDD4E562C240AAF00B8ECC3 /* PrivacyInfo.xcprivacy */,
+				BBD07B8D2C2183EC007DE254 /* OurManagerTool.swift */,
+				BBD07B8F2C2198B4007DE254 /* PrefixHeader.pch */,
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -512,6 +528,7 @@
 				9B57BC082A53E9A800CE9820 /* Frameworks */,
 				9B57BC092A53E9A800CE9820 /* Resources */,
 				9B57BD4B2A5409C700CE9820 /* CopyFiles */,
+				A5C876BF6A1871ED4B6BCBD3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -584,6 +601,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B57BD572A540C1100CE9820 /* Login.storyboard in Resources */,
+				BBDD4E592C240AAF00B8ECC3 /* PrivacyInfo.xcprivacy in Resources */,
 				9B57BC1B2A53E9A900CE9820 /* LaunchScreen.storyboard in Resources */,
 				BB7909E92C0722CC00A347E8 /* README.md in Resources */,
 				9B57BC182A53E9A900CE9820 /* Assets.xcassets in Resources */,
@@ -595,6 +613,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		A5C876BF6A1871ED4B6BCBD3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OurAR/Pods-OurAR-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OurAR/Pods-OurAR-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OurAR/Pods-OurAR-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E266AE77140BF01D64E6373B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -642,6 +677,7 @@
 				9BF653552A71FC0700E4B655 /* TagItem.swift in Sources */,
 				9B4BD11D2A7CCBE8006E2046 /* Project.swift in Sources */,
 				9BE88C7E2A95D3870000BC33 /* SettingData.swift in Sources */,
+				BBD07B8E2C2183EC007DE254 /* OurManagerTool.swift in Sources */,
 				9B99AF172A57E22F003E4630 /* CloudARExtension.swift in Sources */,
 				9BB45EA12A691F1E00A3381E /* WSProtocol.swift in Sources */,
 				9BC240CF2A9DFB0B00FFA497 /* SegmentedControl.swift in Sources */,
@@ -829,7 +865,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.2;
+				CURRENT_PROJECT_VERSION = 1.0.2.0;
 				DEVELOPMENT_TEAM = 8879CJ9M3W;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -846,6 +882,7 @@
 					"$(PROJECT_DIR)/cloudarframework\\ copy",
 					"$(PROJECT_DIR)/cloudAr",
 				);
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OurAR/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = OurAR;
@@ -860,7 +897,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vanjian.OurAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -876,7 +913,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.2;
+				CURRENT_PROJECT_VERSION = 1.0.2.0;
 				DEVELOPMENT_TEAM = 8879CJ9M3W;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -893,6 +930,7 @@
 					"$(PROJECT_DIR)/cloudarframework\\ copy",
 					"$(PROJECT_DIR)/cloudAr",
 				);
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OurAR/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = OurAR;
@@ -907,7 +945,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vanjian.OurAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

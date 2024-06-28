@@ -16,11 +16,11 @@ import SVProgressHUD
 class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunchProtocol,ARPositionProtocol
 ,ModelLoadFinishProtocol,CloudXRConnectProtocol,EnterPositionPtocotol,CloudXRClientStateUpdateProtocol
 {
-    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
 //MARK: property
     //AR
     var arModelController: ARModelController?   //ar画面
-    var connectStatsTimer: Timer?
+//    var connectStatsTimer: Timer?
     
     //ThreeD
     var threeDModelController: ThreedModelController? //threeD画面
@@ -36,6 +36,40 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
     }
     override func loadView() {
         //重设 view
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+        appDelegate.allowRotation = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        appDelegate.allowRotation = false
+        //判断退出时是否是横屏
+            if UIApplication.shared.statusBarOrientation.isLandscape {
+                //是横屏让变回竖屏
+                setNewOrientation(fullScreen: false)
+            }
+    }
+    //横竖屏
+    func setNewOrientation(fullScreen: Bool) {
+        if fullScreen { //横屏
+            let resetOrientationTargert = NSNumber(integerLiteral: UIInterfaceOrientation.unknown.rawValue)
+            UIDevice.current.setValue(resetOrientationTargert, forKey: "orientation")
+            
+            let orientationTarget = NSNumber(integerLiteral: UIInterfaceOrientation.landscapeLeft.rawValue)
+            UIDevice.current.setValue(orientationTarget, forKey: "orientation")
+            
+        }else { //竖屏
+            let resetOrientationTargert = NSNumber(integerLiteral: UIInterfaceOrientation.unknown.rawValue)
+            UIDevice.current.setValue(resetOrientationTargert, forKey: "orientation")
+            
+            let orientationTarget = NSNumber(integerLiteral: UIInterfaceOrientation.portrait.rawValue)
+            UIDevice.current.setValue(orientationTarget, forKey: "orientation")
+        }
     }
     
     override func viewDidLoad()
@@ -87,6 +121,9 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
         view.insertSubview(vjBIMScreenSubController!.view, at: 1)
         vjBIMScreenSubController.didMove(toParent: self)
         vjBIMScreenSubController.view.backgroundColor = UIColor(white: 1, alpha: 0)
+        vjBIMScreenSubController.view.snp.makeConstraints { make in
+            make.right.left.top.bottom.equalTo(self.view)
+        }
         
         modelLoadController = ModelLoadViewController()
         modelLoadController.modelLoadFinishProtocol = self
@@ -143,15 +180,15 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
     }
     
     func printConnectStats() {
-        connectStatsTimer = Timer.scheduledTimer(withTimeInterval: 4.0, repeats: true) { timer in
-            if car_EngineStatus.screenMode == .AR {
-                let (isSuccess,quality,reason) = self.arModelController!.getConnectQuality()
-                print("success:\(isSuccess),quality: \(String(describing: quality)),reason: \(String(describing: reason))")
-            } else {
-                timer.invalidate()
-            }
-        }
-        connectStatsTimer?.fire()
+//        connectStatsTimer = Timer.scheduledTimer(withTimeInterval: 4.0, repeats: true) { timer in
+//            if car_EngineStatus.screenMode == .AR {
+//                let (isSuccess,quality,reason) = self.arModelController!.getConnectQuality()
+//                print("success:\(isSuccess),quality: \(String(describing: quality)),reason: \(String(describing: reason))")
+//            } else {
+//                timer.invalidate()
+//            }
+//        }
+//        connectStatsTimer?.fire()
     }
     
     //MARK: 根据场景类型来加载模型
@@ -205,7 +242,7 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
             // 重置主菜单的数据
             vjBIMScreenSubController!.listenSwitchScreenMode(toScreenMode: screenType)
             
-            screenType == .AR ? printConnectStats() : ()
+//            screenType == .AR ? printConnectStats() : ()
             
         } else {
             print("模型启动失败-\(reason)")
@@ -255,8 +292,10 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
         case .connectionAttemptFailed:print("notifyClientStateUpdate -- connectionAttemptFailed")
             break
         case .disconnected:
-            DispatchQueue.main.async {
-                self.addAlertPopView ()
+            if(arModelController != nil) {
+                DispatchQueue.main.async {
+                    self.addAlertPopView ()
+                }
             }
             break
         case .readyToConnect:print("notifyClientStateUpdate -- readyToConnect")
@@ -307,8 +346,8 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
     
     //MARK: 关闭移除
     func  closeScreenPageView() {
-        self.connectStatsTimer?.invalidate()
-        self.connectStatsTimer = nil
+//        self.connectStatsTimer?.invalidate()
+//        self.connectStatsTimer = nil
         NotificationCenter.default.removeObserver(self, name: UIApplication.willTerminateNotification, object: nil)
         SSMDelegateManager.remove(self)
         MLDelegateManager.remove(self)
@@ -332,8 +371,8 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
     func removeAllSetting() {
         print("removeAllSetting - close")
         WebSocketClient.shared.close() //断开与java的websocket
-        self.connectStatsTimer?.invalidate()
-        self.connectStatsTimer = nil
+//        self.connectStatsTimer?.invalidate()
+//        self.connectStatsTimer = nil
         if car_EngineStatus.screenMode == .AR {
             removeThreeDView()
         }else if car_EngineStatus.screenMode == .ThreeD {

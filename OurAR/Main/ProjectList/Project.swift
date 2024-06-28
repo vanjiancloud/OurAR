@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import CloudAR
+import SVProgressHUD
 
 fileprivate class headerView: UIView
 {
@@ -185,6 +186,36 @@ fileprivate class progressItem: UIView
         progress.progress = 0
         progress.progressTintColor = VJBackgroundColor
         addSubview(progress)
+        
+        if getIsIphone() {
+            name.font = .systemFont(ofSize: 10)
+            use.font = .systemFont(ofSize: 10)
+            total.font = .systemFont(ofSize: 10)
+            name.snp.makeConstraints { make in
+                make.left.equalTo(self).offset(5)
+                make.top.equalTo(self).offset(10)
+                make.width.equalTo(50)
+                make.height.equalTo(16)
+            }
+            total.snp.makeConstraints { make in
+                make.width.equalTo(40)
+                make.right.equalTo(self).offset(-5)
+                make.height.equalTo(16)
+                make.centerY.height.equalTo(name)
+            }
+            use.snp.makeConstraints { make in
+                make.left.equalTo(name.snp.right).offset(5)
+                make.right.equalTo(total.snp.left)
+                make.height.equalTo(16)
+                make.centerY.equalTo(name)
+            }
+            progress.snp.makeConstraints { make in
+                make.left.equalTo(self).offset(5)
+                make.right.equalTo(self).offset(-5)
+                make.centerY.equalTo(self).offset(10)
+                make.height.equalTo(5)
+            }
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -210,6 +241,16 @@ fileprivate class progressView: UIView
         memory.center.y = self.bounds.height / 2
         addSubview(node)
         addSubview(memory)
+        if getIsIphone() {
+            node.snp.makeConstraints { make in
+                make.left.top.height.equalTo(self)
+                make.width.equalTo(self.bounds.width / 2)
+            }
+            memory.snp.makeConstraints { make in
+                make.right.top.height.equalTo(self)
+                make.width.equalTo(self.bounds.width / 2)
+            }
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -226,14 +267,23 @@ fileprivate class progressView: UIView
             let countBF_f = Float(countBF) ?? 1.0
             let currSpace_f = Float(currSpace) ?? 0.0
             let countSpace_f = Float(countSpace) ?? 1.0
-            
+            let currSpace_fString = String(format: "%.1f", currSpace_f)
+            let countSpace_fString = String(format: "%.1f", countSpace_f)
             node?.use?.text = currBF
             node?.total?.text = "/\(countBF)"
             node?.progress?.setProgress(currBF_f/countBF_f, animated: true)
             
-            memory?.use?.text = "\(currSpace)G"
+            memory?.use?.text = "\(currSpace_fString)G"
             memory?.total?.text = "/\(countSpace)G"
             memory?.progress?.setProgress(currSpace_f/countSpace_f, animated: true)
+            
+            if getIsIphone() {
+                let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 16)
+                let labelSize = memory?.total.sizeThatFits(maxSize)
+                memory?.total.snp.updateConstraints { make in
+                    make.width.equalTo(labelSize!.width)
+                }
+            }
         }
     }
 }
@@ -272,10 +322,13 @@ fileprivate class projectItem: UIView
     var nameLabel: UILabel!
     var createTimeLabel: UILabel!
     
-    var btnItem: UIButton!  //监听点击进入场景的btn
+//    var btnItem: UIButton!  //监听点击进入场景的btn
     var btnModify: UIButton! //监听点击进行修改的btn
     
     var id: String = ""
+    var currVersion: String = ""
+    var progress: String = ""
+    var applidStatus: String = ""
     
     init(frame: CGRect,left_right_pad: CGFloat) {
         super.init(frame: frame)
@@ -292,20 +345,21 @@ fileprivate class projectItem: UIView
         
         nameLabel = UILabel(frame: CGRect(x: left_right_pad + height * 0.6 + 20, y: height * 0.25, width: width * 0.6, height: 16))
         nameLabel.font = UIFont.systemFont(ofSize: 14)
-        nameLabel.textColor = VJTextColor_07
+        nameLabel.textColor = .black
         nameLabel.textAlignment = .left
+        nameLabel.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(pressItem))
+        nameLabel.addGestureRecognizer(tap)
         
         createTimeLabel = UILabel(frame: CGRect(x: left_right_pad + height * 0.6 + 20, y: height * 0.6, width: width * 0.6, height: 16))
         createTimeLabel.font = UIFont.systemFont(ofSize: 12)
         createTimeLabel.textColor = VJTextColor_07
         createTimeLabel.textAlignment = .left
         
-        btnItem = UIButton(frame: CGRect(x: height * 0.1, y: height * 0.1, width: width - height * 0.1, height: height * 0.8))
-        btnItem.backgroundColor = UIColor(white: 1, alpha: 0)
-        btnItem.isUserInteractionEnabled = true
-        btnItem.addTarget(self, action: #selector(pressItem), for: .touchDown)
-        //btnItem.addTarget(self, action: #selector(itemTouchUpInside), for: .touchUpInside)
-        //btnItem.backgroundColor = .black
+//        btnItem = UIButton(frame: CGRect(x: height * 0.1, y: height * 0.1, width: width - height * 0.1, height: height * 0.8))
+//        btnItem.backgroundColor = UIColor(white: 1, alpha: 0)
+//        btnItem.isUserInteractionEnabled = true
+//        btnItem.addTarget(self, action: #selector(pressItem), for: .touchDown)
         
         btnModify = UIButton(frame: CGRect(x: min(width - height * 0.1 - height * 0.5,width * 0.8), y:height * 0.1, width: height * 0.8, height: height * 0.8))
         btnModify.backgroundColor = UIColor(white: 1, alpha: 0)
@@ -317,7 +371,7 @@ fileprivate class projectItem: UIView
         addSubview(icon)
         addSubview(nameLabel)
         addSubview(createTimeLabel)
-        addSubview(btnItem)
+//        addSubview(btnItem)
         addSubview(btnModify)
         
         isUserInteractionEnabled = true
@@ -334,18 +388,50 @@ fileprivate class projectItem: UIView
             nameLabel.text = project.name
             createTimeLabel.text = project.createTime
             id = project.id ?? ""
+            currVersion = project.currVersion ?? ""
+            progress = project.progress ?? ""
+            applidStatus = project.applidStatus ?? ""
+            if currVersion == "V5" {
+                nameLabel.textColor = VJTextColor_07
+            }else {
+                if applidStatus == "2" {
+                    nameLabel.textColor = .black
+                }else {
+                    if progress != "100" {
+                        nameLabel.textColor = VJTextColor_07
+                    }else {
+                        nameLabel.textColor = .black
+                    }
+                }
+            }
         }
     }
     
-    @objc func pressItem(sender: UIButton){
+    @objc func pressItem(sender: UITapGestureRecognizer){
         // 开启一个场景
         print("press item")
         if let viewController = getControllerOfSubview(self) as? ProjectController
         {
-            //startQueryModel(projectID: id, currViewController: viewController)
-            let (isSuccess,reason) = enterBIMScreen(currViewController: viewController,needLoadProject: id,screenType: .AR) //默认以ar模式启动
-            if !isSuccess {
-                showTip(tip: reason, parentView: viewController.view, tipColor_bg_fail, tipColor_text_fail, completion: {})
+            if currVersion == "V5" {
+                SVProgressHUD.showInfo(withStatus: "请重新转换模型！")
+            }else {
+                if applidStatus == "2" {
+                    //startQueryModel(projectID: id, currViewController: viewController)
+                    let (isSuccess,reason) = enterBIMScreen(currViewController: viewController,needLoadProject: id,screenType: .ThreeD) //默认以3D模式启动
+                    if !isSuccess {
+                        showTip(tip: reason, parentView: viewController.view, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                    }
+                }else {
+                    if progress != "100" {
+                        SVProgressHUD.showInfo(withStatus: "模型未转换完成")
+                    }else {
+                        //startQueryModel(projectID: id, currViewController: viewController)
+                        let (isSuccess,reason) = enterBIMScreen(currViewController: viewController,needLoadProject: id,screenType: .ThreeD) //默认以3D模式启动
+                        if !isSuccess {
+                            showTip(tip: reason, parentView: viewController.view, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                        }
+                    }
+                }
             }
         }
     }
@@ -380,6 +466,11 @@ fileprivate class projectListView: UIView
         projectItem_start_y = 65
         pad_left = left_right_pad
         
+        if getIsIphone() {
+            column = 1
+        }else {
+            column = 2
+        }
         subview_width = self.bounds.width / CGFloat(column) //每一个project item的长度
         
         header = projectHeader(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: projectItem_start_y), left_right_pad: pad_left)
@@ -452,7 +543,7 @@ class Project: UIView
 {
     private var header: headerView!
     private var profile: profileView!
-    private var progress: progressView!
+//    private var progress: progressView!
     private var project: projectListView!
     
     var scrollView: UIScrollView!
@@ -486,17 +577,17 @@ class Project: UIView
         //profile.backgroundColor = .black
         addSubview(profile)
         // 滑动
-        let scrollHeight: CGFloat = self.bounds.height - headerHeight
+        let scrollHeight: CGFloat = self.bounds.height
         scrollView = UIScrollView(frame: CGRect(x: profileWidth + gap * 2, y: headerHeight, width: max(progressWidth,projectWidth), height: scrollHeight))
         scrollView.isUserInteractionEnabled = true
         scrollView.contentSize = CGSize(width: max(progressWidth,projectWidth), height: scrollHeight)
-        
+        scrollView.showsVerticalScrollIndicator = false
         // 滑动中的progress
-        progress = progressView(frame: CGRect(x: 0, y: gap, width: progressWidth, height: progressHeight), left_right_pad: left_right_pad)
-        progress.backgroundColor = .white
-        scrollView.addSubview(progress)
+//        progress = progressView(frame: CGRect(x: 0, y: gap, width: progressWidth, height: progressHeight), left_right_pad: left_right_pad)
+//        progress.backgroundColor = .white
+//        scrollView.addSubview(progress)
         // 滑动中的project
-        project = projectListView(frame: CGRect(x: 0, y: progressHeight + gap * 2, width: projectWidth, height: projectHeight),left_right_pad: left_right_pad)
+        project = projectListView(frame: CGRect(x: 0, y: gap, width: projectWidth, height: projectHeight),left_right_pad: left_right_pad)
         project.backgroundColor = .white
         scrollView.addSubview(project)
         
@@ -523,7 +614,7 @@ class Project: UIView
     }
     
     func updateProgressInfo(data: [String:Any]) {
-        self.progress?.updateInfo(data: data)
+//        self.progress?.updateInfo(data: data)
     }
 }
 

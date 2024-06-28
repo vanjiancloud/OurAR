@@ -52,7 +52,9 @@ class ProjectController: UIViewController
                                     projectItem.createTime = item["createTime"] as? String
                                     projectItem.size = item["fileSize"] as? String
                                     projectItem.status = item["applidStatus"] as? String
-                                   
+                                    projectItem.currVersion = item["currVersion"] as? String
+                                    projectItem.progress = item["progress"] as? String
+                                    projectItem.applidStatus = item["applidStatus"] as? String
                                     self.allProject[i] = projectItem
                                     i += 1
                                    

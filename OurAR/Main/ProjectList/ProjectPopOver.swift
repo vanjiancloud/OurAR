@@ -94,7 +94,7 @@ class ProjectPopOverView: UIView, UITableViewDataSource, UITableViewDelegate
     var table: UITableView!
     
     private var popItems: [PopCellInfo] = [
-        PopCellInfo(type: .enter, iconName: "enterproject", cellName: "进入3D项目"),
+        PopCellInfo(type: .enter, iconName: "enterproject", cellName: "进入AR模式"),
         PopCellInfo(type: .edit, iconName: "editproject", cellName: "编辑"),
         PopCellInfo(type: .delete, iconName: "deleteproject", cellName: "删除")]
     
@@ -379,7 +379,7 @@ class ProjectPopOverController: UIViewController
             case .enter:
                 if let id = projectInfo["id"] as? String {
                     print(id)
-                    let (isSuccess,reason) = enterBIMScreen(currViewController: self, needLoadProject: id, screenType: .ThreeD)
+                    let (isSuccess,reason) = enterBIMScreen(currViewController: self, needLoadProject: id, screenType: .AR)
                     if !isSuccess {
                         showTip(tip: reason, parentView: self.view, tipColor_bg_fail, tipColor_text_fail){}
                     }

@@ -10,6 +10,7 @@ import UIKit
 import CloudAR
 import Alamofire
 import WebKit
+import SnapKit
 
 fileprivate let inputWidthRatio: CGFloat = 1.0 //input宽度占bounds宽度的比
 fileprivate let inputHeight: CGFloat = 45 //input的高度
@@ -50,7 +51,11 @@ fileprivate class InputView: UIView
         text.addTarget(self, action: #selector(editingDidEnd(_:)), for: .editingDidEnd)
         text.addTarget(self, action: #selector(editingDidEndOnExit(_:)), for: .editingDidEndOnExit)
         addSubview(text)
-        
+        text.snp.makeConstraints { make in
+            make.centerY.height.equalTo(self)
+            make.left.equalTo(img.snp.right).offset(10)
+            make.right.equalTo(self).offset(-50)
+        }
         if isSecureTextEntry {
             let show = UIButton(frame: CGRect(x: bounds.width - 35,y: 0, width: 20, height: 18))
             show.setImage(UIImage(named: "visibility"), for: .normal)
@@ -67,6 +72,12 @@ fileprivate class InputView: UIView
                 }
             }), for: .touchDown)
             addSubview(show)
+            show.snp.makeConstraints { make in
+                make.right.equalTo(self).offset(-20)
+                make.width.equalTo(20)
+                make.height.equalTo(18)
+                make.centerY.equalTo(self)
+            }
         }
     }
     
@@ -132,6 +143,11 @@ fileprivate class PhoneView: UIView
         text.addTarget(self, action: #selector(editingDidEnd(_:)), for: .editingDidEnd)
         text.addTarget(self, action: #selector(editingDidEndOnExit(_:)), for: .editingDidEndOnExit)
         addSubview(text)
+        text.snp.makeConstraints { make in
+            make.centerY.height.equalTo(self)
+            make.left.equalTo(countryCode.snp.right).offset(10)
+            make.right.equalTo(self).offset(-20)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -201,7 +217,16 @@ fileprivate class VerificationView: UIView
         btn.titleLabel?.font = .systemFont(ofSize: font)
         btn.titleLabel?.textAlignment = .center
         addSubview(btn)
-        
+        btn.snp.makeConstraints { make in
+            make.centerY.height.equalTo(self)
+            make.width.equalTo(btnWidth)
+            make.right.equalTo(self).offset(-15)
+        }
+        text.snp.makeConstraints { make in
+            make.centerY.height.equalTo(self)
+            make.left.equalTo(img.snp.right).offset(10)
+            make.right.equalTo(btn.snp.left).offset(-10)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -271,7 +296,6 @@ fileprivate class AgreeProcotolView: UIView
             self.agree = !self.agree
         }), for: .touchUpInside)
         addSubview(btn)
-        
         label = UILabel()
         label.text = "我同意"
         label.textColor = .black
@@ -368,8 +392,8 @@ class LoginView: UIView
         let segments = ["账号登录","短信登录"]
         segmented = createUnderlinedSegmentedView(items: segments)
         segmented.selectedSegmentIndex = 0
-        segmented.frame = CGRect(x: 0, y: 0, width: inputWidth * 0.65, height: 35)
-        segmented.center.x = bounds.width / 2
+//        segmented.frame = CGRect(x: 0, y: 0, width: inputWidth * 0.65, height: 35)
+//        segmented.center.x = bounds.width / 2
         segmented.addTarget(self, action: #selector(self.segmentChang(_:)), for: .valueChanged)
         let normalAttr: [NSAttributedString.Key: Any] = [
             .foregroundColor: VJTextColor_07,.font: UIFont.systemFont(ofSize: 14)
@@ -379,7 +403,6 @@ class LoginView: UIView
         ]
         segmented.setTitleTextAttributes(normalAttr, for: .normal)
         segmented.setTitleTextAttributes(selectedAttr, for: .selected)
-       
         addSubview(segmented)
         
         let pad_seg: CGFloat = 70
@@ -427,7 +450,6 @@ class LoginView: UIView
         }), for: .touchUpInside)
         addSubview(verification)
         verification.isHidden = true
-        
         
         let labelWidth: CGFloat = 5 * 14
         let pad_psd: CGFloat = 11 //距psd的距离
@@ -509,6 +531,58 @@ class LoginView: UIView
         
         // 改变所有input的样式
         changeAllTextStyle()
+        if getIsIphone() {
+            segmented.snp.makeConstraints { make in
+                make.left.right.equalTo(self)
+                make.height.equalTo(40)
+                make.top.equalTo(self).offset(30)
+            }
+            name.snp.makeConstraints { make in
+                make.top.equalTo(segmented.snp.bottom).offset(30)
+                make.left.right.equalTo(segmented)
+                make.height.equalTo(45)
+            }
+            psd.snp.makeConstraints { make in
+                make.top.equalTo(name.snp.bottom).offset(20)
+                make.left.right.equalTo(segmented)
+                make.height.equalTo(45)
+            }
+            phone.snp.makeConstraints { make in
+                make.top.equalTo(segmented.snp.bottom).offset(30)
+                make.left.right.equalTo(segmented)
+                make.height.equalTo(45)
+            }
+            verification.snp.makeConstraints { make in
+                make.top.equalTo(name.snp.bottom).offset(20)
+                make.left.right.equalTo(segmented)
+                make.height.equalTo(45)
+            }
+            remenberBtn.snp.makeConstraints { make in
+                make.top.equalTo(psd.snp.bottom).offset(20)
+                make.left.equalTo(psd)
+                make.height.width.equalTo(20)
+            }
+            remenberLabel.snp.makeConstraints { make in
+                make.top.equalTo(remenberBtn)
+                make.left.equalTo(remenberBtn.snp.right).offset(10)
+                make.height.equalTo(20)
+            }
+            toForget.snp.makeConstraints { make in
+                make.right.equalTo(psd)
+                make.centerY.equalTo(remenberBtn)
+                make.height.equalTo(20)
+            }
+            toRegister.snp.makeConstraints { make in
+                make.right.equalTo(toForget.snp.left).offset(-15)
+                make.centerY.equalTo(remenberBtn)
+                make.height.equalTo(20)
+            }
+            confirm.snp.makeConstraints { make in
+                make.left.right.equalTo(psd)
+                make.top.equalTo(toForget.snp.bottom).offset(20)
+                make.height.equalTo(45)
+            }
+        }
     }
     
     private func changeRemenber() {
@@ -678,6 +752,39 @@ class RegisterView: UIView
         addSubview(toLogin)
         
         changeAllTextStyle()
+        if getIsIphone() {
+            phone.snp.makeConstraints { make in
+                make.left.right.equalTo(self)
+                make.height.equalTo(45)
+                make.top.equalTo(self).offset(30)
+            }
+            verification.snp.makeConstraints { make in
+                make.top.equalTo(phone.snp.bottom).offset(20)
+                make.left.right.height.equalTo(phone)
+            }
+            psd.snp.makeConstraints { make in
+                make.top.equalTo(verification.snp.bottom).offset(20)
+                make.left.right.height.equalTo(phone)
+            }
+            psdAgain.snp.makeConstraints { make in
+                make.top.equalTo(psd.snp.bottom).offset(20)
+                make.left.right.height.equalTo(phone)
+            }
+            agree.snp.makeConstraints { make in
+                make.top.equalTo(psdAgain.snp.bottom).offset(10)
+                make.left.right.equalTo(psdAgain)
+                make.height.equalTo(20)
+            }
+            confirm.snp.makeConstraints { make in
+                make.left.right.height.equalTo(psdAgain)
+                make.top.equalTo(agree.snp.bottom).offset(20)
+            }
+            toLogin.snp.makeConstraints { make in
+                make.top.equalTo(confirm.snp.bottom).offset(10)
+                make.left.right.equalTo(confirm)
+                make.height.equalTo(20)
+            }
+        }
     }
     
     func enter(info: [String:Any] = [:]) {
@@ -731,6 +838,7 @@ class ForgetView: UIView
         
         label = UILabel()
         label.text = "重置密码"
+        label.textAlignment = .center
         label.textColor = VJTextColor_07
         label.font = .systemFont(ofSize: 24)
         addSubview(label)
@@ -775,35 +883,51 @@ class ForgetView: UIView
         nextStep.layer.cornerRadius = inputHeight / 2
         nextStep.setTitle("下一步", for: .normal)
         nextStep.setTitleColor(.white, for: .normal)
-        nextStep.addAction(UIAction(handler: {_ in
-            if let phone = self.phone.text.text,let code = self.verification.text.text {
+        nextStep.addAction(UIAction(handler: {[weak self]_ in
+            if let phone = self?.phone.text.text,let code = self?.verification.text.text {
                 if phone.isEmpty || code.isEmpty {
-                    showTip(tip: "手机号或验证码不能为空", parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                    showTip(tip: "手机号或验证码不能为空", parentView: (self?.superview ?? self)!, tipColor_bg_fail, tipColor_text_fail, completion: {})
                 } else if !car_isPhone(phone) {
-                    showTip(tip: "手机号格式不正确", parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                    showTip(tip: "手机号格式不正确", parentView: (self?.superview ?? self)!, tipColor_bg_fail, tipColor_text_fail, completion: {})
                 } else {
                     sendVerificationCode(phone: phone, type: .changePSD, completion: {(isSuccess,reason) in
                         if isSuccess {
                             // 进入到设置新密码页
-                            self.phone?.removeFromSuperview()
-                            self.verification?.removeFromSuperview()
-                            self.nextStep?.removeFromSuperview()
-                            self.addSubview(self.psd)
-                            self.addSubview(self.psdAgain)
-                            self.addSubview(self.confirm)
-                            self.psd?.text.text = ""
-                            self.psdAgain?.text.text = ""
-                            self.psd?.text.isSecureTextEntry = true
-                            self.psdAgain?.text.isSecureTextEntry = true
+                            self?.phone?.removeFromSuperview()
+                            self?.verification?.removeFromSuperview()
+                            self?.nextStep?.removeFromSuperview()
+                            self?.addSubview(self!.psd)
+                            self?.addSubview(self!.psdAgain)
+                            self?.addSubview(self!.confirm)
+                            self?.psd?.text.text = ""
+                            self?.psdAgain?.text.text = ""
+                            self?.psd?.text.isSecureTextEntry = true
+                            self?.psdAgain?.text.isSecureTextEntry = true
+                            if getIsIphone() {
+                                self?.psd.snp.makeConstraints { make in
+                                    make.top.equalTo(self!.label.snp.bottom).offset(30)
+                                    make.left.right.equalTo(self!.label)
+                                    make.height.equalTo(45)
+                                }
+                                self?.psdAgain.snp.makeConstraints { make in
+                                    make.top.equalTo(self!.psd.snp.bottom).offset(20)
+                                    make.left.right.equalTo(self!.label)
+                                    make.height.equalTo(45)
+                                }
+                                self?.confirm.snp.makeConstraints { make in
+                                    make.top.equalTo(self!.psdAgain.snp.bottom).offset(20)
+                                    make.left.right.equalTo(self!.label)
+                                    make.height.equalTo(45)
+                                }
+                            }
                         } else {
-                            showTip(tip: reason, parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                            showTip(tip: reason, parentView: (self?.superview ?? self)!, tipColor_bg_fail, tipColor_text_fail, completion: {})
                         }
                     })
                 }
             }
         }), for: .touchUpInside)
         addSubview(nextStep)
-        
         psd = InputView(frame: CGRect(x: input_start_x, y: (inputHeight + input_pad_updown) * 0 + label_pad, width: inputWidth, height: inputHeight), imgCenter, imgSize, textStartX, font: font, "secure",true)
         psd.text.placeholder = "新密码"
         psdAgain = InputView(frame: CGRect(x: input_start_x, y: (inputHeight + input_pad_updown) * 1 + label_pad, width: inputWidth, height: inputHeight), imgCenter, imgSize, textStartX, font: font, "secure")
@@ -864,6 +988,20 @@ class ForgetView: UIView
         ])
         
         changeAllTextStyle()
+        
+        if getIsIphone() {
+            label.snp.makeConstraints { make in
+                make.top.equalTo(self).offset(30)
+                make.left.right.equalTo(self)
+                make.height.equalTo(30)
+            }
+            toLogin.snp.makeConstraints { make in
+                make.top.equalTo(label.snp.bottom).offset(50+(45+20)*2+45)
+                make.left.right.equalTo(self)
+                make.height.equalTo(20)
+            }
+            setForgetMakeConstraints()
+        }
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -880,5 +1018,23 @@ class ForgetView: UIView
         verification?.text.text = ""
         verification?.countDown(false)
         changeAllTextStyle()
+        setForgetMakeConstraints()
+    }
+    func setForgetMakeConstraints() {
+        phone.snp.makeConstraints { make in
+            make.top.equalTo(label.snp.bottom).offset(30)
+            make.left.right.equalTo(self)
+            make.height.equalTo(45)
+        }
+        verification.snp.makeConstraints { make in
+            make.top.equalTo(phone.snp.bottom).offset(20)
+            make.left.right.equalTo(self)
+            make.height.equalTo(45)
+        }
+        nextStep.snp.makeConstraints { make in
+            make.left.right.equalTo(self)
+            make.top.equalTo(verification.snp.bottom).offset(20)
+            make.height.equalTo(45)
+        }
     }
 }

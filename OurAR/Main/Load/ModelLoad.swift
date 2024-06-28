@@ -50,6 +50,22 @@ class ModelLoadView: UIView {
         addSubview(loadImg)
         addSubview(loadLabel)
         addSubview(backBtn)
+        if getIsIphone() {
+            loadImg.snp.makeConstraints { make in
+                make.right.left.top.bottom.equalTo(self)
+            }
+            loadLabel.snp.makeConstraints { make in
+                make.center.equalTo(self)
+                make.height.equalTo(30)
+                make.width.equalTo(200)
+            }
+            backBtn.snp.makeConstraints { make in
+                make.height.equalTo(40)
+                make.width.equalTo(60)
+                make.top.equalTo(30)
+                make.left.equalTo(self)
+            }
+        }
     }
 
     private func setupViews() {

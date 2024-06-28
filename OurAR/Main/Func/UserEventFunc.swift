@@ -159,27 +159,31 @@ fileprivate func sendEventOfKeJianXing(type: SecondToolType,params:[String:Any],
 }
 
 fileprivate func sendEventOfCeLiang(type: SecondToolType,params:[String:Any],completion: @escaping (Bool) -> Void) {
-    switch type {
-    case .MMT(.distace):
-        measurement(type: .distace) { result in completion(result)}
-        break
-    case .MMT(.coordinate):
-        measurement(type: .coordinate) { result in completion(result)}
-        break
-    case .MMT(.angle):
-        measurement(type: .angle) { result in completion(result)}
-        break
-    case .MMT(.changePrecisionOrUnit):
-        if let unit = params["unit"] as? MeasureUnitType,
-           let precision = params["precision"] as? MeasurePrecisionType {
-            changeMeasureUnit(unit: unit, precision: precision) { result in completion(result)}
-        } else {
-            print("\(#function),changeprecisionOrUnit,not found unit or precision")
-            completion(false)
+    closeMeasurement() { result in
+        if result {
+            switch type {
+            case .MMT(.distance):
+                measurement(type: .distance) { result in completion(result)}
+                break
+            case .MMT(.coordinate):
+                measurement(type: .coordinate) { result in completion(result)}
+                break
+            case .MMT(.angle):
+                measurement(type: .angle) { result in completion(result)}
+                break
+            case .MMT(.changePrecisionOrUnit):
+                if let unit = params["unit"] as? MeasureUnitType,
+                   let precision = params["precision"] as? MeasurePrecisionType {
+                    changeMeasureUnit(unit: unit, precision: precision) { result in completion(result)}
+                } else {
+                    print("\(#function),changeprecisionOrUnit,not found unit or precision")
+                    completion(false)
+                }
+            default:
+                completion(false)
+                break
+            }
         }
-    default:
-        completion(false)
-        break
     }
 }
 //MARK: end

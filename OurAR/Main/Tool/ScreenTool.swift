@@ -80,6 +80,17 @@ class EnterPositionView: UIView
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+class SliderView:UISlider
+{
+    init(x: CGFloat,y: CGFloat,width: CGFloat,height: CGFloat) {
+        super.init(frame: CGRect(x: x, y: y, width: width, height: height))
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 // 切换模式view
 class SwitchModeView: UIView
 {
@@ -88,12 +99,14 @@ class SwitchModeView: UIView
     var btnSwitch: UIButton!    //switch
     
     //width height 固定
-    let width: CGFloat = 50
-    let height: CGFloat = 90
+    let width: CGFloat = 45
+    let height: CGFloat = 115
     
     init(x: CGFloat,y: CGFloat) {
         super.init(frame: CGRect(x: x, y: y, width: width, height: height))
-        backgroundColor = UIColor(white: 1, alpha: 0)
+        backgroundColor = UIColor(white: 1, alpha: 0.5)
+        layer.cornerRadius = 5
+        clipsToBounds = true
         initSubView()
     }
    
@@ -113,22 +126,23 @@ class SwitchModeView: UIView
     
     func initSubView()
     {
-        arLabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: 16))
+        backgroundColor = VJViewBGColor
+        arLabel = UILabel(frame: CGRect(x: 0, y: 8, width: width, height: 15))
         arLabel.font = UIFont.systemFont(ofSize: 16)
         arLabel.text = "AR"
-        arLabel.textColor = .black
+        arLabel.textColor = .white
         arLabel.textAlignment = .center
         
-        btnSwitch = UIButton(frame: CGRect(x: 0, y: 17, width: width, height: height - 34))
+        btnSwitch = UIButton(frame: CGRect(x: 0, y: 28, width: width, height: height - 59))
         btnSwitch.setTitle("", for: .normal)
         btnSwitch.contentMode = .scaleToFill
         btnSwitch.addTarget(self, action: #selector(switchMode), for: .touchDown)
         changeSwitchBG(toScreenMode: car_EngineStatus.screenMode)
         
-        threeDLabel = UILabel(frame: CGRect(x: 0, y: height - 17, width: width, height: 16))
+        threeDLabel = UILabel(frame: CGRect(x: 0, y: height - 23, width: width, height: 15))
         threeDLabel.font = UIFont.systemFont(ofSize: 16)
         threeDLabel.text = "3D"
-        threeDLabel.textColor = .black
+        threeDLabel.textColor = .white
         threeDLabel.textAlignment = .center
         
         
@@ -272,7 +286,7 @@ class MainToolView: UIView
     }
     
     //MARK: 重置当前所展示的Tool
-    func resetFrame()
+    func resetFrame() -> Float
     {
         removeAllBtn()
         
@@ -313,6 +327,7 @@ class MainToolView: UIView
         
         setNeedsLayout()
         layoutIfNeeded()
+        return Float(width)
     }
     
     //MARK: 取消所有tool btn的高亮

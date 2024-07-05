@@ -41,7 +41,6 @@ class GoujianshuView: MTSidebarView , UITableViewDataSource, UITableViewDelegate
     
     override func initSubView() {
         super.initSubView()
-        
         let search_start_x: CGFloat = left_right_offset
         let search_center_y: CGFloat = headerHeight + search_part_height / 2
         let width = self.bounds.width - left_right_offset * 2

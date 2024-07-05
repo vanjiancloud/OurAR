@@ -75,12 +75,36 @@ class BIMScreenSubController : UIViewController, MainToolProtocol,SocketEventPro
         // threeD <---> ar btn
         vjBIMScreenView?.vjSwitchModeView?.changeSwitchBG(toScreenMode: toScreenMode)
     }
+    /**
+     var exitScreenBtn: BackBtnView! //场景退出按钮
+     var vjSwitchModeView: SwitchModeView! //模式切换按钮
+     var sliderView: SliderView! //
+     var vjMainToolView: MainToolView! //主工具栏
+     var vjSecondToolViews: [MainToolType: SecondToolView] = [:] //二级工具栏集
+     
+     var vjPropertyView: VJPropertyView! //属性面板
+     var vjTagView: TagView! //标签面板
+     var vjGJSView: GoujianshuView! //构件树面板
+     var vjFenJieView: FenJieView! //分解面板
+     
+     var enterPositionView: EnterPositionView! //进入定位按钮
+     */
     
     //MARK: Gesture
     @objc func handleSingleTap(_ sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             let point = sender.location(in: self.view)
-            car_sendClickGesture(point: point, size: self.view.bounds.size) { result in }
+            if !vjBIMScreenView.vjPropertyView.isHidden && CGRectContainsPoint(vjBIMScreenView.vjPropertyView.frame, point)
+                || !vjBIMScreenView.exitScreenBtn.isHidden && CGRectContainsPoint(vjBIMScreenView.exitScreenBtn.frame, point)
+                || !vjBIMScreenView.sliderView.isHidden && CGRectContainsPoint(vjBIMScreenView.sliderView.frame, point)
+                || !vjBIMScreenView.vjMainToolView.isHidden && CGRectContainsPoint(vjBIMScreenView.vjMainToolView.frame, point)
+                || !vjBIMScreenView.vjTagView.isHidden && CGRectContainsPoint(vjBIMScreenView.vjTagView.frame, point)
+                || !vjBIMScreenView.vjGJSView.isHidden && CGRectContainsPoint(vjBIMScreenView.vjGJSView.frame, point)
+                || !vjBIMScreenView.vjFenJieView.isHidden && CGRectContainsPoint(vjBIMScreenView.vjFenJieView.frame, point)
+                || !vjBIMScreenView.enterPositionView.isHidden && CGRectContainsPoint(vjBIMScreenView.enterPositionView.frame, point) {
+            }else {
+                car_sendClickGesture(point: point, size: self.view.bounds.size) { result in }
+            }
         }
         
     }

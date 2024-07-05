@@ -22,7 +22,6 @@ class PropertyItem: UIView
         super.init(frame: CGRect(x: x, y: y, width: width, height: height))
         let halfWidth = bounds.width / 2 - offset_x
         let halfHeight = bounds.height / 2
-        
         key = UILabel(frame: CGRect(x: offset_x, y: halfHeight - fontSize / 2, width: halfWidth, height: bounds.height))
         key.font = .boldSystemFont(ofSize: fontSize)
         key.textColor = .white
@@ -39,6 +38,20 @@ class PropertyItem: UIView
         addSubview(key)
         addSubview(value)
     }
+//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+//        // 如果想要这个view接收事件，则直接返回self
+//        // 如果不想接收，则调用super.hitTest(_:with:)来进行判断
+//        // 可以在此基础上添加自定义逻辑
+//        if shouldReceiveTouchAtPoint(point) {
+//            return self
+//        }
+//        return super.hitTest(point, with: event)
+//    }
+//    
+//    private func shouldReceiveTouchAtPoint(_ point: CGPoint) -> Bool {
+//        // 自定义逻辑，判断点是否在视图的某个区域内
+//        return self.bounds.contains(point)
+//    }
     
     required init(coder decoder: NSCoder) {
         fatalError("init \(decoder) not implemented")
@@ -81,7 +94,6 @@ class VJPropertyView: UIView
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = VJViewBGColor
-        
         title = UILabel(frame: CGRect(x: left_right_offset, y: 0, width: bounds.width * 0.4, height: titleHeight))
         title.text = "属性信息"
         title.textColor = .white
@@ -108,6 +120,7 @@ class VJPropertyView: UIView
             }
         }
     }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

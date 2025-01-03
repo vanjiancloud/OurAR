@@ -94,21 +94,30 @@ class BIMScreenSubController : UIViewController, MainToolProtocol,SocketEventPro
     @objc func handleSingleTap(_ sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             let point = sender.location(in: self.view)
-            if !vjBIMScreenView.vjPropertyView.isHidden && CGRectContainsPoint(vjBIMScreenView.vjPropertyView.frame, point)
-                || !vjBIMScreenView.exitScreenBtn.isHidden && CGRectContainsPoint(vjBIMScreenView.exitScreenBtn.frame, point)
-                || !vjBIMScreenView.sliderView.isHidden && CGRectContainsPoint(vjBIMScreenView.sliderView.frame, point)
-                || !vjBIMScreenView.vjMainToolView.isHidden && CGRectContainsPoint(vjBIMScreenView.vjMainToolView.frame, point)
-                || !vjBIMScreenView.vjTagView.isHidden && CGRectContainsPoint(vjBIMScreenView.vjTagView.frame, point)
-                || !vjBIMScreenView.vjGJSView.isHidden && CGRectContainsPoint(vjBIMScreenView.vjGJSView.frame, point)
-                || !vjBIMScreenView.vjFenJieView.isHidden && CGRectContainsPoint(vjBIMScreenView.vjFenJieView.frame, point)
-                || !vjBIMScreenView.enterPositionView.isHidden && CGRectContainsPoint(vjBIMScreenView.enterPositionView.frame, point) {
-            }else {
-                car_sendClickGesture(point: point, size: self.view.bounds.size) { result in }
+            for subview in view.subviews {
+                if !subview.isHidden && CGRectContainsPoint(subview.frame, point)
+                {
+                    break
+                }
             }
+            car_sendClickGesture(point: point, size: self.view.bounds.size) { result in }
+            
+//            if !vjBIMScreenView.vjPropertyView.isHidden && CGRectContainsPoint(vjBIMScreenView.vjPropertyView.frame, point)
+//                || !vjBIMScreenView.exitScreenBtn.isHidden && CGRectContainsPoint(vjBIMScreenView.exitScreenBtn.frame, point)
+//                || !vjBIMScreenView.sliderView.isHidden && CGRectContainsPoint(vjBIMScreenView.sliderView.frame, point)
+//                || !vjBIMScreenView.vjMainToolView.isHidden && CGRectContainsPoint(vjBIMScreenView.vjMainToolView.frame, point)
+//                || !vjBIMScreenView.vjTagView.isHidden && CGRectContainsPoint(vjBIMScreenView.vjTagView.frame, point)
+//                || !vjBIMScreenView.vjGJSView.isHidden && CGRectContainsPoint(vjBIMScreenView.vjGJSView.frame, point)
+//                || !vjBIMScreenView.vjFenJieView.isHidden && CGRectContainsPoint(vjBIMScreenView.vjFenJieView.frame, point)
+//                || !vjBIMScreenView.enterPositionView.isHidden && CGRectContainsPoint(vjBIMScreenView.enterPositionView.frame, point) {
+//            }else {
+//                car_sendClickGesture(point: point, size: self.view.bounds.size) { result in }
+//            }
         }
         
     }
     @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
+        if car_EngineStatus.screenMode == .AR { return }
         let translation = sender.translation(in: self.view)
         let state = sender.state == .began ? car_InputState.began : sender.state == .changed ? .changed : .ended
         car_sendPanGesture(point: translation, size: view.frame.size,state: state, completion: {_ in })
@@ -244,6 +253,25 @@ class BIMScreenSubController : UIViewController, MainToolProtocol,SocketEventPro
     func handleReceiverMsg(json: inout [String : Any]) {
         if let id = json["id"] as? String {
             wsReceiverHandler.handleReceiverMsg(id: id, json: &json)
+        }
+    }
+    
+    func handlePosReturnToScreen(_ isConfirm: Bool) {
+        view.isHidden = false
+        view.isUserInteractionEnabled = true
+        vjBIMScreenView?.vjMainToolView?.isHidden =  false
+        
+        if !isConfirm {
+            vjBIMScreenView?.scaleAdjustView.isHidden = !vjBIMScreenView!.needShowScaleAdjust
+        } else if car_EngineStatus.arPositionType == .SpacePosition {
+            vjBIMScreenView?.scaleAdjustView.isHidden = false
+            vjBIMScreenView?.needShowScaleAdjust = true
+        } else {
+            vjBIMScreenView?.scaleAdjustView.isHidden = true
+            vjBIMScreenView?.needShowScaleAdjust = false
+        }
+        if vjBIMScreenView!.needShowScaleAdjust {
+            vjBIMScreenView?.scaleAdjustView.reset()
         }
     }
     

@@ -43,7 +43,7 @@ public func requestToken(request: inout DataRequest?,projectID: String,completio
 public func requestIPwithHostID(request: inout DataRequest?,token: String,bimId: String,completion: @escaping (Bool,String) -> Void)
 {
     let url = car_URL.urlPre + "OurBim/requestXr"
-    let parms = ["appliId":bimId,"plateType":"3","token":token]
+    let parms = ["appliId":bimId,"plateType":"3","token":token,"versionId": car_cloudarInfo.arversion()]
     print(url)
     print(parms)
     request = AF.request(url,method:.post,parameters: parms).response { (response:AFDataResponse) in

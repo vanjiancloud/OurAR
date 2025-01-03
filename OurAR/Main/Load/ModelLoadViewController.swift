@@ -128,7 +128,7 @@ class ModelLoadViewController: UIViewController,SocketEventProtocol
                             requestExitByHostId { result in
                                 if result {
                                     //now后面的单位是秒
-                                     DispatchQueue.main.asyncAfter(deadline: .now()+10) {
+                                     DispatchQueue.main.asyncAfter(deadline: .now()+18) {
 //                                        print(Thread.current)
                                          self.finishBlock!(true)
                                     }

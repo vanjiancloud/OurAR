@@ -25,6 +25,9 @@ class BIMSubScreenView : BaseView
     
     var enterPositionView: EnterPositionView! //进入定位按钮
     
+    var scaleAdjustView: ScaleAdjustView! //尺寸调整
+    var needShowScaleAdjust: Bool = false
+    
     override func initSubView() {
         exitScreenBtn = BackBtnView(x: 0, y: 20, width: 40, height: 40)
         exitScreenBtn.btn?.addAction(UIAction(handler: {_ in
@@ -50,6 +53,10 @@ class BIMSubScreenView : BaseView
         sliderView .addTarget(self, action: #selector(sliderValueChange), for: .valueChanged)
         sliderView.isHidden =  true
         addSubview(sliderView)
+        
+        scaleAdjustView = ScaleAdjustView(frame: CGRect(x: 0, y: bounds.height - 80, width: 250, height: 60))
+        addSubview(scaleAdjustView)
+        scaleAdjustView.isHidden = true
         
         enterPositionView = EnterPositionView(x: 65, y: 20,width: 40,height: 40)
         addSubview(enterPositionView)
@@ -106,6 +113,12 @@ class BIMSubScreenView : BaseView
                 make.left.equalTo(30)
                 make.width.equalTo(50)
                 make.height.equalTo(90)
+            }
+            scaleAdjustView.snp.makeConstraints { make in
+                make.bottom.equalTo(self).offset(-80)
+                make.left.equalTo(0)
+                make.width.equalTo(250)
+                make.height.equalTo(60)
             }
             enterPositionView.snp.makeConstraints { make in
                 make.top.equalTo(exitScreenBtn)
@@ -283,6 +296,10 @@ class BIMSubScreenView : BaseView
         if car_EngineStatus.screenMode == .AR {
             enterPositionView?.isHidden = hidden
             sliderView?.isHidden =  hidden
+            
+            if needShowScaleAdjust {
+                scaleAdjustView?.isHidden = hidden
+            }
         }
     }
     //MARK: 展示隐藏右边的页面，非miantool secondtool及相关的页面
@@ -354,9 +371,14 @@ class BIMSubScreenView : BaseView
             case .AR:
                 enterPositionView?.isHidden = false
                 sliderView.isHidden =  false
+                needShowScaleAdjust = false
+                scaleAdjustView.isHidden = true
+                break
             case .ThreeD:
                 enterPositionView?.isHidden = true
                 sliderView.isHidden =  true
+                scaleAdjustView.isHidden = true
+                break
             case .None:
                 break
             default:

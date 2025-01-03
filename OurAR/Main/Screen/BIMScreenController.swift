@@ -163,10 +163,9 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
         case .None:
             break
         case .ScanPosition:
-            vjBIMScreenSubController?.view.isHidden = false
-            vjBIMScreenSubController?.view.isUserInteractionEnabled = true
-            vjBIMScreenSubController?.vjBIMScreenView?.vjMainToolView?.isHidden = false
+            vjBIMScreenSubController?.handlePosReturnToScreen(true)
         case .SpacePosition:
+            vjBIMScreenSubController?.handlePosReturnToScreen(true)
             break
         @unknown default:
             fatalError()
@@ -174,9 +173,7 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
     }
     
     func handleCanclePosition() {
-        vjBIMScreenSubController?.view.isHidden = false
-        vjBIMScreenSubController?.view.isUserInteractionEnabled = true
-        vjBIMScreenSubController?.vjBIMScreenView?.vjMainToolView?.isHidden = false
+        vjBIMScreenSubController?.handlePosReturnToScreen(false)
     }
     
     func printConnectStats() {

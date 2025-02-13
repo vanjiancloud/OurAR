@@ -206,7 +206,7 @@ class LoginController: UIViewController
             tip = "手机号不能为空"
         } else if codeIsEmpty {
             tip = "验证码不能为空"
-        } else if car_isPhone(phone!) {
+        } else if !car_isPhone(phone!) {
             tip = "手机号格式不正确"
         } else {
             canLogin = true
@@ -243,10 +243,12 @@ class LoginController: UIViewController
             tip = "密码不能为空"
         } else if codeIsEmpty {
             tip = "验证码不能为空"
-        } else if psdIsSame {
+        } else if !psdIsSame {
             tip = "两次输入密码不一致"
         } else if !agree {
             tip = "请先同意服务协议"
+        } else if password?.count ?? 0 < 6 {
+            tip = "密码长度应在6位以上"
         } else {
             canRegister = true
         }
@@ -259,7 +261,11 @@ class LoginController: UIViewController
         self.registerView?.confirm?.isEnabled = false
         registerUser(phone: phone!, psd: password!, verificationCode: registerCode!, completion: {(isSuccess,reason) in
             self.registerView?.confirm?.isEnabled = true
-            showTip(tip: reason, parentView: self.view, isSuccess ? tipColor_bg_success : tipColor_bg_fail, isSuccess ? tipColor_text_success : tipColor_text_fail, completion: {})
+            showTip(tip: reason, parentView: self.view, isSuccess ? tipColor_bg_success : tipColor_bg_fail, isSuccess ? tipColor_text_success : tipColor_text_fail, completion: {
+                if isSuccess {
+                    self.handleEnterPage(0,info: ["phone": phone!])
+                }
+            })
         })
     }
     

@@ -26,8 +26,9 @@ fileprivate class InputView: UIView
    
     var img: UIImageView!
     var text: UITextField!
+    var needTipLen: Bool = false
     
-    init(frame: CGRect,_ imgCenterX: CGFloat,_ imgSize: CGFloat,_ textStartX: CGFloat,font: CGFloat,_ imgName: String,_ isSecureTextEntry: Bool = false) {
+    init(frame: CGRect,_ imgCenterX: CGFloat,_ imgSize: CGFloat,_ textStartX: CGFloat,font: CGFloat,_ imgName: String,_ isSecureTextEntry: Bool = false, _ tipLen: Bool = false) {
         super.init(frame: frame)
         
         //设置圆角
@@ -57,6 +58,7 @@ fileprivate class InputView: UIView
             make.right.equalTo(self).offset(-50)
         }
         if isSecureTextEntry {
+            needTipLen = tipLen
             let show = UIButton(frame: CGRect(x: bounds.width - 35,y: 0, width: 20, height: 18))
             show.setImage(UIImage(named: "visibility"), for: .normal)
             show.center.y = bounds.height / 2
@@ -89,7 +91,11 @@ fileprivate class InputView: UIView
         changeStyle(hasText: true)
     }
     @objc func editingDidEnd(_ textField: UITextField) {
-        changeStyle(hasText: textField.text?.count ?? 0 != 0)
+        let count = textField.text?.count ?? 0
+        changeStyle(hasText: count != 0)
+        if needTipLen && count > 0 && count < 6 {
+            showTip(tip: "密码长度应6位及以上", parentView: self.superview?.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+        }
     }
     @objc func editingDidEndOnExit(_ textField: UITextField) {
         print("editing did end on exit")
@@ -262,10 +268,10 @@ fileprivate class VerificationView: UIView
             timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) {timer in
                 if self.counter > 0 {
                     self.counter -= 1
-                    self.btn?.titleLabel?.text = "\(self.counter)s后继续"
+                    self.btn?.setTitle("\(self.counter)s后继续", for: .normal)
                 } else {
                     timer.invalidate()
-                    self.btn?.titleLabel?.text = "获取验证码"
+                    self.btn?.setTitle("获取验证码", for: .normal)
                     self.btn?.isEnabled = true
                 }
             }
@@ -711,7 +717,7 @@ class RegisterView: UIView
         verification?.text.placeholder = "验证码"
         addSubview(verification)
         
-        psd = InputView(frame: CGRect(x: input_start_x, y: (inputHeight + input_pad_updown) * 2, width: inputWidth, height: inputHeight), imgCenter, imgSize, textStartX, font: font, "secure",true)
+        psd = InputView(frame: CGRect(x: input_start_x, y: (inputHeight + input_pad_updown) * 2, width: inputWidth, height: inputHeight), imgCenter, imgSize, textStartX, font: font, "secure",true,true)
         psd?.text.placeholder = "密码"
         addSubview(psd)
         
@@ -729,7 +735,6 @@ class RegisterView: UIView
         confirm.setTitleColor(.white, for: .normal)
         confirm.addAction(UIAction(handler: {_ in
             if let loginController = getControllerOfSubview(self) as? LoginController {
-                self.confirm.isEnabled = false
                 loginController.handleRegister(phone: self.phone.text.text, registerCode: self.verification.text.text, password: self.psd.text.text, passwordAgain: self.psdAgain.text.text, agree: self.agree.agree)
             } else {
                 print("login controller is not register view")
@@ -890,7 +895,7 @@ class ForgetView: UIView
                 } else if !car_isPhone(phone) {
                     showTip(tip: "手机号格式不正确", parentView: (self?.superview ?? self)!, tipColor_bg_fail, tipColor_text_fail, completion: {})
                 } else {
-                    sendVerificationCode(phone: phone, type: .changePSD, completion: {(isSuccess,reason) in
+                    judgeMsg(phone: phone, verificationCode: code, completion: {(isSuccess,reason) in
                         if isSuccess {
                             // 进入到设置新密码页
                             self?.phone?.removeFromSuperview()
@@ -928,14 +933,14 @@ class ForgetView: UIView
             }
         }), for: .touchUpInside)
         addSubview(nextStep)
-        psd = InputView(frame: CGRect(x: input_start_x, y: (inputHeight + input_pad_updown) * 0 + label_pad, width: inputWidth, height: inputHeight), imgCenter, imgSize, textStartX, font: font, "secure",true)
+        psd = InputView(frame: CGRect(x: input_start_x, y: (inputHeight + input_pad_updown) * 0 + label_pad, width: inputWidth, height: inputHeight), imgCenter, imgSize, textStartX, font: font, "secure",true,true)
         psd.text.placeholder = "新密码"
         psdAgain = InputView(frame: CGRect(x: input_start_x, y: (inputHeight + input_pad_updown) * 1 + label_pad, width: inputWidth, height: inputHeight), imgCenter, imgSize, textStartX, font: font, "secure")
         psdAgain.text.placeholder = "再次输入新密码"
         confirm = UIButton(frame: CGRect(x: input_start_x, y: (inputHeight + input_pad_updown) * 2 + label_pad + 35, width: inputWidth, height: inputHeight))
         confirm.backgroundColor = VJConfirmColor
         confirm.layer.cornerRadius = inputHeight / 2
-        confirm.setTitle("下一步", for: .normal)
+        confirm.setTitle("重置密码", for: .normal)
         confirm.setTitleColor(.white, for: .normal)
         confirm.addAction(UIAction(handler: {_ in
             // 确认修改新密码
@@ -944,6 +949,8 @@ class ForgetView: UIView
                     showTip(tip: "密码不能为空", parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
                 } else if psd.isEmpty || psdAgain.isEmpty || psd != psdAgain {
                     showTip(tip: "前后密码不一致", parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                } else if psd.count < 6 {
+                    showTip(tip: "密码长度应6位以上", parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
                 } else {
                     if let phone = self.phone.text.text,let code = self.verification.text.text {
                         resetPassword(phone: phone, psd: psd, verificationCode: code, completion: {(isSuccess,reason) in

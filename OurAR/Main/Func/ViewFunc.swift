@@ -44,16 +44,7 @@ func enterBIMScreen(currViewController: UIViewController)
 //MARK: 带项目id的场景加载方法
 func enterBIMScreen(currViewController: UIViewController,needLoadProject: String,screenType: car_ScreenMode) -> (Bool,String)
 {
-    //ar模式不能频繁启动，需要有一段缓冲期 目前设置的8秒
-    let canEnter: Bool =
-        screenType == .AR ?
-            car_EngineStatus.lastExitARTime > 0 ? ((Date().timeStamp - car_EngineStatus.lastExitARTime) > 10) : true
-            :
-            true
-    if screenType == .AR {
-        print("time internval: \(Date().timeStamp - car_EngineStatus.lastExitARTime),lsatTime: \(car_EngineStatus.lastExitARTime)")
-        print("\((Date().timeStamp - car_EngineStatus.lastExitARTime) > 10)")
-    }
+    let canEnter = true
     let reason = canEnter  ? "" : "稍后再试"
     if canEnter {
         let bimScreenController = BIMScreenController()

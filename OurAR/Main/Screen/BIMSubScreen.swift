@@ -37,6 +37,7 @@ class BIMSubScreenView : BaseView
         addSubview(exitScreenBtn)
         
         vjSwitchModeView = SwitchModeView(x: 0, y: 100)
+        vjSwitchModeView.isHidden = true
         addSubview(vjSwitchModeView)
         
         sliderView = SliderView(x: 0, y: 300,width: 170,height: 38)
@@ -65,6 +66,7 @@ class BIMSubScreenView : BaseView
         vjMainToolView = MainToolView(x: 0, y: frame.height - 90)
         vjMainToolView.contentMode = .center
         vjMainToolView.center.x = frame.width / 2
+        vjMainToolView.isHidden = true
         addSubview(vjMainToolView)
         
         //初始化二级功能按钮view
@@ -352,6 +354,7 @@ class BIMSubScreenView : BaseView
     }
     //MARK: 监听模式的切换
     func listenSwitchScreenMode(toScreenMode: car_ScreenMode) {
+        vjSwitchModeView.isHidden = false
         //一级菜单的重置
         vjMainToolView!.isHidden = false
         var width = vjMainToolView!.resetFrame()
@@ -389,48 +392,4 @@ class BIMSubScreenView : BaseView
         vjGJSView.clear()
         vjTagView.clear()
     }
-    
-//    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-//        // 检查点击是否发生在当前视图的边界之外
-//        for subview in subviews {
-//            if !subview.isHidden && subview.isUserInteractionEnabled && subview.point(inside: convert(point, to: subview), with: event) {
-//                // 点击发生在子视图上，不处理点击
-//                return false
-//            }
-//        }
-//        // 点击没有发生在子视图上，处理点击
-//        return true
-//    }
-    
-    /*
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        // 如果想要这个view接收事件，则直接返回self
-        // 如果不想接收，则调用super.hitTest(_:with:)来进行判断
-        // 可以在此基础上添加自定义逻辑
-//        if shouldReceiveTouchAtPoint(point) {
-//            return self
-//        }
-//        return super.hitTest(point, with: event)
-        
-        for subview in subviews {
-            if CGRectContainsPoint(subview.frame, point) {
-                if subview.isKindOfClass(VJPropertyView) {
-                    print("VJPropertyView")
-                    return subview
-                    
-                }
-            }
-        }
-         
-//        if self.isUserInteractionEnabled, self.alpha > 0.01, let subview = super.hitTest(point, with: event) {
-//            return subview
-//        }
-        return nil
-    }
-    
-    private func shouldReceiveTouchAtPoint(_ point: CGPoint) -> Bool {
-        // 自定义逻辑，判断点是否在视图的某个区域内
-        return self.bounds.contains(point)
-    }
-     */
 }

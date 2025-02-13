@@ -325,12 +325,22 @@ func registerUser(phone: String,psd: String,verificationCode: String,completion:
     let url = car_URL.urlPre + "UserCenter/addUser?mobile=\(phone)&password=\(psd)&code=\(verificationCode)"
     AF.request(url,method: .post).response { (response: AFDataResponse) in
         let (isSuccess,msg) = asyncRespBool(result: response.result)
-        completion(isSuccess,msg)
+        completion(isSuccess,isSuccess ? "注册成功" : msg)
     }
 }
 //MARK: 重置密码
 func resetPassword(phone: String,psd: String,verificationCode: String,completion: @escaping (Bool,String) -> Void) {
     let url = car_URL.urlPre + "UserCenter/updatePassword?mobile=\(phone)&password=\(psd)&code=\(verificationCode)"
+    print("\(url)")
+    AF.request(url,method: .post).response { (response: AFDataResponse) in
+        let (isSuccess,msg) = asyncRespBool(result: response.result)
+        completion(isSuccess,msg)
+    }
+}
+
+//MARK: 判断验证码
+func judgeMsg(phone: String,verificationCode: String,completion: @escaping (Bool,String) -> Void) {
+    let url = car_URL.urlPre + "UserCenter/judgeMsg?mobile=\(phone)&code=\(verificationCode)"
     AF.request(url,method: .post).response { (response: AFDataResponse) in
         let (isSuccess,msg) = asyncRespBool(result: response.result)
         completion(isSuccess,msg)

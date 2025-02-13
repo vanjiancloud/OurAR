@@ -15,6 +15,9 @@ class ModelLoadViewController: UIViewController,SocketEventProtocol
     typealias BlockWithGetHostIdFinish = (Bool) -> ()
     @objc var finishBlock: BlockWithGetHostIdFinish?
     
+    typealias ModelLoadPhaseNotify = (Int) -> ()
+    @objc var loadPhaseNotify: ModelLoadPhaseNotify?
+    
     var modelLoadView: ModelLoadView!
     
     private var loadProgress: CGFloat = 0.0
@@ -60,12 +63,20 @@ class ModelLoadViewController: UIViewController,SocketEventProtocol
     }
     
     func handleReceiverMsg(json: inout [String : Any]) {
+        print("\(json)")
         if let id = json["id"] as? String {
             if id == "8" {
                 if let progress = json["progress"] as? String {
-                    print("场景加载进度：\(progress)")
                     self.loadProgress = CGFloat((progress as NSString).floatValue)
+                    if loadProgress >= 1 {
+                        loadPhaseNotify?(8)
+                        self.modelLoadFinishProtocol?.handleModelLoadFinish(isSuccess: true, reason: "", screenType: self.needLoadMode, project: self.needLoadProject)
+                        self.needLoadProject = ""
+                        self.needLoadMode = .None
+                    }
                 }
+            }else if id == "6" {
+                self.loadPhaseNotify?(6)
             }
         }
     }
@@ -74,14 +85,7 @@ class ModelLoadViewController: UIViewController,SocketEventProtocol
     {
         if let vjModelLoadView = self.view as? ModelLoadView
         {
-            if load == true
-            {
-                vjModelLoadView.show()
-            }
-            else
-            {
-                vjModelLoadView.hide()
-            }
+            load ? vjModelLoadView.show() : vjModelLoadView.hide()
         }
     }
     
@@ -104,7 +108,7 @@ class ModelLoadViewController: UIViewController,SocketEventProtocol
         requestARModelLoad(request:&self.modelLoadRequest,token: car_UserInfo.tokenData,taskId: car_UserInfo.taskID, projectID: needLoadProject) {  [weak self] (result,msg) in
             if result {
                 print("-----加载ar成功---")
-                self?.queryLoadProgress()
+                //self?.queryLoadProgress()
                 WebSocketClient.shared.connect()
             } else {
                 print("-----加载ar失败---\(msg)")
@@ -128,7 +132,7 @@ class ModelLoadViewController: UIViewController,SocketEventProtocol
                             requestExitByHostId { result in
                                 if result {
                                     //now后面的单位是秒
-                                     DispatchQueue.main.asyncAfter(deadline: .now()+18) {
+                                     DispatchQueue.main.asyncAfter(deadline: .now()+15) {
 //                                        print(Thread.current)
                                          self.finishBlock!(true)
                                     }
@@ -145,7 +149,7 @@ class ModelLoadViewController: UIViewController,SocketEventProtocol
                         if result {
                             print("threeD model request success: url:\(car_UserInfo.threeDURL)")
                             self.loadThreeDURLProcotol?.handleLoadThreeDURL() //加载threeD url
-                            self.queryLoadProgress()
+                            //self.queryLoadProgress()
                             WebSocketClient.shared.connect()
                         } else {
                             print("threeD model request fail: \(msg)")

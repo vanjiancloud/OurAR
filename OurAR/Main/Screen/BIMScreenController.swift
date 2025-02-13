@@ -130,6 +130,16 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
         modelLoadController.finishBlock = {[weak self](t:Bool) in
             self?.addArModelController()
         }
+        modelLoadController.loadPhaseNotify = {[weak self](t:Int) in
+            switch (t) {
+            case 6:
+                self?.modelLoadController.view.isHidden = true
+                self?.vjBIMScreenSubController.view.isHidden = false
+                break;
+            default:
+                break;
+            }
+        }
         addChild(modelLoadController)
         view.insertSubview(modelLoadController!.view, at: 2)
         modelLoadController!.didMove(toParent: self)
@@ -138,7 +148,6 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
     //MARK: 监听screenMode的切换 ar <---> threeD
     func handleSwitchScreenMode(toScreenMode: car_ScreenMode) {
         // 关闭上一个模式的模型，发送关闭通知
-//        sendModelQuit(screenType: toScreenMode == .AR ? .ThreeD : .AR)
         vjBIMScreenSubController!.view.isHidden = true
         modelLoadController!.view.isHidden = false
         sendModelQuit { [weak self](result, msg) in
@@ -233,21 +242,16 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
             car_UserInfo.currProID = project
             
             vjBIMScreenSubController!.view.isHidden = false
-            
             modelLoadController!.view.isHidden = true
             
             // 重置主菜单的数据
             vjBIMScreenSubController!.listenSwitchScreenMode(toScreenMode: screenType)
             
-//            screenType == .AR ? printConnectStats() : ()
-            
         } else {
             print("模型启动失败-\(reason)")
             let showView = self.modelLoadController!.view.isHidden ? self.view : self.modelLoadController!.view
-//            showTip(tip: reason, parentView: showView ?? self.view, tipColor_bg_fail, tipColor_text_fail) {
             SVProgressHUD.showInfo(withStatus: reason)
                 MLDelegateManager.notity()
-//            }
         }
     }
     
@@ -343,8 +347,6 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
     
     //MARK: 关闭移除
     func  closeScreenPageView() {
-//        self.connectStatsTimer?.invalidate()
-//        self.connectStatsTimer = nil
         NotificationCenter.default.removeObserver(self, name: UIApplication.willTerminateNotification, object: nil)
         SSMDelegateManager.remove(self)
         MLDelegateManager.remove(self)
@@ -368,8 +370,6 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
     func removeAllSetting() {
         print("removeAllSetting - close")
         WebSocketClient.shared.close() //断开与java的websocket
-//        self.connectStatsTimer?.invalidate()
-//        self.connectStatsTimer = nil
         if car_EngineStatus.screenMode == .AR {
             removeThreeDView()
         }else if car_EngineStatus.screenMode == .ThreeD {

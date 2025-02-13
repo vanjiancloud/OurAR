@@ -26,8 +26,8 @@ enum MeasurePrecisionType : String
 // 验证码类型
 enum VerificationType: UInt8
 {
-    case register       = 0     //注册
-    case login          = 1     //登录
-    case changePSD      = 2     //找回密码
-    case changePhone    = 3     //更换手机
+    case register       = 1     //注册
+    case login          = 2     //登录
+    case changePSD      = 3     //找回密码
+    case changePhone    = 4     //更换手机
 }

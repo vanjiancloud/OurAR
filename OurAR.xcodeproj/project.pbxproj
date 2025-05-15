@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		015BEF0A2DD586F50037F57E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 015BEF052DD586F50037F57E /* README.md */; };
+		015BEF0B2DD586F50037F57E /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 015BEF082DD586F50037F57E /* iconfont.ttf */; };
+		015BEF0C2DD586F50037F57E /* CloudAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 015BEF042DD586F50037F57E /* CloudAR.framework */; };
+		015BEF0D2DD586F50037F57E /* StreamSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 015BEF062DD586F50037F57E /* StreamSdk.framework */; };
+		015BEF0E2DD587030037F57E /* CloudAR.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 015BEF042DD586F50037F57E /* CloudAR.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		015BEF0F2DD587060037F57E /* StreamSdk.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 015BEF062DD586F50037F57E /* StreamSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		619D8D4F4A65E42C85BE117D /* Pods_OurAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C87F6B9FEFA9EDB3854E86 /* Pods_OurAR.framework */; };
 		9B084F782A734DA300C7E229 /* GoujianshuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B084F772A734DA300C7E229 /* GoujianshuView.swift */; };
 		9B084F7A2A734F0000C7E229 /* GJSItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B084F792A734F0000C7E229 /* GJSItem.swift */; };
@@ -70,35 +76,10 @@
 		9BE88C982A9632210000BC33 /* ServerAddressSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE88C972A9632210000BC33 /* ServerAddressSettingView.swift */; };
 		9BF653552A71FC0700E4B655 /* TagItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF653542A71FC0700E4B655 /* TagItem.swift */; };
 		9BF653592A71FC8700E4B655 /* TagData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF653582A71FC8700E4B655 /* TagData.swift */; };
-		BB7909E82C0722CC00A347E8 /* StreamSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7909E42C0722CC00A347E8 /* StreamSdk.framework */; };
-		BB7909E92C0722CC00A347E8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BB7909E52C0722CC00A347E8 /* README.md */; };
-		BB7909EA2C0722CC00A347E8 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BB7909E62C0722CC00A347E8 /* .gitignore */; };
-		BB7909EB2C0722CC00A347E8 /* CloudAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7909E72C0722CC00A347E8 /* CloudAR.framework */; };
-		BB7909EC2C0722E400A347E8 /* StreamSdk.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BB7909E42C0722CC00A347E8 /* StreamSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		BB7909ED2C0722E900A347E8 /* CloudAR.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BB7909E72C0722CC00A347E8 /* CloudAR.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BBB89F282BECD62D00A4F11F /* ModelFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB89F272BECD62D00A4F11F /* ModelFunc.swift */; };
 		BBD07B8E2C2183EC007DE254 /* OurManagerTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD07B8D2C2183EC007DE254 /* OurManagerTool.swift */; };
 		BBDD4E592C240AAF00B8ECC3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = BBDD4E562C240AAF00B8ECC3 /* PrivacyInfo.xcprivacy */; };
-		BBDD4E772C38229700B8ECC3 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDD4E742C38229100B8ECC3 /* Starscream.framework */; };
-		BBDD4E782C38229B00B8ECC3 /* Starscream.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBDD4E742C38229100B8ECC3 /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		BBDD4E732C38229100B8ECC3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BBDD4E6E2C38229100B8ECC3 /* Starscream.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 33CCF0921F5DDC030099B092;
-			remoteInfo = Starscream;
-		};
-		BBDD4E752C38229100B8ECC3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BBDD4E6E2C38229100B8ECC3 /* Starscream.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 335FA2021F5DF71D00F6D2EC;
-			remoteInfo = "Starscream Tests";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		9B57BD4B2A5409C700CE9820 /* CopyFiles */ = {
@@ -107,15 +88,18 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				BBDD4E782C38229B00B8ECC3 /* Starscream.framework in CopyFiles */,
-				BB7909ED2C0722E900A347E8 /* CloudAR.framework in CopyFiles */,
-				BB7909EC2C0722E400A347E8 /* StreamSdk.framework in CopyFiles */,
+				015BEF0F2DD587060037F57E /* StreamSdk.framework in CopyFiles */,
+				015BEF0E2DD587030037F57E /* CloudAR.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		015BEF042DD586F50037F57E /* CloudAR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudAR.framework; sourceTree = "<group>"; };
+		015BEF052DD586F50037F57E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		015BEF062DD586F50037F57E /* StreamSdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = StreamSdk.framework; sourceTree = "<group>"; };
+		015BEF082DD586F50037F57E /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		98EF108317D5EA228FD4CE87 /* Pods-OurAR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OurAR.release.xcconfig"; path = "Target Support Files/Pods-OurAR/Pods-OurAR.release.xcconfig"; sourceTree = "<group>"; };
 		9B084F772A734DA300C7E229 /* GoujianshuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoujianshuView.swift; sourceTree = "<group>"; };
 		9B084F792A734F0000C7E229 /* GJSItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GJSItem.swift; sourceTree = "<group>"; };
@@ -183,15 +167,10 @@
 		9BF653542A71FC0700E4B655 /* TagItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagItem.swift; sourceTree = "<group>"; };
 		9BF653582A71FC8700E4B655 /* TagData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagData.swift; sourceTree = "<group>"; };
 		B37352F3D6BB5BE251A07FF3 /* Pods-OurAR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OurAR.debug.xcconfig"; path = "Target Support Files/Pods-OurAR/Pods-OurAR.debug.xcconfig"; sourceTree = "<group>"; };
-		BB7909E42C0722CC00A347E8 /* StreamSdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = StreamSdk.framework; sourceTree = "<group>"; };
-		BB7909E52C0722CC00A347E8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		BB7909E62C0722CC00A347E8 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		BB7909E72C0722CC00A347E8 /* CloudAR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudAR.framework; sourceTree = "<group>"; };
 		BBB89F272BECD62D00A4F11F /* ModelFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelFunc.swift; sourceTree = "<group>"; };
 		BBD07B8D2C2183EC007DE254 /* OurManagerTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurManagerTool.swift; sourceTree = "<group>"; };
 		BBD07B8F2C2198B4007DE254 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		BBDD4E562C240AAF00B8ECC3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		BBDD4E6E2C38229100B8ECC3 /* Starscream.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Starscream.xcodeproj; path = ../../../../Documents/project/Starscream/Starscream.xcodeproj; sourceTree = "<group>"; };
 		D0C87F6B9FEFA9EDB3854E86 /* Pods_OurAR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OurAR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -200,9 +179,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BBDD4E772C38229700B8ECC3 /* Starscream.framework in Frameworks */,
-				BB7909EB2C0722CC00A347E8 /* CloudAR.framework in Frameworks */,
-				BB7909E82C0722CC00A347E8 /* StreamSdk.framework in Frameworks */,
+				015BEF0C2DD586F50037F57E /* CloudAR.framework in Frameworks */,
+				015BEF0D2DD586F50037F57E /* StreamSdk.framework in Frameworks */,
 				619D8D4F4A65E42C85BE117D /* Pods_OurAR.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -210,6 +188,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		015BEF072DD586F50037F57E /* cloudarframework_dynamic */ = {
+			isa = PBXGroup;
+			children = (
+				015BEF042DD586F50037F57E /* CloudAR.framework */,
+				015BEF052DD586F50037F57E /* README.md */,
+				015BEF062DD586F50037F57E /* StreamSdk.framework */,
+			);
+			path = cloudarframework_dynamic;
+			sourceTree = "<group>";
+		};
+		015BEF092DD586F50037F57E /* cloudarframework */ = {
+			isa = PBXGroup;
+			children = (
+				015BEF072DD586F50037F57E /* cloudarframework_dynamic */,
+				015BEF082DD586F50037F57E /* iconfont.ttf */,
+			);
+			path = cloudarframework;
+			sourceTree = "<group>";
+		};
 		0EC5D4C6A0FDEE5C664B0B57 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,7 +255,7 @@
 		9B57BC022A53E9A800CE9820 = {
 			isa = PBXGroup;
 			children = (
-				BB7909E32C0722CC00A347E8 /* cloudarframework */,
+				015BEF092DD586F50037F57E /* cloudarframework */,
 				9B57BC0D2A53E9A800CE9820 /* OurAR */,
 				9B57BC0C2A53E9A800CE9820 /* Products */,
 				9B57BC242A53EA6700CE9820 /* Frameworks */,
@@ -487,18 +484,6 @@
 			path = ServerAddress;
 			sourceTree = "<group>";
 		};
-		BB7909E32C0722CC00A347E8 /* cloudarframework */ = {
-			isa = PBXGroup;
-			children = (
-				BBDD4E6E2C38229100B8ECC3 /* Starscream.xcodeproj */,
-				BB7909E42C0722CC00A347E8 /* StreamSdk.framework */,
-				BB7909E52C0722CC00A347E8 /* README.md */,
-				BB7909E62C0722CC00A347E8 /* .gitignore */,
-				BB7909E72C0722CC00A347E8 /* CloudAR.framework */,
-			);
-			path = cloudarframework;
-			sourceTree = "<group>";
-		};
 		BBD07B8A2C2183B8007DE254 /* Public */ = {
 			isa = PBXGroup;
 			children = (
@@ -507,15 +492,6 @@
 				BBD07B8F2C2198B4007DE254 /* PrefixHeader.pch */,
 			);
 			path = Public;
-			sourceTree = "<group>";
-		};
-		BBDD4E6F2C38229100B8ECC3 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				BBDD4E742C38229100B8ECC3 /* Starscream.framework */,
-				BBDD4E762C38229100B8ECC3 /* Starscream Tests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -567,35 +543,12 @@
 			mainGroup = 9B57BC022A53E9A800CE9820;
 			productRefGroup = 9B57BC0C2A53E9A800CE9820 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = BBDD4E6F2C38229100B8ECC3 /* Products */;
-					ProjectRef = BBDD4E6E2C38229100B8ECC3 /* Starscream.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				9B57BC0A2A53E9A800CE9820 /* OurAR */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		BBDD4E742C38229100B8ECC3 /* Starscream.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Starscream.framework;
-			remoteRef = BBDD4E732C38229100B8ECC3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		BBDD4E762C38229100B8ECC3 /* Starscream Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Starscream Tests.xctest";
-			remoteRef = BBDD4E752C38229100B8ECC3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		9B57BC092A53E9A800CE9820 /* Resources */ = {
@@ -604,10 +557,10 @@
 			files = (
 				9B57BD572A540C1100CE9820 /* Login.storyboard in Resources */,
 				BBDD4E592C240AAF00B8ECC3 /* PrivacyInfo.xcprivacy in Resources */,
+				015BEF0A2DD586F50037F57E /* README.md in Resources */,
+				015BEF0B2DD586F50037F57E /* iconfont.ttf in Resources */,
 				9B57BC1B2A53E9A900CE9820 /* LaunchScreen.storyboard in Resources */,
-				BB7909E92C0722CC00A347E8 /* README.md in Resources */,
 				9B57BC182A53E9A900CE9820 /* Assets.xcassets in Resources */,
-				BB7909EA2C0722CC00A347E8 /* .gitignore in Resources */,
 				9B57BC162A53E9A800CE9820 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -867,7 +820,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.8.0;
+				CURRENT_PROJECT_VERSION = 1.0.10.1;
 				DEVELOPMENT_TEAM = 8879CJ9M3W;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -883,6 +836,9 @@
 					"$(PROJECT_DIR)/cloudarframework\\ copy",
 					"$(PROJECT_DIR)/cloudarframework\\ copy",
 					"$(PROJECT_DIR)/cloudAr",
+					"$(PROJECT_DIR)/cloudarframework\\ 2/cloudarframework_dynamic",
+					"$(PROJECT_DIR)/cloudarframework\\ 2/cloudarframework_dynamic",
+					"$(PROJECT_DIR)/cloudarframework/cloudarframework_dynamic",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -899,7 +855,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.0.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vanjian.OurAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -915,7 +871,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.8.0;
+				CURRENT_PROJECT_VERSION = 1.0.10.1;
 				DEVELOPMENT_TEAM = 8879CJ9M3W;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -931,6 +887,9 @@
 					"$(PROJECT_DIR)/cloudarframework\\ copy",
 					"$(PROJECT_DIR)/cloudarframework\\ copy",
 					"$(PROJECT_DIR)/cloudAr",
+					"$(PROJECT_DIR)/cloudarframework\\ 2/cloudarframework_dynamic",
+					"$(PROJECT_DIR)/cloudarframework\\ 2/cloudarframework_dynamic",
+					"$(PROJECT_DIR)/cloudarframework/cloudarframework_dynamic",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -947,7 +906,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.0.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vanjian.OurAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

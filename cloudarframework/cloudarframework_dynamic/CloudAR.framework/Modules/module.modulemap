@@ -1,0 +1,4 @@
+framework module CloudAR {
+  header "CloudAR-Swift.h"
+  requires objc
+}

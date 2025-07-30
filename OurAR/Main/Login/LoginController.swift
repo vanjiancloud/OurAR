@@ -10,10 +10,8 @@ import UIKit
 import CloudAR
 import Alamofire
 import SVProgressHUD
-//import SnapKit
 
-class LoginController: UIViewController
-{
+class LoginController: UIViewController {
     var loginView: LoginView! //登录页
     var registerView: RegisterView! //注册页
     var forgetView: ForgetView! //忘记页
@@ -30,12 +28,6 @@ class LoginController: UIViewController
         let inputView_start_y: CGFloat = segment_start_y
         let right_width: CGFloat =  view.bounds.width * 0.6
         let left_width: CGFloat = view.bounds.width * 0.36
-        
-//        let nameImg = UIImageView(frame: CGRect(x: left_width + right_width * 0.2, y: view.bounds.height * 0.2, width: right_width * 0.3, height: 30))
-////        let nameImg = UIImageView()
-//        nameImg.image = UIImage(named: "OurARar")
-//        nameImg.contentMode = .scaleAspectFit
-//        view.addSubview(nameImg)
         
         lblLogo = UILabel(frame: CGRect(x: left_width + right_width * 0.2, y: view.bounds.height * 0.2, width: right_width * 0.3, height: 30))
         lblLogo.text = "OurAR"
@@ -67,8 +59,6 @@ class LoginController: UIViewController
         }), for: .touchUpInside)
         view.addSubview(settingBtn)
         settingController.initConfig()
-        // AR默认配置
-//        car_URL.javaWS = ""
 
         if getIsIphone() {
             lblLogo.snp.makeConstraints { make in
@@ -92,7 +82,7 @@ class LoginController: UIViewController
                 make.right.equalTo(-30)
                 make.height.width.equalTo(30)
             }
-        }else {
+        } else {
             leftBg = UIImageView(frame: CGRect(x: 0, y: 0, width: left_width, height: self.view.bounds.height))
             leftBg.image = UIImage(named: "loginleftbg")
             view.addSubview(leftBg)
@@ -110,47 +100,35 @@ class LoginController: UIViewController
                         let JSONObject = try? JSONSerialization.jsonObject(with: JSON ?? Data(), options: .allowFragments)
                         if let JSON = JSONObject as? [String:Any] {
                             if let respCode = JSON["code"] as? Int,
-                               let msg = JSON["message"] as? String
-                            {
-                                if respCode == 0
-                                {
+                               let msg = JSON["message"] as? String {
+                                if respCode == 0 {
                                     if let data = JSON["data"] as? [String:Any] {
-                                        
-                                        //全局变量的数据设置 id ...
                                         car_UserInfo.userID = data["userid"] as? String ?? ""
                                         car_UserInfo.imgUrl = data["imgUrl"] as? String ?? ""
                                         car_UserInfo.name = data["name"] as? String ?? "匿名"
-                                        
-//                                        showTip(tip: "登录成功", parentView: self.view, center: CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height*0.2),tipColor_bg_success, tipColor_text_success) {
+
                                         SVProgressHUD.showSuccess(withStatus: "登陆成功")
                                         print("登录成功")
                                         // 页面跳转
                                         let controller = ProjectController()
                                         controller.modalPresentationStyle = .fullScreen
                                         self.present(controller,animated: true)
-
-//                                        }
                                     } else {
                                         SVProgressHUD.showError(withStatus: "响应数据错误")
-//                                        showTip(tip: "响应数据错误", parentView: self.view, center: CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height*0.2),tipColor_bg_fail,tipColor_text_fail) {}
                                     }
                                 } else {
                                     SVProgressHUD.showError(withStatus: msg)
-//                                    showTip(tip: msg, parentView: self.view, center: CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height*0.2),tipColor_bg_fail, tipColor_text_fail) {}
                                 }
                             }
                         } else {
                             SVProgressHUD.showError(withStatus: "登录响应失败")
-//                            showTip(tip: "登陆响应失败", parentView: self.view, center: CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height*0.2),tipColor_bg_fail, tipColor_text_fail) {}
                         }
                     }
                     break
                 case .failure(let error):
                     print(error)
                     print("failure")
-//                    SVProgressHUD.dismiss()
                 SVProgressHUD.showError(withStatus: "登录响应失败")
-//                    showTip(tip: "登录响应失败", parentView: self.view, center: CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height*0.2),tipColor_bg_fail, tipColor_text_fail) {}
             }
         }
     }
@@ -163,13 +141,10 @@ class LoginController: UIViewController
         if ( nameIsEmpty && psdIsEmpty) {
             print("name or psd not init")
             tip = "用户名和密码不能为空"
-        } else if (nameIsEmpty)
-        {
+        } else if (nameIsEmpty) {
             print("name is empty")
             tip = "用户名不能为空"
-        }
-        else if (psdIsEmpty)
-        {
+        } else if (psdIsEmpty) {
             print("psd is empty")
             tip = "密码不能为空"
         } else {
@@ -186,11 +161,10 @@ class LoginController: UIViewController
         //从登录页面跳转到主页面
         //登录方式 1.手机号 2.邮箱
         let url = car_URL.urlPre + "UserCenter/login?loginName=\(name!)&password=\(password!)"
-        //let data: [String:Any] = ["password":password!,"username":name!]
         
         UserDefaults.standard.set(name!,forKey: "username")
         UserDefaults.standard.set(password!,forKey: "password")
-        print("-----login-----")
+        
         login(url: url)
     }
     
@@ -220,8 +194,6 @@ class LoginController: UIViewController
         
         // 手机验证码登录
         let url = car_URL.urlPre + "UserCenter/loginMobile?mobile=\(phone!)&code=\(code!)"
-        //let data: [String:Any] = ["mobile": phone!,"code":code!]
-        
         UserDefaults.standard.set(phone!,forKey: "mobile")
         
         login(url: url)
@@ -237,18 +209,18 @@ class LoginController: UIViewController
         let isPhone = psdIsEmpty ? false : car_isPhone(phone!)
         if phoneIsEmpty {
             tip = "手机号不能为空"
-        } else if !isPhone {
-            tip = "手机号格式错误"
-        } else if psdIsEmpty {
-            tip = "密码不能为空"
         } else if codeIsEmpty {
             tip = "验证码不能为空"
+        } else if psdIsEmpty {
+            tip = "密码不能为空"
         } else if !psdIsSame {
             tip = "两次输入密码不一致"
         } else if !agree {
             tip = "请先同意服务协议"
         } else if password?.count ?? 0 < 6 {
             tip = "密码长度应在6位以上"
+        } else if !isPhone {
+            tip = "手机号格式错误"
         } else {
             canRegister = true
         }
@@ -270,7 +242,6 @@ class LoginController: UIViewController
     }
     
     func handleEnterPage(_ index: Int,info: [String:Any] = [:]) {
-        //print("跳转到: \(index)")
         loginView?.removeFromSuperview()
         registerView?.removeFromSuperview()
         forgetView?.removeFromSuperview()

@@ -98,6 +98,14 @@ fileprivate class profileView: UIView
         exitLoginBtn.backgroundColor = VJConfirmColor
         exitLoginBtn.layer.mask = makeMask(2, exitLoginBtn.bounds, [.allCorners])
         exitLoginBtn.addAction(UIAction(handler: {_ in
+            UserDefaults.standard.removeObject(forKey: "userID")
+            UserDefaults.standard.removeObject(forKey: "imgUrl")
+            UserDefaults.standard.removeObject(forKey: "userName")
+            
+            car_UserInfo.userID = ""
+            car_UserInfo.name = ""
+            car_UserInfo.imgUrl = ""
+            
             if let controller = getControllerOfSubview(self) {
                 controller.dismiss(animated: true)
             }

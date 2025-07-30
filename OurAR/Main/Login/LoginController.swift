@@ -22,6 +22,17 @@ class LoginController: UIViewController {
     
     lazy var settingController = SettingController()
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        // 如果已登录，直接进入主界面
+        if !car_UserInfo.userID.trimmingCharacters(in: .whitespaces).isEmpty {
+            let controller = ProjectController()
+            controller.modalPresentationStyle = .fullScreen
+            self.present(controller, animated: true)
+        }
+    }
+    
     override func viewDidLoad() {
         self.modalPresentationStyle = .fullScreen
         let segment_start_y: CGFloat = view.bounds.height * 0.4
@@ -106,9 +117,13 @@ class LoginController: UIViewController {
                                         car_UserInfo.userID = data["userid"] as? String ?? ""
                                         car_UserInfo.imgUrl = data["imgUrl"] as? String ?? ""
                                         car_UserInfo.name = data["name"] as? String ?? "匿名"
+                                        
+                                        UserDefaults.standard.setValue(car_UserInfo.userID, forKey: "userID")
+                                        UserDefaults.standard.setValue(car_UserInfo.imgUrl, forKey: "imgUrl")
+                                        UserDefaults.standard.setValue(car_UserInfo.name, forKey: "userName")
+                                        UserDefaults.standard.synchronize()
 
                                         SVProgressHUD.showSuccess(withStatus: "登陆成功")
-                                        print("登录成功")
                                         // 页面跳转
                                         let controller = ProjectController()
                                         controller.modalPresentationStyle = .fullScreen

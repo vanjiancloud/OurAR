@@ -216,6 +216,11 @@ func asyncRespBool(result: Result<Data?,AFError>) -> (Bool,String) {
 fileprivate func moveToMainView(completion: @escaping (Bool) -> Void) {
     let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=cameraPosAll"
     AF.request(url,method:.get).response { (response: AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let (isSuccess,_) = asyncRespBool(result: response.result)
         completion(isSuccess)
     }
@@ -226,6 +231,11 @@ fileprivate func doAction(type: PersonViewType,completion: @escaping (Bool,Strin
     let viewMode = type == .FP ? "2" : "1"
     let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=switchViewMode&viewMode=\(viewMode)&projectionMode=1"
     AF.request(url,method:.get).response { (response: AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let (isSuccess,msg) = asyncRespBool(result: response.result)
         completion(isSuccess,msg)
     }
@@ -235,6 +245,11 @@ fileprivate func doAction(type: PersonViewType,completion: @escaping (Bool,Strin
 fileprivate func conChoiceVisible(type: KeJianXingType,completion: @escaping (Bool,String) -> Void) {
     let url = car_URL.urlPre + "OurBim/conChoiceVisible?taskid=\(car_UserInfo.taskID)&visible=false"
     AF.request(url,method:.get).response { (response: AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let (isSuccess,msg) = asyncRespBool(result: response.result)
         completion(isSuccess,msg)
     }
@@ -244,6 +259,11 @@ fileprivate func conChoiceVisible(type: KeJianXingType,completion: @escaping (Bo
 fileprivate func invertHidden(type: KeJianXingType,completion: @escaping (Bool,String) -> Void) {
     let url = car_URL.urlPre + "OurBim/invertHidden?taskId=\(car_UserInfo.taskID)"
     AF.request(url,method:.post).response { (response: AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let (isSuccess,msg) = asyncRespBool(result: response.result)
         completion(isSuccess,msg)
     }
@@ -254,6 +274,11 @@ fileprivate func displayAllActor(type: KeJianXingType,completion: @escaping (Boo
     let url = car_URL.urlPre + "OurBim/displayAllActor?taskId=\(car_UserInfo.taskID)"
     AF.request(url,method:.post
     ).response { (response: AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let (isSuccess,msg) = asyncRespBool(result: response.result)
         completion(isSuccess,msg)
     }
@@ -263,6 +288,11 @@ fileprivate func displayAllActor(type: KeJianXingType,completion: @escaping (Boo
 fileprivate func measurement(type: MeasurementType,completion: @escaping (Bool) -> Void) {
     let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=\(String(describing: type))"
     AF.request(url,method:.get).response { (response: AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let (isSuccess,_) = asyncRespBool(result: response.result)
         completion(isSuccess)
     }
@@ -272,6 +302,11 @@ fileprivate func measurement(type: MeasurementType,completion: @escaping (Bool) 
 fileprivate func closeMeasurement(completion: @escaping (Bool) -> Void) {
     let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=endMeasure"
     AF.request(url,method:.get).response { (response: AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let (isSuccess,_) = asyncRespBool(result: response.result)
         completion(isSuccess)
     }
@@ -285,6 +320,11 @@ fileprivate func closeMeasurement(completion: @escaping (Bool) -> Void) {
 fileprivate func changeMeasureUnit(unit: MeasureUnitType,precision: MeasurePrecisionType,completion: @escaping (Bool) -> Void) {
     let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=changePrecisionOrUnit&unit=\(unit.rawValue)&precision=\(precision.rawValue)"
     AF.request(url,method:.get).response { (response: AFDataResponse ) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let (isSuccess,_) = asyncRespBool(result: response.result)
         completion(isSuccess)
     }
@@ -320,6 +360,11 @@ func controlTagShow(show: Bool,completion: @escaping (Bool) -> Void) {
     //https://api.OurBim.com:11022/vjapi/tagControl/controlTagShow?taskId=1146373527096524800&lableVisibility=true
     let url = car_URL.urlPre + "tagControl/controlTagShow?taskId=\(car_UserInfo.taskID)&lableVisibility=\(show)"
     AF.request(url,method: .post).response { (response: AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         print("control tag show: \(show)")
         let (isSuccess,_) = asyncRespBool(result: response.result)
         completion(isSuccess)
@@ -334,6 +379,11 @@ func controlTagShow(show: Bool,completion: @escaping (Bool) -> Void) {
 func queryTagList(tagGroupID: String,completion: @escaping (Result<[[String:Any]],Error>) -> Void) {
     let url = car_URL.urlPre + "tagControl/getTagList?tagId=\(tagGroupID)&appId=\(car_UserInfo.currProID)"
     AF.request(url,method:.get).response { (response: AFDataResponse ) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         switch response.result {
         case .success(let data):
             if let jsonObject = try? JSONSerialization.jsonObject(with: data ?? Data()),
@@ -371,6 +421,11 @@ func createTagFile(tagGroupID: String,completion: @escaping (Result<String,Error
         info["tagGroupId"] = tagGroupID
     }
     AF.request(url,method:.post,parameters: info,encoding: URLEncoding.default).response { (response:AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         switch response.result {
         case .success(let data):
             if let jsonObject = try? JSONSerialization.jsonObject(with: data ?? Data()),
@@ -402,6 +457,11 @@ func createTagFolder(tagGroupID: String,completion: @escaping (Result <String,Er
         info["tagGroupId"] = tagGroupID
     }
     AF.request(url,method:.post,parameters:info,encoding: URLEncoding.default).response{ (response:AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let result = asyncRespJsonToAny(result: response.result)
         
         switch result {
@@ -425,6 +485,11 @@ func updateTagName(tagID: String,name: String,completion: @escaping (Bool,String
     info["tagId"] = tagID
     info["tagName"] = name
     AF.request(url,method:.post,parameters: info,encoding: URLEncoding.default).response {(response:AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let (success,msg) = asyncRespBool(result: response.result)
         completion(success,msg)
     }
@@ -435,6 +500,11 @@ func deleteTag(tagID: String,completion: @escaping (Bool,String) -> Void) {
     let url = car_URL.urlPre + "tagControl/deleteTag"
     let info: [String:Any] = ["tagId": tagID,"taskId":car_UserInfo.taskID]
     AF.request(url,method:.post,parameters: info,encoding: URLEncoding.default).response {(response:AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let (success,msg) = asyncRespBool(result: response.result)
         completion(success,msg)
     }
@@ -445,6 +515,11 @@ func handelTagFocusAction(tagID: String,completion: @escaping (Bool,String) -> V
     let url = car_URL.urlPre + "tagControl/clickTag?"
     let info: [String:Any] = ["tagId": tagID,"taskId":car_UserInfo.taskID]
     AF.request(url,method:.post,parameters: info,encoding: URLEncoding.default).response {(response:AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         print(response.result)
         let (success,msg) = asyncRespBool(result: response.result)
         completion(success,msg)
@@ -458,6 +533,11 @@ func handelTagFocusAction(tagID: String,completion: @escaping (Bool,String) -> V
 func queryComponentList(uuid: String,appliId: String = car_UserInfo.currProID,completion: @escaping (Result<[[String:Any]],Error>) -> Void) {
     let url = car_URL.urlPre + "appli/getComponent?appliId=\(appliId)&uuid=\(uuid)"
     AF.request(url,method:.get).response {(response:AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let result = asyncRespJsonToAny(result: response.result)
         switch result {
         case .success(let any):
@@ -477,6 +557,11 @@ func sendFocusModel(uuid: String,appliId: String = car_UserInfo.currProID,isFouc
     //https://api.OurBim.com:11022/vjapi/OurBim/doAction?taskid=1139943772189097984&projectId=BIM2021101814063750&mn=vanjian2&action=selectComponent
     let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&projectId=\(appliId)&mn=\(uuid)&action=\(isFoucs ? "selectComponent" : "cancelSelectComponen")"
     AF.request(url,method:.get).response {(response:AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let (isSuccess,msg) = asyncRespBool(result: response.result)
         print("focus model: \(msg)")
         completion(isSuccess)
@@ -489,6 +574,11 @@ func sendFocusCostomModel(uuid: String,isFoucs: Bool,completion: @escaping (Bool
     info["comId"] = uuid
     info["flag"] = "\(isFoucs)"
     AF.request(url,method:.post,parameters: info,encoding: URLEncoding.default).response{(response:AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let (isSuccess,_) = asyncRespBool(result: response.result)
         completion(isSuccess)
     }
@@ -502,6 +592,11 @@ func sendHiddenModel(uuid: String,appliId: String = car_UserInfo.currProID,isHid
     info["action"] = isHidden ? "hideComponents" : "showComponents"
     info["mn"] = uuid == "god" ? "vanjian" : uuid
     AF.request(url,method:.get,parameters: info,encoding: URLEncoding.default).response {(response:AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let (isSuccess,msg) = asyncRespBool(result: response.result)
         print("hidden model msg: \(msg)")
         completion(isSuccess)
@@ -514,6 +609,11 @@ func sendHiddenCustomModel(uuid: String,isHidden: Bool,completion: @escaping (Bo
     info["comId"] = uuid
     info["lableVisibility"] = !isHidden
     AF.request(url,method:.post,parameters: info,encoding: URLEncoding.default).response{(response:AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let (isSuccess,_) = asyncRespBool(result: response.result)
         completion(isSuccess)
     }
@@ -526,6 +626,11 @@ func sendDeleteCustomModel(uuid: String,completion: @escaping (Bool) ->Void) {
     var info:[String:Any] = ["taskId":car_UserInfo.taskID]
     info["comId"] = uuid
     AF.request(url,method: .post,parameters: info,encoding: URLEncoding.default).response{(response:AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let (isSuccess,_) = asyncRespBool(result: response.result)
         completion(isSuccess)
     }
@@ -535,6 +640,11 @@ func sendDeleteCustomModel(uuid: String,completion: @escaping (Bool) ->Void) {
 func sendModelQuit(completion: @escaping (Bool,String) -> Void) {
     let url = car_URL.urlPre + "OurBim/closeOurbim?taskId=\(car_UserInfo.taskID)"
     AF.request(url,method:.get).response { (response: AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         switch response.result {
         case .success(let JSON): do {
             if let jsonObject = try? JSONSerialization.jsonObject(with: JSON ?? Data()),
@@ -555,6 +665,11 @@ func sendModelQuit(completion: @escaping (Bool,String) -> Void) {
 func requestExitByHostId(completion: @escaping (Bool) -> Void) {
     let url = car_URL.xrUrlPre + "v1/StartupInsByProjectId?ProjectId=&SenderId=123456&HostId=\(car_UserInfo.hostID)&nonce=\(arc4random())&tag=ar&mode=reload"
     AF.request(url,method:.get).response { (response: AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         switch response.result {
         case .success(_): do {
             completion(true)
@@ -585,6 +700,11 @@ func sendFenJie(value: Int,completion: @escaping (Bool) ->Void) {
     //https://api.OurBim.com:11022/vjapi/OurBim/doAction?taskid=1136964760961548288&action=splitModel&splitValue=4
     let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=splitModel&splitValue=\(value)"
     AF.request(url,method:.get).response {(response:AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let (isSuccess,_) = asyncRespBool(result: response.result)
         completion(isSuccess)
     }
@@ -595,6 +715,11 @@ func sendDeleteProject(projectID: String,completion: @escaping(Bool) -> Void) {
     let url = car_URL.urlPre + "appli/deleteProject"
     let info: [String:Any] = ["appliId":projectID,"userid":car_UserInfo.userID]
     AF.request(url,method: .post,parameters: info,encoding: URLEncoding.default).response {(response:AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let (isSuccess,_) = asyncRespBool(result: response.result)
         completion(isSuccess)
     }
@@ -604,6 +729,11 @@ func sendModifyProject(projectID: String,name: String,completion: @escaping(Bool
     let url = car_URL.urlPre + "appli/updateProject"
     let info: [String:Any] = ["appid":projectID,"appName":name]
     AF.request(url,method: .post,parameters: info,encoding: URLEncoding.default).response {(response:AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
         let (isSuccess,_) = asyncRespBool(result: response.result)
         completion(isSuccess)
     }

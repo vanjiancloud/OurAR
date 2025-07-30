@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        guard let _ = (scene as? UIWindowScene) else { return }
         
         if scene.isKind(of: UIWindow.self) {
-            var window = UIWindow()
+            let window = UIWindow()
             self.window = window
             window.makeKeyAndVisible()
         }

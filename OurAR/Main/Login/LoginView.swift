@@ -21,7 +21,7 @@ fileprivate let text_start_x: CGFloat = imgCenterX + imgSize / 2 + 20 //input te
 fileprivate let input_pad_updown: CGFloat = 15 //上下两个input的间隔
 
 //MARK: 普通输入框
-fileprivate class InputView: UIView
+class InputView: UIView
 {
    
     var img: UIImageView!
@@ -358,7 +358,7 @@ class LoginView: UIView
 {
     // 账号登录
     private var name: InputView!
-    private var psd: InputView!
+    var psd: InputView!
     // 短信登录
     private var phone: PhoneView!
     private var verification: VerificationView!
@@ -382,7 +382,7 @@ class LoginView: UIView
         //backgroundColor = .white
         initSubview()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -589,6 +589,10 @@ class LoginView: UIView
                 make.height.equalTo(45)
             }
         }
+    }
+    
+    var getPsd: InputView {
+        return psd
     }
     
     private func changeRemenber() {

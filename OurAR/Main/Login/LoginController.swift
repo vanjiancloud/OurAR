@@ -113,6 +113,12 @@ class LoginController: UIViewController {
                                         let controller = ProjectController()
                                         controller.modalPresentationStyle = .fullScreen
                                         self.present(controller,animated: true)
+                                        
+                                        let isRemenber = UserDefaults.standard.bool(forKey: "remenber")
+                                        if !isRemenber {
+                                            let input = self.loginView.getPsd
+                                            input.text.text = ""
+                                        }
                                     } else {
                                         SVProgressHUD.showError(withStatus: "响应数据错误")
                                     }

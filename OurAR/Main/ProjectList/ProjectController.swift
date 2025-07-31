@@ -52,7 +52,7 @@ class ProjectController: UIViewController
                               
                                 //TODO 记录最新的项目list
                                 var i = 0
-                                itemList?.forEach{
+                                itemList?.forEach {
                                     (item) in
                                    
                                     var projectItem = ProjectItem()
@@ -64,6 +64,14 @@ class ProjectController: UIViewController
                                     projectItem.currVersion = item["currVersion"] as? String
                                     projectItem.progress = item["progress"] as? String
                                     projectItem.applidStatus = item["applidStatus"] as? String
+                                    if let totalInt = data["total"] as? Int {
+                                        projectItem.projectCount = String(totalInt)
+                                    } else if let totalStr = data["total"] as? String {
+                                        projectItem.projectCount = totalStr
+                                    } else {
+                                        projectItem.projectCount = nil
+                                    }
+
                                     self.allProject[i] = projectItem
                                     i += 1
                                    

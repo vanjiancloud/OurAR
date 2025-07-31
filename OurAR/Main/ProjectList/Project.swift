@@ -475,7 +475,13 @@ fileprivate class projectListView: UIView {
     }
     
     private func addAllItemView(_ allProject: inout [Int:ProjectItem]) {
-        header?.totalInfo.text = "共有\(allProject.count)个项目"
+        if let countString = allProject[0]?.projectCount,
+           let countInt = Int(countString) {
+            header?.totalInfo.text = "共有\(countInt)个项目"
+        } else {
+            header?.totalInfo.text = "共有\(allProject.count)个项目" // 兜底显示字典元素个数
+        }
+
         if allProject.count == 0 {
             return
         }

@@ -10,6 +10,7 @@ import Foundation
 struct ProjectItem
 {
     var name: String? = nil
+    var projectCount: String? = nil
     var id: String? = nil
     var createTime: String? = nil
     

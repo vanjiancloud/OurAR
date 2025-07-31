@@ -528,6 +528,7 @@ class Project: UIView {
     private var project: projectListView!
     
     var scrollView: UIScrollView!
+    private var refreshControl: UIRefreshControl!
     
     let gap: CGFloat = 15
     let left_right_pad: CGFloat = 25
@@ -538,6 +539,8 @@ class Project: UIView {
     var progressWidth: CGFloat = 0
     var projectHeight: CGFloat = 0
     var projectWidth: CGFloat = 0
+    
+    var onRefresh: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -568,6 +571,11 @@ class Project: UIView {
         scrollView.addSubview(project)
         
         addSubview(scrollView)
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "")
+        refreshControl.addTarget(self, action: #selector(refreshProjectData), for: .valueChanged)
+        scrollView.addSubview(refreshControl)
     }
     
     required init?(coder: NSCoder) {
@@ -591,6 +599,17 @@ class Project: UIView {
     
     func updateProgressInfo(data: [String:Any]) {
 //        self.progress?.updateInfo(data: data)
+    }
+    
+    func endRefreshing() {
+        if refreshControl.isRefreshing {
+            refreshControl.endRefreshing()
+        }
+    }
+    
+    @objc private func refreshProjectData() {
+        print("开始刷新")
+        onRefresh?()
     }
 }
 

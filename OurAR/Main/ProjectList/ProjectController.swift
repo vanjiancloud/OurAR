@@ -19,7 +19,12 @@ class ProjectController: UIViewController
         project = Project(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
         project.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 249/255, alpha: 1)
         self.view = project
-        
+        project.onRefresh = { [weak self] in
+            guard let self = self else { return }
+            self.queryProjectList()
+            self.queryCount()
+        }
+                
         queryProjectList()
         queryCount()
     }
@@ -27,6 +32,10 @@ class ProjectController: UIViewController
     func queryProjectList() {
         print("queryProjectList")
         queryApplicationList { result in
+            DispatchQueue.main.async {
+                self.project.endRefreshing()
+            }
+            
             switch result{
             case.success(let JSON):
                 do {

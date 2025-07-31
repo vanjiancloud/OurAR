@@ -432,16 +432,18 @@ class ProjectPopOverController: UIViewController
     }
     
     private func handleDeleteProject(id: String) {
-        sendDeleteProject(projectID: "1", completion: { result in
+        sendDeleteProject(projectID: id, completion: { result in
             //不论删除成功或失败都dismiss
             //self.deleteAlert?.dismiss(animated: true)
             showTip(tip: result ? "删除成功" : "删除失败" , parentView: self.view, result ? tipColor_bg_success : tipColor_bg_fail, result ? tipColor_text_success : tipColor_text_fail, completion: {})
             
-            if result {
-                if let controller = self.presentingViewController as? ProjectController {
-                    self.dismiss(animated: true)
-                    controller.queryProjectList(page: 1)
-                }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                if result {
+                    if let controller = self.presentingViewController as? ProjectController {
+                        self.dismiss(animated: true)
+                        controller.removeProject(id: (id as NSString) as String)
+                    }
+                } 
             }
         })
     }

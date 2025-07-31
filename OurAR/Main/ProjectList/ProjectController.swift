@@ -24,7 +24,7 @@ class ProjectController: UIViewController, UIScrollViewDelegate {
         project.onRefresh = { [weak self] in
             guard let self = self else { return }
             currentPage = 1
-            hasMoreData = false
+            hasMoreData = true
             self.queryProjectList(page: currentPage)
             self.queryCount()
         }
@@ -32,6 +32,29 @@ class ProjectController: UIViewController, UIScrollViewDelegate {
                 
         queryProjectList(page: currentPage)
         queryCount()
+    }
+    
+    func removeProject(id: String) {
+//        // 找到对应 key
+//        if let keyToRemove = self.allProject.first(where: { $0.value.id == id })?.key {
+//            // 删除对应项目
+//            self.allProject.removeValue(forKey: keyToRemove)
+//
+//            // 获取第一个 key，再通过 key 修改项目
+//            if let firstKey = self.allProject.keys.first,
+//               var firstItem = self.allProject[firstKey],
+//               let countStr = firstItem.projectCount,
+//               let count = Int(countStr),
+//               count > 0 {
+//                firstItem.projectCount = "\(count - 1)"
+//                self.allProject[firstKey] = firstItem // ← 重新赋值回字典
+//            }
+//        }
+//        
+//        // 更新页面
+//        DispatchQueue.main.async {
+//            self.project?.updateProjectItems(&self.allProject)
+//        }
     }
 
     func queryProjectList(page: Int) {
@@ -70,6 +93,10 @@ class ProjectController: UIViewController, UIScrollViewDelegate {
                             }
                             return nil
                         }()
+                        
+                        if self.currentPage == 1 {
+                            self.allProject .removeAll()
+                        }
 
                         // 记录当前已有数量，用作下标
                         var currentIndex = self.allProject.count
@@ -84,10 +111,7 @@ class ProjectController: UIViewController, UIScrollViewDelegate {
                             projectItem.currVersion = item["currVersion"] as? String
                             projectItem.progress = item["progress"] as? String
                             projectItem.applidStatus = item["applidStatus"] as? String
-                            
-                            if currentIndex == 0 {
-                                projectItem.projectCount = totalCountString
-                            }
+                            projectItem.projectCount = totalCountString
 
                             self.allProject[currentIndex] = projectItem
                             currentIndex += 1

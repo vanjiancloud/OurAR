@@ -24,6 +24,7 @@ class ProjectController: UIViewController, UIScrollViewDelegate {
         project.onRefresh = { [weak self] in
             guard let self = self else { return }
             currentPage = 1
+            hasMoreData = false
             self.queryProjectList(page: currentPage)
             self.queryCount()
         }
@@ -38,6 +39,7 @@ class ProjectController: UIViewController, UIScrollViewDelegate {
         
         guard hasMoreData else {
             print("没有更多数据")
+            self.project.endRefreshing()
             return
         }
 
@@ -111,18 +113,18 @@ class ProjectController: UIViewController, UIScrollViewDelegate {
     
     // UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let offsetY = scrollView.contentOffset.y
-//        let contentHeight = scrollView.contentSize.height
-//        let scrollViewHeight = scrollView.frame.size.height
-//        
-//        // 判断是否快到底部，阈值为100，可根据需求调整
-//        if offsetY > contentHeight - scrollViewHeight - 20 {
-//            // 触发加载下一页
-//            if !isLoadingMore && hasMoreData {
-//                isLoadingMore = true
-//                queryProjectList(page: currentPage)
-//            }
-//        }
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let scrollViewHeight = scrollView.frame.size.height
+        
+        // 判断是否快到底部，阈值为100，可根据需求调整
+        if offsetY > contentHeight - scrollViewHeight - 100 {
+            // 触发加载下一页
+            if !isLoadingMore && hasMoreData {
+                isLoadingMore = true
+                queryProjectList(page: currentPage)
+            }
+        }
     }
     
     func queryCount() {

@@ -13,7 +13,7 @@ import Alamofire
 public func queryApplicationList(page: Int, completion: @escaping (Result<Data, Error>) -> Void) {
     
     // 构建 URL，带上分页参数 // size
-    let urlString = car_URL.urlPre + "appli/getApplicationList?userid=\(car_UserInfo.userID)&pageNum=\(page)"
+    let urlString = car_URL.urlPre + "appli/getApplicationList?userid=\(car_UserInfo.userID)&pageNo=\(page)&pageSize=100"
     
     // 发起请求
     AF.request(urlString, method: .get).response { (response: AFDataResponse) in

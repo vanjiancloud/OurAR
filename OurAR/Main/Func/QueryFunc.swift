@@ -299,48 +299,51 @@ public func queryPropertyInfo(projectID: String,actorID: String,completion: @esc
   Bool: 成功或失败
   String：原因
  */
-public func queryThreeDModelLoad(request: inout DataRequest?,token:String,projectID: String,completion: @escaping (Bool,String) -> Void) {
+public func queryThreeDModelLoad(request: inout DataRequest?, token: String, projectID: String, completion: @escaping (Bool, String) -> Void) {
     let url = car_URL.urlPre + "OurBim/requestOurBim?appliId=\(projectID)&token=\(token)"
-    request = AF.request(url,method:.post)
+    request = AF.request(url, method: .post)
     request?.response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 {
             NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
         }
-        
+
         switch response.result {
         case .success(let JSON):
             do {
                 if let jsonObject = try? JSONSerialization.jsonObject(with: JSON ?? Data(), options: .allowFragments),
-                   let json = jsonObject as? [String:Any],
-                   let code = json["code"] as? Int,
-                   let message = json["message"] as? String,
-                   let data = json["data"] as? [String:Any]
-                {
-                    if code == 0 {
-                        if let taskID = data["taskId"] as? String,
-                           let url = data["url"] as? String
-                        {
-                            car_UserInfo.taskID = taskID
-                            car_UserInfo.currProID = projectID
-                            car_UserInfo.threeDURL = url
-                            completion(true,"success")
+                   let json = jsonObject as? [String: Any] {
+                    
+                    let message = json["message"] as? String ?? "response data error"
+                    
+                    if let code = json["code"] as? Int,
+                       let data = json["data"] as? [String: Any] {
+                        if code == 0 {
+                            if let taskID = data["taskId"] as? String,
+                               let url = data["url"] as? String {
+                                car_UserInfo.taskID = taskID
+                                car_UserInfo.currProID = projectID
+                                car_UserInfo.threeDURL = url
+                                completion(true, "success")
+                            } else {
+                                completion(false, "not found url or taskid")
+                            }
                         } else {
-                            completion(false,"not found url or taskid")
+                            completion(false, message)
                         }
                     } else {
-                        completion(false,message)
+                        completion(false, message)
                     }
                 } else {
-                    completion(false,"response data error")
+                    completion(false, "response data error")
                 }
             }
         case .failure(_):
-            completion(false,"response fail")
-            break
+            completion(false, "response fail")
         }
     }
 }
+
 
 //MARK: 手机号是否不存在
 func phoneNotExist(phone: String,completion: @escaping (Bool,String) -> Void) {

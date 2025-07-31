@@ -10,8 +10,7 @@ import UIKit
 import CloudAR
 import SVProgressHUD
 
-fileprivate class headerView: UIView
-{
+fileprivate class headerView: UIView {
     //var bg: UIImageView!
     var label: UILabel!
     
@@ -29,19 +28,16 @@ fileprivate class headerView: UIView
         addSubview(label)
     }
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
-fileprivate class profileView: UIView
-{
+fileprivate class profileView: UIView {
     var bg: UIImageView!
     var profile: UIImageView!
     var userName: UILabel!
     var idInfo: UILabel!
-    var loginOtherBtn: UIButton! //好像不需要
     var exitLoginBtn: UIButton!
     
     override init(frame: CGRect) {
@@ -73,22 +69,30 @@ fileprivate class profileView: UIView
         userName.center.x = self.bounds.width / 2
         addSubview(userName)
         
-        idInfo = UILabel(frame: CGRect(x: 0, y: idInfo_start_y, width: self.bounds.width * 0.8, height: 20))
-        idInfo.text = "个人账号 ID: \(car_UserInfo.userID)"
-        idInfo.font = .systemFont(ofSize: 12)
+        let text = "个人账号 ID: \(car_UserInfo.userID)"
+        let labelWidth = self.bounds.width * 0.8
+        let font = UIFont.systemFont(ofSize: 12)
+
+        let boundingRect = (text as NSString).boundingRect(
+            with: CGSize(width: labelWidth, height: CGFloat.greatestFiniteMagnitude),
+            options: [.usesLineFragmentOrigin, .usesFontLeading],
+            attributes: [.font: font],
+            context: nil
+        )
+
+        idInfo = UILabel(frame: CGRect(x: 0, y: idInfo_start_y, width: labelWidth, height: ceil(boundingRect.height)))
+        idInfo.text = text
+        idInfo.font = font
         idInfo.textColor = .gray
         idInfo.contentMode = .center
-        idInfo.numberOfLines = 2
+        idInfo.numberOfLines = 0
+        idInfo.textAlignment = .center
         idInfo.center.x = self.bounds.width / 2
         addSubview(idInfo)
-        
+
         let btnHeight:CGFloat = 35
         let loginOther_start_y:CGFloat = self.bounds.height * 0.9 - btnHeight * 2 - 20
         let exit_start_y:CGFloat = loginOther_start_y + btnHeight + 20
-        
-//        loginOtherBtn = UIButton(frame: CGRect(x: 0, y: loginOther_start_y, width: self.bounds.width * 0.8, height: btnHeight))
-//        loginOtherBtn.layer.borderColor = VJConfirmColor.cgColor
-//        loginOtherBtn.setTitle("切换账号", for: <#T##UIControl.State#>)
         
         exitLoginBtn = UIButton(frame: CGRect(x: 0, y: exit_start_y, width: self.bounds.width * 0.8, height: btnHeight))
         exitLoginBtn.center.x = self.bounds.width / 2
@@ -113,7 +117,6 @@ fileprivate class profileView: UIView
         }),for: .touchUpInside)
         addSubview(exitLoginBtn)
         
-        
         DispatchQueue.global().async {
             if !car_UserInfo.imgUrl.isEmpty {
                 let url = URL(string: car_UserInfo.imgUrl)
@@ -133,17 +136,14 @@ fileprivate class profileView: UIView
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
-fileprivate enum progressType: UInt8
-{
+fileprivate enum progressType: UInt8 {
     case node   = 0
     case memory = 1
 }
 
-fileprivate class progressItem: UIView
-{
+fileprivate class progressItem: UIView {
     var img: UIImageView!
     var name: UILabel!
     var use: UILabel!
@@ -232,8 +232,7 @@ fileprivate class progressItem: UIView
 
 }
 
-fileprivate class progressView: UIView
-{
+fileprivate class progressView: UIView {
     var node: progressItem!
     var memory: progressItem!
     
@@ -269,8 +268,7 @@ fileprivate class progressView: UIView
         if let currBF = data["currentCountBF"] as? String,
             let countBF = data["countBF"] as? String,
             let currSpace = data["currentCountSpace"] as? String,
-            let countSpace = data["countSpace"] as? String
-        {
+            let countSpace = data["countSpace"] as? String {
             let currBF_f = Float(currBF) ?? 0.0
             let countBF_f = Float(countBF) ?? 1.0
             let currSpace_f = Float(currSpace) ?? 0.0
@@ -296,8 +294,7 @@ fileprivate class progressView: UIView
     }
 }
 
-fileprivate class projectHeader: UIView
-{
+fileprivate class projectHeader: UIView {
     var title: UILabel!
     var totalInfo: UILabel!
     
@@ -324,13 +321,11 @@ fileprivate class projectHeader: UIView
     }
 }
 
-fileprivate class projectItem: UIView
-{
+fileprivate class projectItem: UIView {
     var icon: UIImageView!
     var nameLabel: UILabel!
     var createTimeLabel: UILabel!
     
-//    var btnItem: UIButton!  //监听点击进入场景的btn
     var btnModify: UIButton! //监听点击进行修改的btn
     
     var id: String = ""
@@ -344,7 +339,6 @@ fileprivate class projectItem: UIView
         let width = bounds.width
         let height = bounds.height
         
-        // icon size height * 0.6 pad_left = 10
         icon = UIImageView(frame: CGRect(x: left_right_pad, y: height * 0.2, width: height * 0.6, height: height * 0.6))
         icon.contentMode = .scaleToFill
         icon.layer.masksToBounds = true
@@ -364,11 +358,6 @@ fileprivate class projectItem: UIView
         createTimeLabel.textColor = VJTextColor_07
         createTimeLabel.textAlignment = .left
         
-//        btnItem = UIButton(frame: CGRect(x: height * 0.1, y: height * 0.1, width: width - height * 0.1, height: height * 0.8))
-//        btnItem.backgroundColor = UIColor(white: 1, alpha: 0)
-//        btnItem.isUserInteractionEnabled = true
-//        btnItem.addTarget(self, action: #selector(pressItem), for: .touchDown)
-        
         btnModify = UIButton(frame: CGRect(x: min(width - height * 0.1 - height * 0.5,width * 0.8), y:height * 0.1, width: height * 0.8, height: height * 0.8))
         btnModify.backgroundColor = UIColor(white: 1, alpha: 0)
         btnModify.isUserInteractionEnabled = true
@@ -379,7 +368,6 @@ fileprivate class projectItem: UIView
         addSubview(icon)
         addSubview(nameLabel)
         addSubview(createTimeLabel)
-//        addSubview(btnItem)
         addSubview(btnModify)
         
         isUserInteractionEnabled = true
@@ -389,10 +377,8 @@ fileprivate class projectItem: UIView
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateInfo(_ projectItem: ProjectItem?)
-    {
-        if let project = projectItem
-        {
+    func updateInfo(_ projectItem: ProjectItem?) {
+        if let project = projectItem {
             nameLabel.text = project.name
             createTimeLabel.text = project.createTime
             id = project.id ?? ""
@@ -401,13 +387,13 @@ fileprivate class projectItem: UIView
             applidStatus = project.applidStatus ?? ""
             if currVersion == "V5" {
                 nameLabel.textColor = VJTextColor_07
-            }else {
+            } else {
                 if applidStatus == "2" {
                     nameLabel.textColor = .black
-                }else {
+                } else {
                     if progress != "100" {
                         nameLabel.textColor = VJTextColor_07
-                    }else {
+                    } else {
                         nameLabel.textColor = .black
                     }
                 }
@@ -418,22 +404,19 @@ fileprivate class projectItem: UIView
     @objc func pressItem(sender: UITapGestureRecognizer){
         // 开启一个场景
         print("press item")
-        if let viewController = getControllerOfSubview(self) as? ProjectController
-        {
+        if let viewController = getControllerOfSubview(self) as? ProjectController {
             if currVersion == "V5" {
                 SVProgressHUD.showInfo(withStatus: "请重新转换模型！")
-            }else {
+            } else {
                 if applidStatus == "2" {
-                    //startQueryModel(projectID: id, currViewController: viewController)
                     let (isSuccess,reason) = enterBIMScreen(currViewController: viewController,needLoadProject: id,screenType: .ThreeD) //默认以3D模式启动
                     if !isSuccess {
                         showTip(tip: reason, parentView: viewController.view, tipColor_bg_fail, tipColor_text_fail, completion: {})
                     }
-                }else {
+                } else {
                     if progress != "100" {
                         SVProgressHUD.showInfo(withStatus: "模型未转换完成")
-                    }else {
-                        //startQueryModel(projectID: id, currViewController: viewController)
+                    } else {
                         let (isSuccess,reason) = enterBIMScreen(currViewController: viewController,needLoadProject: id,screenType: .ThreeD) //默认以3D模式启动
                         if !isSuccess {
                             showTip(tip: reason, parentView: viewController.view, tipColor_bg_fail, tipColor_text_fail, completion: {})
@@ -452,8 +435,7 @@ fileprivate class projectItem: UIView
     }
 }
 
-fileprivate class projectListView: UIView
-{
+fileprivate class projectListView: UIView {
     var header: projectHeader!
     
     private var allProjectItem: [Int:projectItem] = [:]
@@ -492,8 +474,7 @@ fileprivate class projectListView: UIView
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func addAllItemView(_ allProject: inout [Int:ProjectItem])
-    {
+    private func addAllItemView(_ allProject: inout [Int:ProjectItem]) {
         header?.totalInfo.text = "共有\(allProject.count)个项目"
         if allProject.count == 0 {
             return
@@ -508,19 +489,16 @@ fileprivate class projectListView: UIView
         }
     }
     
-    private func removeAllItemView()
-    {
+    private func removeAllItemView() {
         let keys = allProjectItem.keys
         for key in keys{
             let projectItemView = allProjectItem.removeValue(forKey: key)
             projectItemView?.removeFromSuperview()
         }
         header?.totalInfo?.text = "共有0个项目"
-        
     }
     
-    func updateProjectItemView(_ allProject: inout [Int: ProjectItem])
-    {
+    func updateProjectItemView(_ allProject: inout [Int: ProjectItem]) {
         //删除现有的projectItemView
         removeAllItemView()
         
@@ -529,16 +507,13 @@ fileprivate class projectListView: UIView
         
         //增加了子视图后，需要更新frame
         updateFrame()
-        
     }
     
-    func viewHeightContainsSubview() -> CGFloat
-    {
+    func viewHeightContainsSubview() -> CGFloat {
         return max(bounds.height, projectItem_start_y + CGFloat(ceil(Double(allProjectItem.count) / Double(column))) * projectItem_height)
     }
     
-    func updateFrame()
-    {
+    func updateFrame() {
         var newFrame = self.frame
         newFrame.size.height = viewHeightContainsSubview()
         self.frame = newFrame
@@ -547,11 +522,9 @@ fileprivate class projectListView: UIView
     }
 }
 
-class Project: UIView
-{
+class Project: UIView {
     private var header: headerView!
     private var profile: profileView!
-//    private var progress: progressView!
     private var project: projectListView!
     
     var scrollView: UIScrollView!
@@ -582,7 +555,6 @@ class Project: UIView
         addSubview(header)
         // 用户信息
         profile = profileView(frame: CGRect(x: gap, y: headerHeight + gap, width: profileWidth, height: profileHeight))
-        //profile.backgroundColor = .black
         addSubview(profile)
         // 滑动
         let scrollHeight: CGFloat = self.bounds.height
@@ -590,10 +562,6 @@ class Project: UIView
         scrollView.isUserInteractionEnabled = true
         scrollView.contentSize = CGSize(width: max(progressWidth,projectWidth), height: scrollHeight)
         scrollView.showsVerticalScrollIndicator = false
-        // 滑动中的progress
-//        progress = progressView(frame: CGRect(x: 0, y: gap, width: progressWidth, height: progressHeight), left_right_pad: left_right_pad)
-//        progress.backgroundColor = .white
-//        scrollView.addSubview(progress)
         // 滑动中的project
         project = projectListView(frame: CGRect(x: 0, y: gap, width: projectWidth, height: projectHeight),left_right_pad: left_right_pad)
         project.backgroundColor = .white

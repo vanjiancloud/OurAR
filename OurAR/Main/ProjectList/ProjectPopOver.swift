@@ -440,7 +440,7 @@ class ProjectPopOverController: UIViewController
             if result {
                 if let controller = self.presentingViewController as? ProjectController {
                     self.dismiss(animated: true)
-                    controller.queryProjectList()
+                    controller.queryProjectList(page: 1)
                 }
             }
         })
@@ -451,7 +451,7 @@ class ProjectPopOverController: UIViewController
             if result {
                 if let controller = self.presentingViewController as? ProjectController {
                     self.dismiss(animated: true)
-                    controller.queryProjectList()
+                    controller.queryProjectList(page: 1)
                 }
             }
         }

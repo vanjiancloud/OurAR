@@ -8,10 +8,12 @@
 import Foundation
 import UIKit
 
-class ProjectController: UIViewController
-{
+class ProjectController: UIViewController, UIScrollViewDelegate {
     var allProject: [Int:ProjectItem] = [:]
     var project: Project!
+    var currentPage = 1
+    var isLoadingMore = false  // 防止重复加载
+    var hasMoreData = true  // 是否还有更多数据
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,74 +23,106 @@ class ProjectController: UIViewController
         self.view = project
         project.onRefresh = { [weak self] in
             guard let self = self else { return }
-            self.queryProjectList()
+            currentPage = 1
+            self.queryProjectList(page: currentPage)
             self.queryCount()
         }
+        project.scrollView.delegate = self
                 
-        queryProjectList()
+        queryProjectList(page: currentPage)
         queryCount()
     }
-    
-    func queryProjectList() {
-        print("queryProjectList")
-        queryApplicationList { result in
+
+    func queryProjectList(page: Int) {
+        print("queryProjectList page: \(page)")
+        
+        guard hasMoreData else {
+            print("没有更多数据")
+            return
+        }
+
+        queryApplicationList(page: page) { result in
             DispatchQueue.main.async {
                 self.project.endRefreshing()
             }
+            self.isLoadingMore = false
             
-            switch result{
-            case.success(let JSON):
+            switch result {
+            case .success(let JSON):
                 do {
-                    let JSONObject = try? JSONSerialization.jsonObject(with: JSON )
-                    if let JSON = JSONObject as? [String:Any] {
-                        if let respCode = JSON["code"] as? Int,
-                            let data = JSON["data"] as? [String:Any]
-                        {
-                            if respCode == 0
-                            {
-                                let itemList = data["list"] as? [[String:Any]]
-                                
-                                self.allProject.removeAll()
-                              
-                                //TODO 记录最新的项目list
-                                var i = 0
-                                itemList?.forEach {
-                                    (item) in
-                                   
-                                    var projectItem = ProjectItem()
-                                    projectItem.name = item["appName"] as? String
-                                    projectItem.id = item["appid"] as? String
-                                    projectItem.createTime = item["createTime"] as? String
-                                    projectItem.size = item["fileSize"] as? String
-                                    projectItem.status = item["applidStatus"] as? String
-                                    projectItem.currVersion = item["currVersion"] as? String
-                                    projectItem.progress = item["progress"] as? String
-                                    projectItem.applidStatus = item["applidStatus"] as? String
-                                    if let totalInt = data["total"] as? Int {
-                                        projectItem.projectCount = String(totalInt)
-                                    } else if let totalStr = data["total"] as? String {
-                                        projectItem.projectCount = totalStr
-                                    } else {
-                                        projectItem.projectCount = nil
-                                    }
-
-                                    self.allProject[i] = projectItem
-                                    i += 1
-                                   
-                                }
-                                //更新页面
-                                DispatchQueue.main.async {
-                                    self.project?.updateProjectItems(&self.allProject)
-                                }                                
+                    let JSONObject = try? JSONSerialization.jsonObject(with: JSON)
+                    if let JSON = JSONObject as? [String: Any],
+                       let respCode = JSON["code"] as? Int,
+                       let data = JSON["data"] as? [String: Any],
+                       respCode == 0
+                    {
+                        let itemList = data["list"] as? [[String: Any]] ?? []
+                        let isLastPage = (data["isLastPage"] as? Int) == 1
+                        
+                        // 记录总项目数（放入第一个 item 里）
+                        let totalCountString: String? = {
+                            if let totalInt = data["total"] as? Int {
+                                return String(totalInt)
+                            } else if let totalStr = data["total"] as? String {
+                                return totalStr
                             }
+                            return nil
+                        }()
+
+                        // 记录当前已有数量，用作下标
+                        var currentIndex = self.allProject.count
+                        
+                        for item in itemList {
+                            var projectItem = ProjectItem()
+                            projectItem.name = item["appName"] as? String
+                            projectItem.id = item["appid"] as? String
+                            projectItem.createTime = item["createTime"] as? String
+                            projectItem.size = item["fileSize"] as? String
+                            projectItem.status = item["applidStatus"] as? String
+                            projectItem.currVersion = item["currVersion"] as? String
+                            projectItem.progress = item["progress"] as? String
+                            projectItem.applidStatus = item["applidStatus"] as? String
+                            
+                            if currentIndex == 0 {
+                                projectItem.projectCount = totalCountString
+                            }
+
+                            self.allProject[currentIndex] = projectItem
+                            currentIndex += 1
+                        }
+
+                        // 更新页面
+                        DispatchQueue.main.async {
+                            self.project?.updateProjectItems(&self.allProject)
+                        }
+
+                        self.hasMoreData = !isLastPage
+                        if !isLastPage {
+                            self.currentPage += 1
                         }
                     }
                 }
             case .failure(let error):
-                print(error)
-                print("error")
+                print("queryProjectList error: \(error)")
             }
         }
+    }
+
+    
+    // UIScrollViewDelegate
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let offsetY = scrollView.contentOffset.y
+//        let contentHeight = scrollView.contentSize.height
+//        let scrollViewHeight = scrollView.frame.size.height
+//        
+//        // 判断是否快到底部，阈值为100，可根据需求调整
+//        if offsetY > contentHeight - scrollViewHeight - 20 {
+//            // 触发加载下一页
+//            if !isLoadingMore && hasMoreData {
+//                isLoadingMore = true
+//                queryProjectList(page: currentPage)
+//            }
+//        }
     }
     
     func queryCount() {

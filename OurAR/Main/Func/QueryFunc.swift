@@ -10,28 +10,29 @@ import CloudAR
 import Alamofire
 
 //MARK: 请求项目列表
-public func queryApplicationList(completion: @escaping (Result<Data, Error>) -> Void) {
+public func queryApplicationList(page: Int, completion: @escaping (Result<Data, Error>) -> Void) {
     
-    // 这里执行异步操作，例如网络请求或长时间的计算任务
-    // 当任务完成时，调用 completion 闭包并传递结果或错误
+    // 构建 URL，带上分页参数 // size
+    let urlString = car_URL.urlPre + "appli/getApplicationList?userid=\(car_UserInfo.userID)&pageNum=\(page)"
     
-    let url = car_URL.urlPre + "appli/getApplicationList?userid=\(car_UserInfo.userID)&pageNo=1&pageSize=200"
-    AF.request(url,method: .get).response { (response:AFDataResponse) in
+    // 发起请求
+    AF.request(urlString, method: .get).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 {
             NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
         }
         
         switch response.result {
-            case .success(let JSON):
-                print("request project list success")
-                completion(.success(JSON ?? Data()))
-            case .failure(let error):
-            print("request project list failed")
-                completion(.failure(error))
+        case .success(let data):
+            print("Request project list success for page \(page)")
+            completion(.success(data ?? Data()))
+        case .failure(let error):
+            print("Request project list failed for page \(page)")
+            completion(.failure(error))
         }
     }
 }
+
 
 //MARK: 请求使用信息
 public func queryCountInfo(completion: @escaping (Result<Data,Error>) -> Void) {

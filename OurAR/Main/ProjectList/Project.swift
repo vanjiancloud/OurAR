@@ -483,6 +483,7 @@ fileprivate class projectListView: UIView {
         }
 
         if allProject.count == 0 {
+            self.removeAllItemView()
             return
         }
         for i in 0...allProject.count-1 {

@@ -35,26 +35,28 @@ class ProjectController: UIViewController, UIScrollViewDelegate {
     }
     
     func removeProject(id: String) {
-//        // 找到对应 key
-//        if let keyToRemove = self.allProject.first(where: { $0.value.id == id })?.key {
-//            // 删除对应项目
-//            self.allProject.removeValue(forKey: keyToRemove)
-//
-//            // 获取第一个 key，再通过 key 修改项目
-//            if let firstKey = self.allProject.keys.first,
-//               var firstItem = self.allProject[firstKey],
-//               let countStr = firstItem.projectCount,
-//               let count = Int(countStr),
-//               count > 0 {
-//                firstItem.projectCount = "\(count - 1)"
-//                self.allProject[firstKey] = firstItem // ← 重新赋值回字典
-//            }
-//        }
-//        
-//        // 更新页面
-//        DispatchQueue.main.async {
-//            self.project?.updateProjectItems(&self.allProject)
-//        }
+        if let keyToRemove = self.allProject.first(where: { $0.value.id == id })?.key {
+            let previousCount = self.allProject.count
+            self.allProject.removeValue(forKey: keyToRemove)
+            
+            var tempDict = [Int: ProjectItem]()
+            for (newIndex, (_, value)) in self.allProject.sorted(by: { $0.key < $1.key }).enumerated() {
+                var updatedItem = value
+                updatedItem.projectCount = "\(previousCount - 1)"
+                tempDict[newIndex] = updatedItem
+            }
+            self.allProject = tempDict
+            
+            if let firstKey = self.allProject.keys.first {
+                var firstItem = self.allProject[firstKey]
+                firstItem?.projectCount = "\(self.allProject.count)"
+                self.allProject[firstKey] = firstItem
+            }
+        }
+        
+        DispatchQueue.main.async {
+            self.project?.updateProjectItems(&self.allProject)
+        }
     }
 
     func queryProjectList(page: Int) {

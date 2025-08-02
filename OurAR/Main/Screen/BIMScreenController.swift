@@ -14,13 +14,11 @@ import Alamofire
 import SVProgressHUD
 
 class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunchProtocol,ARPositionProtocol
-,ModelLoadFinishProtocol,CloudXRConnectProtocol,EnterPositionPtocotol,CloudXRClientStateUpdateProtocol
-{
+,ModelLoadFinishProtocol,CloudXRConnectProtocol,EnterPositionPtocotol,CloudXRClientStateUpdateProtocol {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
 //MARK: property
     //AR
     var arModelController: ARModelController?   //ar画面
-//    var connectStatsTimer: Timer?
     
     //ThreeD
     var threeDModelController: ThreedModelController? //threeD画面
@@ -63,7 +61,7 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
             let orientationTarget = NSNumber(integerLiteral: UIInterfaceOrientation.landscapeLeft.rawValue)
             UIDevice.current.setValue(orientationTarget, forKey: "orientation")
             
-        }else { //竖屏
+        } else { //竖屏
             let resetOrientationTargert = NSNumber(integerLiteral: UIInterfaceOrientation.unknown.rawValue)
             UIDevice.current.setValue(resetOrientationTargert, forKey: "orientation")
             
@@ -72,8 +70,7 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
         }
     }
     
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         SSMDelegateManager.add(self)
@@ -98,10 +95,9 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
                 self.performSelector(onMainThread: #selector(addTimerAction), with: nil, waitUntilDone: true)
             }
             removeARView()
-        }else if car_EngineStatus.screenMode == .ThreeD {
+        } else if car_EngineStatus.screenMode == .ThreeD {
             removeThreeDView()
         }
-        
     }
     
     @objc func addTimerAction() {
@@ -111,11 +107,12 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
             RunLoop.current .run()
         }
     }
+    
     @objc func startTimer() {
         print("---")
     }
-    private func initSubController()
-    {
+    
+    private func initSubController() {
         vjBIMScreenSubController = BIMScreenSubController()
         addChild(vjBIMScreenSubController)
         view.insertSubview(vjBIMScreenSubController!.view, at: 1)
@@ -185,18 +182,6 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
         vjBIMScreenSubController?.handlePosReturnToScreen(false)
     }
     
-    func printConnectStats() {
-//        connectStatsTimer = Timer.scheduledTimer(withTimeInterval: 4.0, repeats: true) { timer in
-//            if car_EngineStatus.screenMode == .AR {
-//                let (isSuccess,quality,reason) = self.arModelController!.getConnectQuality()
-//                print("success:\(isSuccess),quality: \(String(describing: quality)),reason: \(String(describing: reason))")
-//            } else {
-//                timer.invalidate()
-//            }
-//        }
-//        connectStatsTimer?.fire()
-    }
-    
     //MARK: 根据场景类型来加载模型
     func LoadModel(projectID: String,screenType: car_ScreenMode) {
         car_EngineStatus.screenMode = screenType
@@ -249,9 +234,8 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
             
         } else {
             print("模型启动失败-\(reason)")
-            let showView = self.modelLoadController!.view.isHidden ? self.view : self.modelLoadController!.view
             SVProgressHUD.showInfo(withStatus: reason)
-                MLDelegateManager.notity()
+            MLDelegateManager.notity()
         }
     }
     
@@ -279,15 +263,85 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
     func notifyServerDisConnect() {
         let alert = UIAlertController(title: "提示", message: "服务器连接已断开，是否返回", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "是", style: .default) { [weak self]_ in
-            self?.handleModelLoadFinish(isSuccess: false, reason: "返回成功", screenType: .AR, project: "")
+            SVProgressHUD.showInfo(withStatus: "返回成功")
+            WebSocketClient.shared.close()
+            self?.removeAllChildControllers()
+            
+            self?.dismiss(animated: false)
         }
         let cancleAction = UIAlertAction(title: "否", style: .default) { _ in
+            SVProgressHUD.showInfo(withStatus: "返回成功")
+            WebSocketClient.shared.close()
+            self.removeAllChildControllers()
+            
+            self.dismiss(animated: false)
         }
         alert.addAction(cancleAction)
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
     }
     
+    // 通用移除子控制器方法
+    func removeChildController(_ child: UIViewController?) {
+        guard let child = child else { return }
+        
+        if let arController = child as? ARModelController {
+            removeARController(arController)
+            return
+        }
+        
+        child.willMove(toParent: nil)
+        child.view.removeFromSuperview()
+        child.removeFromParent()
+    }
+
+    private func removeARController(_ controller: ARModelController) {
+        // 阶段1：强制暂停所有渲染和计算
+        controller.mtlView?.isPaused = true  // 暂停Metal渲染
+        
+        // 阶段2：切断数据流（关键步骤）
+        controller.notityConnectProtocol = nil  // 断开网络连接
+        controller.arPositionProtocol = nil    // 停止位置更新
+        controller.notifyClientStateUpdateProtocol = nil
+        
+        // 阶段3：主线程异步释放（避免阻塞）
+        DispatchQueue.main.async { [weak controller] in
+            guard let c = controller else { return }
+            
+            // 释放Metal资源
+            c.mtlView?.releaseDrawables()
+            c.mtlView?.removeFromSuperview()
+            c.mtlView = nil
+            
+            // 移除AR视图
+            c.view.removeFromSuperview()
+        }
+        
+        // 阶段4：立即解除父子关系（不等待渲染停止）
+        controller.willMove(toParent: nil)
+        controller.removeFromParent()
+    }
+
+    // 安全移除所有子控制器
+    func removeAllChildControllers() {
+        // 使用可选绑定安全处理 AR 控制器
+        if let arController = arModelController {
+            removeARController(arController)
+            arModelController = nil  // 重要：解除强引用
+        }
+        
+        // 处理其他子控制器
+        let controllers = [threeDModelController, vjBIMScreenSubController, modelLoadController]
+        controllers.forEach { controller in
+            removeChildController(controller)
+        }
+        
+        // 解除所有强引用
+        threeDModelController = nil
+        vjBIMScreenSubController = nil
+        modelLoadController = nil
+    }
+
     public func notifyClientStateUpdate(state: car_ClientState,reason: car_ClientStateReason) {
         switch state {
         case .connectionAttemptFailed:print("notifyClientStateUpdate -- connectionAttemptFailed")
@@ -323,7 +377,7 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
             let reason = result?.1
             if success! {
                 print("开始重连")
-            }else {
+            } else {
                 print("不能重连")
                 self?.handleModelLoadFinish(isSuccess: false, reason: reason!, screenType: .AR, project: "")
             }
@@ -406,7 +460,7 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
             requestExitByHostId { result in
                 if result {
                     print("-----重启服务器成功")
-                }else {
+                } else {
                     print("-----重启服务器失败")
                 }
             }

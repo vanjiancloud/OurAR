@@ -218,10 +218,11 @@ class VJPropertyView: UIView
             let dynamicData = data["dynamicData"] as? [[String:Any]]
         {
             let name = data["name"] as? String ?? ""
+            let uuid = data["uuid"] as? String ?? ""
             
             var results: [[String:Any]?] = dynamicData
             results.insert(["name":"构件名","value":name], at: 0) //构件名
-            results.insert(["name":"构件ID","value":actorID], at: 1) //构件id
+            results.insert(["name":"构件ID","value":uuid], at: 1) //构件id
             self.fillingPropertyItems(&results)
             
         } else if var object = json["object"] as? [[String:Any]?] {

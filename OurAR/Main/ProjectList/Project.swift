@@ -274,7 +274,6 @@ fileprivate class progressView: UIView {
             let currSpace_f = Float(currSpace) ?? 0.0
             let countSpace_f = Float(countSpace) ?? 1.0
             let currSpace_fString = String(format: "%.1f", currSpace_f)
-            let countSpace_fString = String(format: "%.1f", countSpace_f)
             node?.use?.text = currBF
             node?.total?.text = "/\(countBF)"
             node?.progress?.setProgress(currBF_f/countBF_f, animated: true)
@@ -506,18 +505,16 @@ fileprivate class projectListView: UIView {
     }
     
     func updateProjectItemView(_ allProject: inout [Int: ProjectItem]) {
-        //删除现有的projectItemView
         removeAllItemView()
-        
-        //根据最新的project重新绘制
         addAllItemView(&allProject)
-        
-        //增加了子视图后，需要更新frame
         updateFrame()
     }
     
     func viewHeightContainsSubview() -> CGFloat {
-        return max(bounds.height, projectItem_start_y + CGFloat(ceil(Double(allProjectItem.count) / Double(column))) * projectItem_height)
+        let rowCount = ceil(Double(allProjectItem.count) / Double(column))
+        let dynamicHeight = projectItem_start_y + (rowCount * projectItem_height)
+        
+        return dynamicHeight
     }
     
     func updateFrame() {
@@ -596,12 +593,18 @@ class Project: UIView {
     }
     
     private func updateScrollHeight() {
-        let height = progressHeight + gap * 3 + project!.viewHeightContainsSubview()
-        self.scrollView?.contentSize = CGSize(width: self.scrollView!.bounds.width, height: height)
-        self.scrollView?.setNeedsLayout()
-        self.scrollView?.layoutIfNeeded()
-        self.setNeedsLayout()
-        self.layoutIfNeeded()
+        DispatchQueue.main.async {
+            let subviewHeight = self.project!.viewHeightContainsSubview()
+            let totalHeight = self.progressHeight + self.gap * 3 + subviewHeight
+            
+            self.scrollView?.contentSize = CGSize(
+                width: self.scrollView?.bounds.width ?? 0,
+                height: totalHeight
+            )
+            
+            self.scrollView?.setNeedsLayout()
+            self.scrollView?.layoutIfNeeded()
+        }
     }
     
     func updateProgressInfo(data: [String:Any]) {

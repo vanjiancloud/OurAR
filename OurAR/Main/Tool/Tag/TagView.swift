@@ -203,8 +203,7 @@ class TagItemCell: UITableViewCell
     }
 }
 
-class TagView : MTSidebarView, UITableViewDataSource, UITableViewDelegate, TagCellPtocotol, TagModifyActionProtocol, TagDeleteActionProtocol
-{
+class TagView : MTSidebarView, UITableViewDataSource, UITableViewDelegate, TagCellPtocotol, TagModifyActionProtocol, TagDeleteActionProtocol, UISearchBarDelegate {
     
     var searchview: UISearchBar!
     var createTagBtn: UIButton!
@@ -221,6 +220,7 @@ class TagView : MTSidebarView, UITableViewDataSource, UITableViewDelegate, TagCe
     private var topLevelItems: [TagItem] = [] //最顶层的文件或文件夹,每次新建都是插入在首位
     private var focusTagItem: TreeItem? //所聚焦的tagitem,如果有聚焦的，那创建新的文件夹或标签都是在它层级中创建;如果没有聚焦的，就是在最顶层的目录创建
     private var showItems: [TreeProtocol] = [] //所有要展示出来的数据
+    private var originalItems: [TreeProtocol] = []
     
     var deleteAlert: UIAlertController? //删除的Alert
     var modifyAlert: UIAlertController?
@@ -252,6 +252,7 @@ class TagView : MTSidebarView, UITableViewDataSource, UITableViewDelegate, TagCe
         searchview = UISearchBar(frame: CGRect(x: search_start_x, y: 0, width: searchviewWidth, height: searchHeight))
         searchview.center.y = search_center_y
         searchview.placeholder = "请输入你要搜索的内容"
+        searchview.delegate = self
         searchview.backgroundColor = UIColor(white: 1, alpha: 0)
         addSubview(searchview)
         
@@ -291,6 +292,28 @@ class TagView : MTSidebarView, UITableViewDataSource, UITableViewDelegate, TagCe
         }
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.text?.trimmingCharacters(in: .whitespaces) else { return }
+        performSearch(with: searchText)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        // 键盘收起时触发搜索
+        guard let searchText = searchBar.text?.trimmingCharacters(in: .whitespaces) else { return }
+        performSearch(with: searchText)
+    }
+    
+    private func performSearch(with keyword: String) {
+        if searchview.text?.isEmpty ?? true {
+            showItems = originalItems
+        } else {
+            showItems = originalItems.filter {
+                $0._name.localizedCaseInsensitiveContains(searchview.text ?? "")
+            }
+        }
+        tableview.reloadData()
+    }
+    
     override func handleClose() {
         VJMTDelegateManager.notity(needClosedMainType: .BiaoQian)
         
@@ -306,6 +329,7 @@ class TagView : MTSidebarView, UITableViewDataSource, UITableViewDelegate, TagCe
         topLevelItems.removeAll()
         focusTagItem = nil
         showItems.removeAll()
+        originalItems.removeAll()
     }
     
     // 所focus的item是否能够在此创建file or folder
@@ -356,6 +380,9 @@ class TagView : MTSidebarView, UITableViewDataSource, UITableViewDelegate, TagCe
         let needInsertToTableView = groupID.isEmpty ? true : (groupItem == nil ? false : !groupItem!._collpase)
         
         if needInsertToTableView {
+            self.showItems = self.originalItems
+            self.searchview.text = ""
+            
             // 查找待插入的位置
             var row  = 0
             if let groupRow = self.showItems.firstIndex(where: {$0._id == groupID }) {
@@ -533,7 +560,10 @@ class TagView : MTSidebarView, UITableViewDataSource, UITableViewDelegate, TagCe
         for tag in topLevelItems {
             tag.getNeedShowItems(outItems: &items)
         }
+        self.searchview.text = ""
+        originalItems = items
         showItems = items
+        
         self.tableview.reloadData()
     }
     

@@ -342,29 +342,42 @@ class GoujianshuView: MTSidebarView , UITableViewDataSource, UITableViewDelegate
                 }
                 break
             case .delete:
-                if let item = getItemByID(id) as? GJSItem {
-                    if item.isCustomModel() {
-                        let uuid = getUUIDFromID(id)
-                        sendDeleteCustomModel(uuid: uuid, completion: {result in
-                            print("delete custom model : \(id)")
-                            // 删除自定义构件要移除相应的item
-                            if result {
-                                if let focusID = self.focusItem?._id {
-                                    if id == focusID {
-                                        self.focusItem = nil
+                let alert = UIAlertController(
+                    title: "提示",
+                    message: "确定删除\(focusItem?._name ?? "此")？构件",
+                    preferredStyle: .alert
+                )
+
+                alert.addAction(UIAlertAction(title: "取消", style: .cancel))
+                
+                let okAction = UIAlertAction(title: "确定", style: .destructive) { _ in
+                    if let item = self.getItemByID(id) as? GJSItem {
+                        if item.isCustomModel() {
+                            let uuid = self.getUUIDFromID(id)
+                            sendDeleteCustomModel(uuid: uuid, completion: {result in
+                                print("delete custom model : \(id)")
+                                // 删除自定义构件要移除相应的item
+                                if result {
+                                    if let focusID = self.focusItem?._id {
+                                        if id == focusID {
+                                            self.focusItem = nil
+                                        }
                                     }
+                                    if let delItem = self.getItemByID(id) as? GJSItem {
+                                        delItem.deleteSelf()
+                                    }
+                                    if let row = self.topLevelItems_gjs.firstIndex(where: {$0._id == id}) {
+                                        self.topLevelItems_gjs.remove(at: row)
+                                    }
+                                    self.updateShowItems()
                                 }
-                                if let delItem = self.getItemByID(id) as? GJSItem {
-                                    delItem.deleteSelf()
-                                }
-                                if let row = self.topLevelItems_gjs.firstIndex(where: {$0._id == id}) {
-                                    self.topLevelItems_gjs.remove(at: row)
-                                }
-                                self.updateShowItems()
-                            }
-                        })
+                            })
+                        }
                     }
                 }
+                alert.addAction(okAction)
+                
+                self.findViewController()?.present(alert, animated: true)
                 break
             case .hidden:
                 // 这里隐藏的话，旗下的所有子节点都要隐藏
@@ -394,5 +407,19 @@ class GoujianshuView: MTSidebarView , UITableViewDataSource, UITableViewDelegate
                 break
             }
         }
+    }
+}
+
+extension UIView {
+    // 通用方法：查找所属的ViewController
+    func findViewController() -> UIViewController? {
+        var responder: UIResponder? = self
+        while let current = responder {
+            if let vc = current as? UIViewController {
+                return vc
+            }
+            responder = current.next
+        }
+        return nil
     }
 }

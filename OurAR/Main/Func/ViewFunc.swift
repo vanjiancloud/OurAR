@@ -42,18 +42,13 @@ func enterBIMScreen(currViewController: UIViewController)
     currViewController.present(bimScreenController, animated: false,completion: nil)
 }
 //MARK: 带项目id的场景加载方法
-func enterBIMScreen(currViewController: UIViewController,needLoadProject: String,screenType: car_ScreenMode) -> (Bool,String)
-{
-    let canEnter = true
-    let reason = canEnter  ? "" : "稍后再试"
-    if canEnter {
-        let bimScreenController = BIMScreenController()
-        bimScreenController.modalPresentationStyle = .fullScreen
-        currViewController.present(bimScreenController, animated: false,completion: nil)
-        bimScreenController.LoadModel(projectID: needLoadProject, screenType: screenType)
-    }
+func enterBIMScreen(currViewController: UIViewController,needLoadProject: String,screenType: car_ScreenMode) -> (Bool,String) {
+    let bimScreenController = BIMScreenController()
+    bimScreenController.modalPresentationStyle = .fullScreen
+    currViewController.present(bimScreenController, animated: false,completion: nil)
+    bimScreenController.LoadModel(projectID: needLoadProject, screenType: screenType)
     
-    return (canEnter,reason)
+    return (true,"")
 }
 
 //MARK: 制作一个mask

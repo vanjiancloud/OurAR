@@ -349,13 +349,21 @@ fileprivate class projectItem: UIView {
         nameLabel.textColor = .black
         nameLabel.textAlignment = .left
         nameLabel.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(pressItem))
-        nameLabel.addGestureRecognizer(tap)
-        
+
         createTimeLabel = UILabel(frame: CGRect(x: left_right_pad + height * 0.6 + 20, y: height * 0.6, width: width * 0.6, height: 16))
         createTimeLabel.font = UIFont.systemFont(ofSize: 12)
         createTimeLabel.textColor = VJTextColor_07
         createTimeLabel.textAlignment = .left
+        
+        let tapButton = UIButton(type: .custom)
+        tapButton.frame = CGRect(
+            x: nameLabel.frame.origin.x,
+            y: nameLabel.frame.origin.y - 10,
+            width: nameLabel.frame.width,
+            height: nameLabel.frame.height + 40
+        )
+        tapButton.addTarget(self, action: #selector(pressItem(_:)), for: .touchUpInside)
+        addSubview(tapButton)
         
         btnModify = UIButton(frame: CGRect(x: min(width - height * 0.1 - height * 0.5,width * 0.8), y:height * 0.1, width: height * 0.8, height: height * 0.8))
         btnModify.backgroundColor = UIColor(white: 1, alpha: 0)
@@ -400,7 +408,7 @@ fileprivate class projectItem: UIView {
         }
     }
     
-    @objc func pressItem(sender: UITapGestureRecognizer){
+    @objc func pressItem(_ sender: UIButton){
         // 开启一个场景
         print("press item")
         if let viewController = getControllerOfSubview(self) as? ProjectController {
@@ -425,6 +433,7 @@ fileprivate class projectItem: UIView {
             }
         }
     }
+    
     @objc func pressModify(sender: UIButton){
         print("press modify")
         // 打开修改页面

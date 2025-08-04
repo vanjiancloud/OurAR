@@ -604,17 +604,22 @@ func sendHiddenModel(uuid: String,appliId: String = car_UserInfo.currProID,isHid
 }
 //MARK: 隐藏自定义构件
 func sendHiddenCustomModel(uuid: String,isHidden: Bool,completion: @escaping (Bool) -> Void) {
-    let url = car_URL.urlPre + "comControl/controlComShowOrHide"
-    var info: [String:Any] = ["taskId": car_UserInfo.taskID]
-    info["comId"] = uuid
-    info["lableVisibility"] = !isHidden
-    AF.request(url,method:.post,parameters: info,encoding: URLEncoding.default).response{(response:AFDataResponse) in
+    let baseUrl = car_URL.urlPre + "comControl/controlComShowOrHide"
+    
+    let urlString = "\(baseUrl)?taskId=\(car_UserInfo.taskID)&comId=\(uuid)&lableVisibility=\(!isHidden)"
+    
+    guard let encodedUrlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+          let url = URL(string: encodedUrlString) else {
+        completion(false)
+        return
+    }
+    AF.request(url, method: .post).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 {
             NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
         }
         
-        let (isSuccess,_) = asyncRespBool(result: response.result)
+        let (isSuccess, _) = asyncRespBool(result: response.result)
         completion(isSuccess)
     }
 }

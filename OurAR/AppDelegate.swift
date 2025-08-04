@@ -87,18 +87,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func topViewController(from vc: UIViewController) -> UIViewController {
-        var topVC = vc
-        while let presented = topVC.presentedViewController {
-            topVC = presented
+    func topViewController(from base: UIViewController) -> UIViewController {
+        if let nav = base as? UINavigationController {
+            return topViewController(from: nav.visibleViewController ?? nav)
         }
-        if let nav = topVC as? UINavigationController {
-            topVC = nav.topViewController ?? nav
+        
+        if let tab = base as? UITabBarController {
+            if let selected = tab.selectedViewController {
+                return topViewController(from: selected)
+            }
         }
-        if let tab = topVC as? UITabBarController {
-            topVC = tab.selectedViewController ?? tab
+        
+        if let presented = base.presentedViewController {
+            return topViewController(from: presented)
         }
-        return topVC
+        
+        return base
     }
     
     func jumpToLogin() {

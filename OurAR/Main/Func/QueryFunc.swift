@@ -18,7 +18,7 @@ public func queryApplicationList(page: Int, completion: @escaping (Result<Data, 
     // 发起请求
     AF.request(urlString, method: .get).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
+        if statusCode == 401 || (statusCode == nil) {
             NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
         }
         

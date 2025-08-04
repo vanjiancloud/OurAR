@@ -15,12 +15,28 @@ class ModelLoadView: UIView {
     
     var loadImg: UIImageView!
     var loadLabel: UILabel!
-    var loadProgress: UILabel! //未初始化
-    var backBtn: BackBtnView! //退出按钮
+    var backBtn: BackBtnView!
+    @objc var progressLabel: UILabel!
+    @objc var progressTipsLabel: UILabel!
+    @objc var progressBgView: UIView!
+    var progressBgWidthConstraint: NSLayoutConstraint!
+    var progressLabelLeadingConstraint: NSLayoutConstraint!
+    
+    lazy var progressView: UIProgressView = {
+        let progressView = UIProgressView()
+        progressView.progressTintColor = .clear
+        progressView.trackTintColor = .clear
+        progressView.progress = 0
+        progressView.alpha = 0.0
+        progressView.layer.cornerRadius = 12.5
+        progressView.clipsToBounds = true
+        return progressView
+    }()
     
     private let activityIndicatorView: UIActivityIndicatorView = {
         let activityIndicatorView = UIActivityIndicatorView(style: .large)
-        activityIndicatorView.color = .white
+        activityIndicatorView.color = .black
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         return activityIndicatorView
     }()
 
@@ -34,12 +50,12 @@ class ModelLoadView: UIView {
         setupViews()
     }
     
-    private func initSubView()
-    {
-        loadImg = UIImageView(frame: CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height))
+    private func initSubView() {
+        // 1. 先初始化所有视图
+        loadImg = UIImageView()
         loadImg.image = UIImage(named: "loadbg")
         
-        loadLabel = UILabel(frame: CGRect(x: bounds.width * 0.4, y: bounds.height * 0.55, width: bounds.width * 0.2, height: 30))
+        loadLabel = UILabel()
         loadLabel.font = UIFont.systemFont(ofSize: 18)
         loadLabel.text = "模型场景加载中"
         loadLabel.textColor = .black
@@ -47,35 +63,98 @@ class ModelLoadView: UIView {
         
         backBtn = BackBtnView(x: 0, y: 20, width: 40, height: 40)
         
+        progressBgView = UIView()
+        progressBgView.backgroundColor = .clear
+        progressBgView.layer.cornerRadius = 12.5
+        progressBgView.clipsToBounds = true
+        progressBgView.isHidden = false
+        
+        progressLabel = UILabel()
+        progressLabel.textColor = .black
+        progressLabel.font = UIFont.systemFont(ofSize: 12)
+        progressLabel.isHidden = false
+        progressLabel.text = "0%"
+
+        progressTipsLabel = UILabel()
+        progressTipsLabel.font = UIFont.systemFont(ofSize: 12)
+        progressTipsLabel.text = "BIM模型加载中..."
+        progressTipsLabel.textColor = .white
+        progressTipsLabel.textAlignment = .center
+        progressTipsLabel.backgroundColor = .black
+        progressTipsLabel.isHidden = true
+        
+        // 2. 添加所有子视图
         addSubview(loadImg)
         addSubview(loadLabel)
         addSubview(backBtn)
-        if getIsIphone() {
-            loadImg.snp.makeConstraints { make in
-                make.right.left.top.bottom.equalTo(self)
-            }
-            loadLabel.snp.makeConstraints { make in
-                make.center.equalTo(self)
-                make.height.equalTo(30)
-                make.width.equalTo(200)
-            }
-            backBtn.snp.makeConstraints { make in
-                make.height.equalTo(40)
-                make.width.equalTo(60)
-                make.top.equalTo(30)
-                make.left.equalTo(self)
-            }
-        }
+        addSubview(progressBgView)
+        addSubview(progressLabel)
+        addSubview(progressTipsLabel)
+        addSubview(progressView)
+        
+        // 3. 设置约束
+        setupConstraints()
+    }
+    
+    private func setupConstraints() {
+        loadImg.translatesAutoresizingMaskIntoConstraints = false
+        loadLabel.translatesAutoresizingMaskIntoConstraints = false
+        progressBgView.translatesAutoresizingMaskIntoConstraints = false
+        progressLabel.translatesAutoresizingMaskIntoConstraints = false
+        progressTipsLabel.translatesAutoresizingMaskIntoConstraints = false
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // 通用约束
+        NSLayoutConstraint.activate([
+            loadImg.topAnchor.constraint(equalTo: topAnchor),
+            loadImg.bottomAnchor.constraint(equalTo: bottomAnchor),
+            loadImg.leadingAnchor.constraint(equalTo: leadingAnchor),
+            loadImg.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+            loadLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            loadLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            loadLabel.widthAnchor.constraint(equalToConstant: 200),
+            loadLabel.heightAnchor.constraint(equalToConstant: 30),
+            
+            backBtn.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backBtn.topAnchor.constraint(equalTo: topAnchor, constant: 30),
+            backBtn.widthAnchor.constraint(equalToConstant: 60),
+            backBtn.heightAnchor.constraint(equalToConstant: 40),
+            
+            progressTipsLabel.widthAnchor.constraint(equalToConstant: 300),
+            progressTipsLabel.heightAnchor.constraint(equalToConstant: 25),
+            progressTipsLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            progressTipsLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50),
+            
+            progressView.heightAnchor.constraint(equalToConstant: 25),
+            progressView.widthAnchor.constraint(equalToConstant: 300),
+            progressView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            progressView.bottomAnchor.constraint(equalTo: progressTipsLabel.topAnchor, constant: -6),
+            
+            progressBgView.leadingAnchor.constraint(equalTo: progressView.leadingAnchor),
+            progressBgView.bottomAnchor.constraint(equalTo: progressTipsLabel.topAnchor, constant: -6),
+            progressBgView.heightAnchor.constraint(equalToConstant: 25),
+            
+            progressLabel.centerYAnchor.constraint(equalTo: progressBgView.centerYAnchor)
+        ])
+        
+        progressBgWidthConstraint = progressBgView.widthAnchor.constraint(equalToConstant: 22)
+        progressBgWidthConstraint.isActive = true
+        
+        progressLabelLeadingConstraint = progressLabel.leadingAnchor.constraint(equalTo: progressBgView.leadingAnchor)
+        progressLabelLeadingConstraint.isActive = true
     }
 
     private func setupViews() {
         autoresizingMask = [.flexibleWidth, .flexibleHeight]
         initSubView()
-        //backgroundColor = UIColor(white: 0, alpha: 0.5)
-        addSubview(activityIndicatorView)
-        activityIndicatorView.center = center
-        activityIndicatorView.startAnimating()
         
+        addSubview(activityIndicatorView)
+        NSLayoutConstraint.activate([
+            activityIndicatorView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            activityIndicatorView.bottomAnchor.constraint(equalTo: loadLabel.topAnchor, constant: -10)
+        ])
+        activityIndicatorView.startAnimating()
     }
 
     func show() {
@@ -85,5 +164,4 @@ class ModelLoadView: UIView {
     func hide() {
         isHidden = true
     }
-    
 }

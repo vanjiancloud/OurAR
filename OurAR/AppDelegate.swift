@@ -68,14 +68,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            guard let rootVC = self.window?.rootViewController else { return }
-            let presentingVC = self.topViewController(from: rootVC)
+            
+            // 更安全的获取 keyWindow 方式
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }),
+                  let rootVC = window.rootViewController else {
+                return
+            }
+            
+            let presentingVC = self.safeTopViewController(from: rootVC)
+            print("最终用于 present 的 VC: \(String(describing: presentingVC))")
+            
+            // 检查是否已有弹窗
+            if presentingVC.presentedViewController != nil {
+                print("已有弹窗存在，不再重复显示")
+                return
+            }
             
             let alert = UIAlertController(title: "提示",
-                                          message: "该账号验证信息已失效，请重新登录",
-                                          preferredStyle: .alert)
+                                        message: "该账号验证信息已失效，请重新登录",
+                                        preferredStyle: .alert)
             let ok = UIAlertAction(title: "确定", style: .default) { _ in
-                // 10秒后允许再次弹窗
                 DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                     self.hasShownLoginAlert = false
                 }
@@ -86,25 +98,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             presentingVC.present(alert, animated: true)
         }
     }
-    
-    func topViewController(from base: UIViewController) -> UIViewController {
+
+    // 更安全的顶层控制器获取方法
+    func safeTopViewController(from base: UIViewController) -> UIViewController {
+        // 1. 处理导航控制器
         if let nav = base as? UINavigationController {
-            return topViewController(from: nav.visibleViewController ?? nav)
+            return safeTopViewController(from: nav.visibleViewController ?? nav)
         }
         
+        // 2. 处理标签栏控制器（适配没有 selectedViewController 的情况）
         if let tab = base as? UITabBarController {
+            // 优先使用 selectedViewController
             if let selected = tab.selectedViewController {
-                return topViewController(from: selected)
+                return safeTopViewController(from: selected)
             }
+            // 如果没有选中的，使用第一个子控制器
+            else if let first = tab.viewControllers?.first {
+                return safeTopViewController(from: first)
+            }
+            // 如果连子控制器都没有，返回 tabBarController 本身
+            return tab
         }
         
+        // 3. 处理模态弹出的控制器
         if let presented = base.presentedViewController {
-            return topViewController(from: presented)
+            return safeTopViewController(from: presented)
         }
         
+        // 4. 默认返回 base
         return base
     }
-    
     func jumpToLogin() {
         UserDefaults.standard.removeObject(forKey: "userID")
         UserDefaults.standard.removeObject(forKey: "imgUrl")

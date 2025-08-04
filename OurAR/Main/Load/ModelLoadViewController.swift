@@ -68,14 +68,77 @@ class ModelLoadViewController: UIViewController,SocketEventProtocol
             if id == "8" {
                 if let progress = json["progress"] as? String {
                     self.loadProgress = CGFloat((progress as NSString).floatValue)
+                    
+                    print("ppppppppppp--loadloadload----load progress \(progress)")
+                    self.modelLoadView.progressView.setProgress(Float(self.loadProgress), animated: true)
+                    
+                    let percent = Int(self.loadProgress * 100)
+                    self.modelLoadView.progressLabel.text = "\(percent)%"
+                    
+                    if percent > 0 {
+                        self.modelLoadView.progressBgView.backgroundColor = UIColor(red: 0.0706, green: 0.5882, blue: 0.8588, alpha: 1.0)
+                    }
+                        
+                    // 设置进度条宽度
+                    var barOffset = 300 * CGFloat(self.loadProgress)
+                    if barOffset < 22 {
+                        barOffset = 22;
+                    }
+                    self.modelLoadView.progressBgWidthConstraint.constant = barOffset
+                    
+                    // 设置标签位置偏移（靠左）
+                    var labelOffset = barOffset - 50
+                    if labelOffset < 22-50 {
+                        labelOffset = 22-50
+                    }
+                    self.modelLoadView.progressLabelLeadingConstraint.constant = max(0, labelOffset)
+
+                    UIView.animate(withDuration: 0.01) {
+                        self.modelLoadView.layoutIfNeeded()
+                    }
+                    
+                    print("------------------getLoadingLabel---\(String(describing: self.modelLoadView.loadLabel.text))")
+                    
                     if loadProgress >= 1 {
-                        loadPhaseNotify?(8)
-                        self.modelLoadFinishProtocol?.handleModelLoadFinish(isSuccess: true, reason: "", screenType: self.needLoadMode, project: self.needLoadProject)
-                        self.needLoadProject = ""
-                        self.needLoadMode = .None
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self.loadPhaseNotify?(8)
+                            self.modelLoadFinishProtocol?.handleModelLoadFinish(isSuccess: true, reason: "", screenType: self.needLoadMode, project: self.needLoadProject)
+                            self.needLoadProject = ""
+                            self.needLoadMode = .None
+                        }
+                       
+                       
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            self.modelLoadView.progressLabel.text = "0%"
+
+                            // 设置进度条宽度
+                            var barOffset = 300 * CGFloat(0)
+                            if barOffset < 22 {
+                                barOffset = 22;
+                            }
+                            self.modelLoadView.progressBgWidthConstraint.constant = 0
+                            
+                            // 设置标签位置偏移（靠左）
+                            var labelOffset = barOffset - 50
+                            if labelOffset < 22-50 {
+                                labelOffset = 22-50
+                            }
+                            
+                            self.modelLoadView.progressLabelLeadingConstraint.constant = max(0, labelOffset)
+                            
+                            self.modelLoadView.loadImg.isHidden = false
+                            self.modelLoadView.loadLabel.isHidden = false
+                            self.modelLoadView.backBtn.isHidden = false
+                            self.modelLoadView.progressLabel.textColor = .black
+                            
+                            UIView.animate(withDuration: 0.01) {
+                                self.modelLoadView.layoutIfNeeded()
+                            }
+                        }
+                        
                     }
                 }
-            }else if id == "6" {
+            } else if id == "6" {
                 self.loadPhaseNotify?(6)
             }
         }
@@ -100,6 +163,8 @@ class ModelLoadViewController: UIViewController,SocketEventProtocol
                 self.needLoadProject = ""
                 self.needLoadMode = .None
             }
+            
+            print("ppppppppppp------load progress \(self.loadProgress)")
         }
         timer.fire()
     }

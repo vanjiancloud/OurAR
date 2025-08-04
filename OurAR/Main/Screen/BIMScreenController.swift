@@ -130,7 +130,13 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
         modelLoadController.loadPhaseNotify = {[weak self](t:Int) in
             switch (t) {
             case 6:
-                self?.modelLoadController.view.isHidden = true
+//                self?.modelLoadController.view.isHidden = true
+                
+                self?.modelLoadController.modelLoadView.loadImg.isHidden = true
+                self?.modelLoadController.modelLoadView.loadLabel.isHidden = true
+                self?.modelLoadController.modelLoadView.backBtn.isHidden = true
+                self?.modelLoadController.modelLoadView.progressLabel.textColor = .white
+                
                 self?.vjBIMScreenSubController.view.isHidden = false
                 break;
             default:

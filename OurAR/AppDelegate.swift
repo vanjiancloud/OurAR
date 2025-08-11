@@ -61,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if allowRotation {
                 return .landscapeRight
             }
-            return .portrait
+            return .all
         }
     }
     

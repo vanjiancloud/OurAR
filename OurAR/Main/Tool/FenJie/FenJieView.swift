@@ -105,8 +105,7 @@ class FenJieView: GTView
     
     //MARK: 展示分解页面时调用
     func open() {
-        slider?.setValue(0, animated: false)
-        fenjieValue?.text = "0"
+
     }
     
     @objc private func sliderValueChanged(_ slider: UISlider?,for event: UIEvent?) {

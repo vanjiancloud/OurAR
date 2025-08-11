@@ -47,10 +47,10 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
         super.viewWillDisappear(animated)
         appDelegate.allowRotation = false
         //判断退出时是否是横屏
-            if UIApplication.shared.statusBarOrientation.isLandscape {
-                //是横屏让变回竖屏
-                setNewOrientation(fullScreen: false)
-            }
+        if UIApplication.shared.statusBarOrientation.isLandscape {
+            //是横屏让变回竖屏
+            setNewOrientation(fullScreen: false)
+        }
     }
     //横竖屏
     func setNewOrientation(fullScreen: Bool) {

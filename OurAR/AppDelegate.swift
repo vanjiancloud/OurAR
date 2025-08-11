@@ -57,8 +57,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return .landscapeRight
             }
             return .portrait
-        }else {
-            return .all
+        } else {
+            if allowRotation {
+                return .landscapeRight
+            }
+            return .portrait
         }
     }
     

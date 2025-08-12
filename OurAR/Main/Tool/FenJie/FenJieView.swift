@@ -109,6 +109,14 @@ class FenJieView: GTView
     }
     
     @objc private func sliderValueChanged(_ slider: UISlider?,for event: UIEvent?) {
+        guard let slider = slider else { return }
+           
+        // 实时取整（关键修改）
+        let roundedValue = round(slider.value)
+        if slider.value != roundedValue {
+            slider.value = roundedValue
+        }
+        
         if let touchEvent = event?.allTouches?.first {
             switch touchEvent.phase {
             case .began:
@@ -116,11 +124,11 @@ class FenJieView: GTView
             case .cancelled:
                 break
             case .moved:
-                fenjieValue.text = String(Int(slider?.value ?? 0))
+                fenjieValue.text = String(Int(slider.value))
                 break
             case .ended:
                 print("slider end")
-                sendFenJie(value: Int(slider!.value), completion: {result in
+                sendFenJie(value: Int(slider.value), completion: {result in
                     if !self.isHidden && !result {
                         if let parentView = self.superview {
                             showTip(tip: "指令下发失败", parentView: parentView,tipColor_bg_fail,tipColor_text_fail) {}

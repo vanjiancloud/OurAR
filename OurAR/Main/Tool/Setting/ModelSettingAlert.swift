@@ -45,8 +45,6 @@ class ModelSettingAlert : UIView {
         return view
     }()
     
-    var onTopViewTapped: (() -> Void)?
-    
     let topLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
@@ -114,20 +112,12 @@ class ModelSettingAlert : UIView {
         bottomSubview.addGestureRecognizer(tapGesture)
         bottomSubview.isUserInteractionEnabled = true
         
-        let topTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTopViewTap))
-        topSubview.addGestureRecognizer(topTapGesture)
-        topSubview.isUserInteractionEnabled = true
-        
         layer.shouldRasterize = true
         layer.rasterizationScale = UIScreen.main.scale
     }
     
     @objc private func handleBottomViewTap() {
         onBottomViewTapped?()
-    }
-    
-    @objc private func handleTopViewTap() {
-        onTopViewTapped?()
     }
     
     override func layoutSubviews() {

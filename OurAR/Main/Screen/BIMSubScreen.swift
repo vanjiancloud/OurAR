@@ -17,13 +17,11 @@ class BIMSubScreenView : BaseView
     var sliderView: SliderView! //
     var vjMainToolView: MainToolView! //主工具栏
     var vjSecondToolViews: [MainToolType: SecondToolView] = [:] //二级工具栏集
-    var vjSecondToolView : SecondToolView!
     
     var vjPropertyView: VJPropertyView! //属性面板
     var vjTagView: TagView! //标签面板
     var vjGJSView: GoujianshuView! //构件树面板
     var vjFenJieView: FenJieView! //分解面板
-    var settingView : ModelSettingAlert!
     
     var enterPositionView: EnterPositionView! //进入定位按钮
     
@@ -79,7 +77,6 @@ class BIMSubScreenView : BaseView
                 vjSecondToolViews[mainType] = secondToolView
                 addSubview(secondToolView)
                 secondToolView.isHidden = true
-                vjSecondToolView = secondToolView
             }
         }
         
@@ -106,17 +103,6 @@ class BIMSubScreenView : BaseView
         vjFenJieView.layer.mask = makeMask(8,self.bounds,[.topLeft])
         addSubview(vjFenJieView)
         vjFenJieView.isHidden = true
-        
-        settingView = ModelSettingAlert(frame:CGRectZero)
-        addSubview(settingView)
-        settingView.isHidden = true
-        
-        settingView.snp.makeConstraints { make in
-            make.left.equalTo(vjSecondToolView.snp.right).offset(-40);
-            make.bottom.equalTo(vjSecondToolView.snp.top).offset(-5);
-            make.size.equalTo(CGSizeMake(200, 300));
-        }
-        
         if getIsIphone() {
             exitScreenBtn.snp.makeConstraints { make in
                 make.top.equalTo(self).offset(20)
@@ -236,7 +222,6 @@ class BIMSubScreenView : BaseView
         vjTagView?.isHidden = true
         vjGJSView?.isHidden = true
         vjFenJieView?.isHidden = true
-        settingView?.isHidden = true
     }
     private func hiddenAllSecondTool() {
         for (_,btn) in vjSecondToolViews {

@@ -13,7 +13,6 @@
 		015BEF0D2DD586F50037F57E /* StreamSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 015BEF062DD586F50037F57E /* StreamSdk.framework */; };
 		015BEF0E2DD587030037F57E /* CloudAR.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 015BEF042DD586F50037F57E /* CloudAR.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		015BEF0F2DD587060037F57E /* StreamSdk.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 015BEF062DD586F50037F57E /* StreamSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		016492BA2E4C70CC00EA70BE /* ModelSettingAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016492B92E4C70CC00EA70BE /* ModelSettingAlert.swift */; };
 		619D8D4F4A65E42C85BE117D /* Pods_OurAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C87F6B9FEFA9EDB3854E86 /* Pods_OurAR.framework */; };
 		9B084F782A734DA300C7E229 /* GoujianshuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B084F772A734DA300C7E229 /* GoujianshuView.swift */; };
 		9B084F7A2A734F0000C7E229 /* GJSItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B084F792A734F0000C7E229 /* GJSItem.swift */; };
@@ -101,7 +100,6 @@
 		015BEF052DD586F50037F57E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		015BEF062DD586F50037F57E /* StreamSdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = StreamSdk.framework; sourceTree = "<group>"; };
 		015BEF082DD586F50037F57E /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
-		016492B92E4C70CC00EA70BE /* ModelSettingAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSettingAlert.swift; sourceTree = "<group>"; };
 		98EF108317D5EA228FD4CE87 /* Pods-OurAR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OurAR.release.xcconfig"; path = "Target Support Files/Pods-OurAR/Pods-OurAR.release.xcconfig"; sourceTree = "<group>"; };
 		9B084F772A734DA300C7E229 /* GoujianshuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoujianshuView.swift; sourceTree = "<group>"; };
 		9B084F792A734F0000C7E229 /* GJSItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GJSItem.swift; sourceTree = "<group>"; };
@@ -242,7 +240,6 @@
 				9B3EB1272A78E486003B5D59 /* SettingController.swift */,
 				9BE88C7B2A95AB140000BC33 /* SettingView.swift */,
 				9BE88C7D2A95D3870000BC33 /* SettingData.swift */,
-				016492B92E4C70CC00EA70BE /* ModelSettingAlert.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -645,7 +642,6 @@
 				9BC240CF2A9DFB0B00FFA497 /* SegmentedControl.swift in Sources */,
 				9BB45E972A68D89900A3381E /* APIDataStruct.swift in Sources */,
 				9BE88C752A9597890000BC33 /* PopOverView.swift in Sources */,
-				016492BA2E4C70CC00EA70BE /* ModelSettingAlert.swift in Sources */,
 				9B50C6DD2A67CD2400FA52CD /* WebSocketClient.swift in Sources */,
 				9B3EB1282A78E486003B5D59 /* SettingController.swift in Sources */,
 				9B9D195B2A55490D00BE5771 /* ViewFunc.swift in Sources */,

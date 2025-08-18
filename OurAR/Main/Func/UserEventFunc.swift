@@ -455,8 +455,8 @@ func handelTagFocusAction(tagID: String,completion: @escaping (Bool,String) -> V
 /**
  uuid: 获得该id下的子列表
  */
-func queryComponentList(uuid: String,appliId: String = car_UserInfo.currProID,completion: @escaping (Result<[[String:Any]],Error>) -> Void) {
-    let url = car_URL.urlPre + "appli/getComponent?appliId=\(appliId)&uuid=\(uuid)"
+func queryComponentList(taskId: String = car_UserInfo.taskID, uuid: String,appliId: String = car_UserInfo.currProID,completion: @escaping (Result<[[String:Any]],Error>) -> Void) {
+    let url = car_URL.urlPre + "appli/getComponent?appliId=\(appliId)&uuid=\(uuid)&taskId=\(taskId)"
     AF.request(url,method:.get).response {(response:AFDataResponse) in
         let result = asyncRespJsonToAny(result: response.result)
         switch result {

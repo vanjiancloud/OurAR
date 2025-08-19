@@ -110,47 +110,38 @@ class LoginController: UIViewController
                         let JSONObject = try? JSONSerialization.jsonObject(with: JSON ?? Data(), options: .allowFragments)
                         if let JSON = JSONObject as? [String:Any] {
                             if let respCode = JSON["code"] as? Int,
-                               let msg = JSON["message"] as? String
-                            {
-                                if respCode == 0
-                                {
+                               let msg = JSON["message"] as? String {
+                                if respCode == 0 {
                                     if let data = JSON["data"] as? [String:Any] {
-                                        
                                         //全局变量的数据设置 id ...
                                         car_UserInfo.userID = data["userid"] as? String ?? ""
                                         car_UserInfo.imgUrl = data["imgUrl"] as? String ?? ""
                                         car_UserInfo.name = data["name"] as? String ?? "匿名"
+                                        let token = data["token"] as? String ?? ""
+                                        UserDefaults.standard.set(token, forKey: "accessToken")
+                                        UserDefaults.standard.synchronize()
                                         
-//                                        showTip(tip: "登录成功", parentView: self.view, center: CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height*0.2),tipColor_bg_success, tipColor_text_success) {
                                         SVProgressHUD.showSuccess(withStatus: "登陆成功")
-                                        print("登录成功")
                                         // 页面跳转
                                         let controller = ProjectController()
                                         controller.modalPresentationStyle = .fullScreen
                                         self.present(controller,animated: true)
 
-//                                        }
                                     } else {
                                         SVProgressHUD.showError(withStatus: "响应数据错误")
-//                                        showTip(tip: "响应数据错误", parentView: self.view, center: CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height*0.2),tipColor_bg_fail,tipColor_text_fail) {}
                                     }
                                 } else {
                                     SVProgressHUD.showError(withStatus: msg)
-//                                    showTip(tip: msg, parentView: self.view, center: CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height*0.2),tipColor_bg_fail, tipColor_text_fail) {}
                                 }
                             }
                         } else {
                             SVProgressHUD.showError(withStatus: "登录响应失败")
-//                            showTip(tip: "登陆响应失败", parentView: self.view, center: CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height*0.2),tipColor_bg_fail, tipColor_text_fail) {}
                         }
                     }
                     break
                 case .failure(let error):
                     print(error)
-                    print("failure")
-//                    SVProgressHUD.dismiss()
                 SVProgressHUD.showError(withStatus: "登录响应失败")
-//                    showTip(tip: "登录响应失败", parentView: self.view, center: CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height*0.2),tipColor_bg_fail, tipColor_text_fail) {}
             }
         }
     }

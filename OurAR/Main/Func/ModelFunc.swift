@@ -14,7 +14,22 @@ public func requestToken(request: inout DataRequest?,projectID: String,completio
 {
     let url = car_URL.urlPre + "OurBim/getEnterToken?appid=\(projectID)"
     
-    request = AF.request(url,method:.get).response { (response:AFDataResponse) in
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    request = AF.request(url,method:.get, headers: headers).response { (response:AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 {
             NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
@@ -51,7 +66,23 @@ public func requestIPwithHostID(request: inout DataRequest?,token: String,bimId:
     let parms = ["appliId":bimId,"plateType":"3","token":token,"versionId": car_cloudarInfo.arversion()]
     print(url)
     print(parms)
-    request = AF.request(url,method:.post,parameters: parms).response { (response:AFDataResponse) in
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    request = AF.request(url,method:.post,parameters: parms, headers: headers).response { (response:AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 {
             NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)

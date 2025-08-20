@@ -117,6 +117,9 @@ class LoginController: UIViewController {
                                         car_UserInfo.userID = data["userid"] as? String ?? ""
                                         car_UserInfo.imgUrl = data["imgUrl"] as? String ?? ""
                                         car_UserInfo.name = data["name"] as? String ?? "匿名"
+                                        let token = data["token"] as? String ?? ""
+                                        UserDefaults.standard.set(token, forKey: "accessToken")
+                                        UserDefaults.standard.synchronize()
                                         
                                         UserDefaults.standard.setValue(car_UserInfo.userID, forKey: "userID")
                                         UserDefaults.standard.setValue(car_UserInfo.imgUrl, forKey: "imgUrl")

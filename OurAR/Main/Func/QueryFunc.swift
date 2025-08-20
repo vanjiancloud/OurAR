@@ -15,8 +15,23 @@ public func queryApplicationList(page: Int, completion: @escaping (Result<Data, 
     // 构建 URL，带上分页参数 // size
     let urlString = car_URL.urlPre + "appli/getApplicationList?userid=\(car_UserInfo.userID)&pageNo=\(page)&pageSize=100"
     
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
     // 发起请求
-    AF.request(urlString, method: .get).response { (response: AFDataResponse) in
+    AF.request(urlString, method: .get, headers: headers).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 || (statusCode == nil) {
             NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
@@ -37,7 +52,23 @@ public func queryApplicationList(page: Int, completion: @escaping (Result<Data, 
 //MARK: 请求使用信息
 public func queryCountInfo(completion: @escaping (Result<Data,Error>) -> Void) {
     let url = car_URL.urlPre + "CountManager/getCountDetail?userid=\(car_UserInfo.userID)"
-    AF.request(url,method: .get).response { (response:AFDataResponse) in
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    AF.request(url,method: .get, headers: headers).response { (response:AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 {
             NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
@@ -58,7 +89,23 @@ public func queryCountInfo(completion: @escaping (Result<Data,Error>) -> Void) {
 public func queryAddress(request: inout DataRequest?,completion: @escaping (Result<Data,Error>) -> Void) {
     // TODO: 接口🈚️
     let url = car_URL.urlPre + ""
-    request = AF.request(url,method:.get)
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    request = AF.request(url,method:.get, headers: headers)
     request?.response { (response:AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 {
@@ -83,7 +130,22 @@ public func queryTokenForLoadModel(request: inout DataRequest?,auth: String,pass
 {
     let url = car_URL.urlPre + "OurBim/getAccessToken?appid=\(projectID)&auth=\(auth)&password=\(password)"
     
-    request = AF.request(url,method:.post).response { (response:AFDataResponse) in
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    request = AF.request(url,method:.post, headers: headers).response { (response:AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 {
             NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
@@ -121,7 +183,23 @@ func queryARModel(request: inout DataRequest?,token: String,projectID: String,co
         return
     }
     let url = car_URL.urlPre + "OurBim/requestOurBim?appliId=\(projectID)&token=\(token)&appType=ar&senderId=\(car_UserInfo.senderID)&nonce=\(arc4random())&hostId=\(car_UserInfo.hostID)&mode=reboot"
-    request = AF.request(url,method:.post)
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    request = AF.request(url,method:.post, headers: headers)
     request?.response { (response:AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 {
@@ -158,7 +236,23 @@ fileprivate func requestARModel(request: inout DataRequest?,token: String,taskId
     }
     //accessMode 1:正常模式 2：协同模式 3：互动模式
     let url = car_URL.urlPre + "OurBim/startXr?appliId=\(projectID)&token=\(token)&plateType=3&senderId=\(car_UserInfo.senderID)&nonce=\(arc4random())&hostId=\(car_UserInfo.hostID)&mode=reboot&taskId=\(taskId)&accessMode=1"
-    request = AF.request(url,method:.post)
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    request = AF.request(url,method:.post, headers: headers)
     request?.response { (response:AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 {
@@ -244,7 +338,23 @@ public func queryARModelClose(completion: @escaping (Bool) -> Void) {
     }
     
     let url = car_URL.xrUrlPre + "v1/ShutDownTask?SenderId=\(car_UserInfo.senderID)&HostId=\(car_UserInfo.hostID)&nonce=\(arc4random())&taskid=\(car_UserInfo.taskID)"
-    AF.request(url,method:.get).response { (response: AFDataResponse) in
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    AF.request(url,method:.get, headers: headers).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 {
             NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
@@ -278,7 +388,23 @@ public func queryARModelClose(completion: @escaping (Bool) -> Void) {
 public func queryPropertyInfo(projectID: String,actorID: String,completion: @escaping (Result<Data,Error>) -> Void) {
     //  api.OurBim.com:11022/vjapi/comControl/getComInfoByActorId?appId=BIM2022031210421053&actorId=436967
     let url = car_URL.urlPre + "comControl/getComInfoByActorId?appId=\(projectID)&actorId=\(actorID)"
-    AF.request(url,method: .get).response { (response: AFDataResponse) in
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    AF.request(url,method: .get, headers: headers).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 {
             NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
@@ -301,7 +427,23 @@ public func queryPropertyInfo(projectID: String,actorID: String,completion: @esc
  */
 public func queryThreeDModelLoad(request: inout DataRequest?, token: String, projectID: String, completion: @escaping (Bool, String) -> Void) {
     let url = car_URL.urlPre + "OurBim/requestOurBim?appliId=\(projectID)&token=\(token)"
-    request = AF.request(url, method: .post)
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    request = AF.request(url, method: .post, headers: headers)
     request?.response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 {
@@ -348,7 +490,23 @@ public func queryThreeDModelLoad(request: inout DataRequest?, token: String, pro
 //MARK: 手机号是否不存在
 func phoneNotExist(phone: String,completion: @escaping (Bool,String) -> Void) {
     let url = car_URL.urlPre + "UserCenter/repeatMobile?mobile=\(phone)"
-    AF.request(url,method: .post).response { (response: AFDataResponse) in
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    AF.request(url,method: .post, headers: headers).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 {
             NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
@@ -361,7 +519,23 @@ func phoneNotExist(phone: String,completion: @escaping (Bool,String) -> Void) {
 //MARK: 手机号是否存在
 func phoneIsExist(phone: String,completion: @escaping (Bool,String) -> Void) {
     let url = car_URL.urlPre + "UserCenter/MobileIsHave?mobile=\(phone)"
-    AF.request(url,method: .post).response { (response: AFDataResponse) in
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    AF.request(url,method: .post, headers: headers).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 {
             NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
@@ -374,7 +548,23 @@ func phoneIsExist(phone: String,completion: @escaping (Bool,String) -> Void) {
 //MARK: 发送验证码
 func sendVerificationCode(phone: String,type: VerificationType,completion: @escaping (Bool,String) -> Void) {
     let url = car_URL.urlPre + "UserCenter/sendMsgCode?mobile=\(phone)&msgType=\(type.rawValue)"
-    AF.request(url,method: .post).response { (response: AFDataResponse) in
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    AF.request(url,method: .post, headers: headers).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 {
             NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
@@ -387,7 +577,23 @@ func sendVerificationCode(phone: String,type: VerificationType,completion: @esca
 //MARK: 注册新用户
 func registerUser(phone: String,psd: String,verificationCode: String,completion: @escaping (Bool,String) -> Void) {
     let url = car_URL.urlPre + "UserCenter/addUser?mobile=\(phone)&password=\(psd)&code=\(verificationCode)"
-    AF.request(url,method: .post).response { (response: AFDataResponse) in
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    AF.request(url,method: .post, headers: headers).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 {
             NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
@@ -401,7 +607,23 @@ func registerUser(phone: String,psd: String,verificationCode: String,completion:
 func resetPassword(phone: String,psd: String,verificationCode: String,completion: @escaping (Bool,String) -> Void) {
     let url = car_URL.urlPre + "UserCenter/updatePassword?mobile=\(phone)&password=\(psd)&code=\(verificationCode)"
     print("\(url)")
-    AF.request(url,method: .post).response { (response: AFDataResponse) in
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    AF.request(url,method: .post, headers: headers).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 {
             NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
@@ -415,7 +637,23 @@ func resetPassword(phone: String,psd: String,verificationCode: String,completion
 //MARK: 判断验证码
 func judgeMsg(phone: String,verificationCode: String,completion: @escaping (Bool,String) -> Void) {
     let url = car_URL.urlPre + "UserCenter/judgeMsg?mobile=\(phone)&code=\(verificationCode)"
-    AF.request(url,method: .post).response { (response: AFDataResponse) in
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    AF.request(url,method: .post, headers: headers).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
         if statusCode == 401 {
             NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)

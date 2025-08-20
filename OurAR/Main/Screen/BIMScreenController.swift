@@ -302,8 +302,10 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
     }
 
     private func removeARController(_ controller: ARModelController) {
+        // 改了SDK的  注释下边几行代码
+        
         // 阶段1：强制暂停所有渲染和计算
-        controller.mtlView?.isPaused = true  // 暂停Metal渲染
+//        controller.mtlView?.isPaused = true  // 暂停Metal渲染
         
         // 阶段2：切断数据流（关键步骤）
         controller.notityConnectProtocol = nil  // 断开网络连接
@@ -311,17 +313,17 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
         controller.notifyClientStateUpdateProtocol = nil
         
         // 阶段3：主线程异步释放（避免阻塞）
-        DispatchQueue.main.async { [weak controller] in
-            guard let c = controller else { return }
+//        DispatchQueue.main.async { [weak controller] in
+//            guard let c = controller else { return }
             
             // 释放Metal资源
-            c.mtlView?.releaseDrawables()
-            c.mtlView?.removeFromSuperview()
-            c.mtlView = nil
+//            c.mtlView?.releaseDrawables()
+//            c.mtlView?.removeFromSuperview()
+//            c.mtlView = nil
             
             // 移除AR视图
-            c.view.removeFromSuperview()
-        }
+//            c.view.removeFromSuperview()
+//        }
         
         // 阶段4：立即解除父子关系（不等待渲染停止）
         controller.willMove(toParent: nil)

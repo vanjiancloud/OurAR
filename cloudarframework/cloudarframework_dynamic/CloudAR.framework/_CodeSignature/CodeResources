@@ -4,41 +4,49 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Alamofire.xcworkspace/contents.xcworkspacedata</key>
+		<data>
+		OB7DP5SlG715FHfTtfhFiyEgd6o=
+		</data>
+		<key>Alamofire.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist</key>
+		<data>
+		31/nObizq2nPGjKoiBxIoWYuA0A=
+		</data>
+		<key>Alamofire.xcworkspace/xcuserdata/chaochao.xcuserdatad/UserInterfaceState.xcuserstate</key>
+		<data>
+		wO4/t85z//Lo/LZWTjnYcecOwrw=
+		</data>
 		<key>Headers/CloudAR-Swift.h</key>
 		<data>
-		mSy4QnAe4xHmMAbcTU3lpKGbVjw=
-		</data>
-		<key>Headers/CloudAR.h</key>
-		<data>
-		QU1tfLCvMKbQZFjdl8wx0mqhYFU=
+		V+4zbA3pD2Xdm68LB09kos0XkrQ=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		l+bGcTrIgdgHRaBa8R4bWox6v/k=
+		SLAOXVxoshh4cu4+d0POxlx059E=
 		</data>
 		<key>Modules/CloudAR.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		69Bq+jSXAFOaw7bd/YEscaqRQW8=
+		Ak1IU1pNlgE0tjYLEgyhrGFMIHA=
 		</data>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		d3GhiC7yb0aZO+opYF5HiYev6QY=
+		vXJJ8fIFYJd76MN4Kl+1+tXUJc8=
 		</data>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
-		b8vW3/65ewNlG++q7STMxElNBIU=
+		ZUsscojtSHv8Zuvla6YU9kTPfss=
 		</data>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
-		oPBLLKpdtNMgtyXMTyRxfFvBjKk=
+		3HINDWqtVn0rwL1i8RLNUG/HRqg=
 		</data>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
-		b8vW3/65ewNlG++q7STMxElNBIU=
+		ZUsscojtSHv8Zuvla6YU9kTPfss=
 		</data>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		Fw46dVOaU6zKso8oJhJl0/QgDc0=
+		Z+rqlrAsC87gEcTPkB7VFQlb4wA=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -58,7 +66,7 @@
 		</data>
 		<key>default.metallib</key>
 		<data>
-		lhZgi59yTkPyo/0ajdS4SNT9t4Y=
+		8kBAdp+x+/w2BMOKsWfPZQwDkoM=
 		</data>
 		<key>downArrow.png</key>
 		<data>
@@ -107,60 +115,74 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Alamofire.xcworkspace/contents.xcworkspacedata</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7zwLzzQCJfkt5cRE7O3XpZnUT7ikw3Znckut7L9FnZg=
+			</data>
+		</dict>
+		<key>Alamofire.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			36D5u4W5XMupxoEa2t+MtAf7XVIIjonbg+vDCOxEhUI=
+			</data>
+		</dict>
+		<key>Alamofire.xcworkspace/xcuserdata/chaochao.xcuserdatad/UserInterfaceState.xcuserstate</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			gMzgxjIR9T8WXEZqiiLasM3CKcdr6UYRG+aCkvzLo30=
+			</data>
+		</dict>
 		<key>Headers/CloudAR-Swift.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			caAGk1Uo/2QSmAdkZRMvDfHbsJ8KrAX6jhjoHs4CtNo=
-			</data>
-		</dict>
-		<key>Headers/CloudAR.h</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			F57yHUSHaO1wkwWTM150iedHdn6tAv38RnJ5wVi11gA=
+			vbUTYkJXyQA+Up7nv3nUqjuH3LkHxMOdYtlGWFJnlSE=
 			</data>
 		</dict>
 		<key>Modules/CloudAR.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			7OCqWKUv3eoIk7ZevZNJQBBLp3reqQY2m3cw6ih7zVs=
+			1kDnyQRdtnbH4pfNeJVWgxa8FhkU/yloTgZpRSy9F8A=
 			</data>
 		</dict>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			pNdLUIvfJRW+gSoyRGGSq/SbcaAAfion9eQS0Ts/K+c=
+			HFZaCXnVs34AtiPB/8NxPVHG3niAIaAgS4bc6H+9vjc=
 			</data>
 		</dict>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			TBoA5RRTfVECwMA38CMx8B46n0MvZw3r2JV5x9uSAok=
+			87PkfvDOYAXsVkdZEnpR/5D5N1g/56P3RjzndSwWRqE=
 			</data>
 		</dict>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			jAU/ZkDMc6l8bofYzhyLyiDKdp5U2SiCSt4gzZ8ja1U=
+			YwZrIdkiJ0cEQ2dRuHIUDjG089jmyEEnno1UWlwJ/kQ=
 			</data>
 		</dict>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			TBoA5RRTfVECwMA38CMx8B46n0MvZw3r2JV5x9uSAok=
+			87PkfvDOYAXsVkdZEnpR/5D5N1g/56P3RjzndSwWRqE=
 			</data>
 		</dict>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			W/rwpVrSMYvz08rIKGqiCLOH3dM2bRtVxQY4g56WWAo=
+			FqtX2zjgd1B65TDShwe+Ii3fabmC4kNr9i3TEb+y1d0=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
@@ -195,7 +217,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			VHUrJBcY8t9tjfuyay7BpCHeFMX3wdxP9/4e0hWyrXU=
+			rl0iZHpOqmMJxAbi5EzpZewoM5fXQlnzlsYuQhHR4XM=
 			</data>
 		</dict>
 		<key>downArrow.png</key>

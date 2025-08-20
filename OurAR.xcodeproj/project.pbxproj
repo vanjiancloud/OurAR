@@ -14,6 +14,8 @@
 		015BEF0E2DD587030037F57E /* CloudAR.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 015BEF042DD586F50037F57E /* CloudAR.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		015BEF0F2DD587060037F57E /* StreamSdk.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 015BEF062DD586F50037F57E /* StreamSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		016492BA2E4C70CC00EA70BE /* ModelSettingAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016492B92E4C70CC00EA70BE /* ModelSettingAlert.swift */; };
+		01CE9BE02E55A280001BE3F6 /* ModelSettingDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CE9BDF2E55A280001BE3F6 /* ModelSettingDistance.swift */; };
+		01CE9BE22E55B17D001BE3F6 /* ModelSettingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CE9BE12E55B17D001BE3F6 /* ModelSettingType.swift */; };
 		619D8D4F4A65E42C85BE117D /* Pods_OurAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C87F6B9FEFA9EDB3854E86 /* Pods_OurAR.framework */; };
 		9B084F782A734DA300C7E229 /* GoujianshuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B084F772A734DA300C7E229 /* GoujianshuView.swift */; };
 		9B084F7A2A734F0000C7E229 /* GJSItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B084F792A734F0000C7E229 /* GJSItem.swift */; };
@@ -102,6 +104,8 @@
 		015BEF062DD586F50037F57E /* StreamSdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = StreamSdk.framework; sourceTree = "<group>"; };
 		015BEF082DD586F50037F57E /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		016492B92E4C70CC00EA70BE /* ModelSettingAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSettingAlert.swift; sourceTree = "<group>"; };
+		01CE9BDF2E55A280001BE3F6 /* ModelSettingDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSettingDistance.swift; sourceTree = "<group>"; };
+		01CE9BE12E55B17D001BE3F6 /* ModelSettingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSettingType.swift; sourceTree = "<group>"; };
 		98EF108317D5EA228FD4CE87 /* Pods-OurAR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OurAR.release.xcconfig"; path = "Target Support Files/Pods-OurAR/Pods-OurAR.release.xcconfig"; sourceTree = "<group>"; };
 		9B084F772A734DA300C7E229 /* GoujianshuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoujianshuView.swift; sourceTree = "<group>"; };
 		9B084F792A734F0000C7E229 /* GJSItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GJSItem.swift; sourceTree = "<group>"; };
@@ -243,6 +247,8 @@
 				9BE88C7B2A95AB140000BC33 /* SettingView.swift */,
 				9BE88C7D2A95D3870000BC33 /* SettingData.swift */,
 				016492B92E4C70CC00EA70BE /* ModelSettingAlert.swift */,
+				01CE9BDF2E55A280001BE3F6 /* ModelSettingDistance.swift */,
+				01CE9BE12E55B17D001BE3F6 /* ModelSettingType.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -636,6 +642,7 @@
 				9BE88C802A95E97F0000BC33 /* ServerSettingController.swift in Sources */,
 				9B57BC0F2A53E9A800CE9820 /* AppDelegate.swift in Sources */,
 				9BA7C8822A7765C500776B60 /* WSReceiverHandler.swift in Sources */,
+				01CE9BE02E55A280001BE3F6 /* ModelSettingDistance.swift in Sources */,
 				9BF653552A71FC0700E4B655 /* TagItem.swift in Sources */,
 				9B4BD11D2A7CCBE8006E2046 /* Project.swift in Sources */,
 				9BE88C7E2A95D3870000BC33 /* SettingData.swift in Sources */,
@@ -665,6 +672,7 @@
 				9B7DBC002A94B1FE000DBCB1 /* FileFunc.swift in Sources */,
 				9B83610C2A8F237E00BE2962 /* EnterPositionProtocol.swift in Sources */,
 				9B5E48F52A566E30008F2CCC /* PropertyView.swift in Sources */,
+				01CE9BE22E55B17D001BE3F6 /* ModelSettingType.swift in Sources */,
 				9B5E493B2A56B6CE008F2CCC /* MainToolProtocol.swift in Sources */,
 				9BF653592A71FC8700E4B655 /* TagData.swift in Sources */,
 				9BA82E2B2A8E203400EA4E68 /* ModelLoadViewController.swift in Sources */,
@@ -828,7 +836,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.12.11;
+				CURRENT_PROJECT_VERSION = 1.0.14.1;
 				DEVELOPMENT_TEAM = 8879CJ9M3W;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -867,7 +875,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.12;
+				MARKETING_VERSION = 1.0.14;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vanjian.OurAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -883,7 +891,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.12.11;
+				CURRENT_PROJECT_VERSION = 1.0.14.1;
 				DEVELOPMENT_TEAM = 8879CJ9M3W;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -922,7 +930,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.12;
+				MARKETING_VERSION = 1.0.14;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vanjian.OurAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

@@ -92,6 +92,9 @@ class ModelSettingAlert : UIView {
         addSubview(topSubview)
         topSubview.translatesAutoresizingMaskIntoConstraints = false
         
+        topSubview.addSubview(topLabel)
+        topLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             bottomSubview.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
             bottomSubview.heightAnchor.constraint(equalToConstant: 40),

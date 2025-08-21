@@ -172,13 +172,13 @@ fileprivate func sendEventOfCeLiang(type: SecondToolType,params:[String:Any],com
                 measurement(type: .angle) { result in completion(result)}
                 break
             case .MMT(.changePrecisionOrUnit):
-                if let unit = params["unit"] as? MeasureUnitType,
-                   let precision = params["precision"] as? MeasurePrecisionType {
-                    changeMeasureUnit(unit: unit, precision: precision) { result in completion(result)}
-                } else {
-                    print("\(#function),changeprecisionOrUnit,not found unit or precision")
-                    completion(false)
-                }
+//                if let unit = params["unit"] as? MeasureUnitType,
+//                   let precision = params["precision"] as? MeasurePrecisionType {
+//                    changeMeasureUnit(unit: unit, precision: precision) { result in completion(result)}
+//                } else {
+//                    print("\(#function),changeprecisionOrUnit,not found unit or precision")
+//                    completion(false)
+//                }
             default:
                 completion(false)
                 break

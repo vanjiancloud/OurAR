@@ -458,6 +458,35 @@ fileprivate func changeMeasureUnit(unit: MeasureUnitType,precision: MeasurePreci
     }
 }
 
+func changeSettingMeasureUnit(unit: String,precision: String,completion: @escaping (Bool) -> Void) {
+    let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=changePrecisionOrUnit&unit=\(unit)&precision=\(precision)"
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    AF.request(url,method:.get, headers: headers).response { (response: AFDataResponse ) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
+        let (isSuccess,_) = asyncRespBool(result: response.result)
+        completion(isSuccess)
+    }
+}
+
 //MARK: 针对后端返回的数据进行统一的第一步处理: 提取出data字段
 fileprivate func asyncRespJsonToAny(result: Result<Data?,AFError>) -> Result<Any,Error> {
     switch result {

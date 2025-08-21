@@ -39,20 +39,20 @@ class ModelSettingDistance : UIView {
         topLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-//            bottomLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-//            bottomLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-//            bottomLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
-//            bottomLabel.heightAnchor.constraint(equalToConstant: 40),
-//            
-//            middleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-//            middleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-//            middleLabel.bottomAnchor.constraint(equalTo: bottomLabel.bottomAnchor, constant: 0),
-//            middleLabel.heightAnchor.constraint(equalToConstant: 40),
-//            
-//            topLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-//            topLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-//            topLabel.bottomAnchor.constraint(equalTo: middleLabel.bottomAnchor, constant: 0),
-//            topLabel.heightAnchor.constraint(equalToConstant: 40)
+            bottomLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            bottomLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            bottomLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
+            bottomLabel.heightAnchor.constraint(equalToConstant: 40),
+            
+            middleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            middleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            middleLabel.bottomAnchor.constraint(equalTo: bottomLabel.topAnchor, constant: 0),
+            middleLabel.heightAnchor.constraint(equalToConstant: 40),
+            
+            topLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            topLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            topLabel.bottomAnchor.constraint(equalTo: middleLabel.topAnchor, constant: 0),
+            topLabel.heightAnchor.constraint(equalToConstant: 40)
         ])
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleBottomTap))
@@ -76,8 +76,8 @@ class ModelSettingDistance : UIView {
     let bottomLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textAlignment = .center
-        label.textColor = .black
+        label.textAlignment = .left
+        label.textColor = UIColor(red: 20/255.0, green: 151/255.0, blue: 236/255.0, alpha: 1.0)
         label.text = "0.01"
         label.isUserInteractionEnabled = true;
         return label
@@ -85,13 +85,18 @@ class ModelSettingDistance : UIView {
     var onBottomViewTapped: (() -> Void)?
     
     @objc private func handleBottomTap() {
+        bottomLabel.textColor = UIColor(red: 20/255.0, green: 151/255.0, blue: 236/255.0, alpha: 1.0)
+        middleLabel.textColor = .black
+        topLabel.textColor = .black
         onBottomViewTapped?()
+        
+        self.isHidden = true
     }
     
     let middleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.textColor = .black
         label.text = "0.1"
         label.isUserInteractionEnabled = true;
@@ -100,13 +105,18 @@ class ModelSettingDistance : UIView {
     var onMiddleViewTapped: (() -> Void)?
     
     @objc private func handleMiddleTap() {
+        middleLabel.textColor = UIColor(red: 20/255.0, green: 151/255.0, blue: 236/255.0, alpha: 1.0)
+        bottomLabel.textColor = .black
+        topLabel.textColor = .black
         onMiddleViewTapped?()
+        
+        self.isHidden = true
     }
     
     let topLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.textColor = .black
         label.text = "0"
         label.isUserInteractionEnabled = true;
@@ -115,6 +125,11 @@ class ModelSettingDistance : UIView {
     var onTopViewTapped: (() -> Void)?
     
     @objc private func handleTopTap() {
+        topLabel.textColor = UIColor(red: 20/255.0, green: 151/255.0, blue: 236/255.0, alpha: 1.0)
+        bottomLabel.textColor = .black
+        middleLabel.textColor = .black
         onTopViewTapped?()
+        
+        self.isHidden = true
     }
 }

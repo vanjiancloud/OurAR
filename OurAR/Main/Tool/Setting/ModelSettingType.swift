@@ -45,30 +45,30 @@ class ModelSettingType : UIView {
         mLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-//            inLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-//            inLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-//            inLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
-//            inLabel.heightAnchor.constraint(equalToConstant: 40),
-//            
-//            ftLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-//            ftLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-//            ftLabel.bottomAnchor.constraint(equalTo: inLabel.bottomAnchor, constant: 0),
-//            ftLabel.heightAnchor.constraint(equalToConstant: 40),
-//            
-//            mmLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-//            mmLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-//            mmLabel.bottomAnchor.constraint(equalTo: ftLabel.bottomAnchor, constant: 0),
-//            mmLabel.heightAnchor.constraint(equalToConstant: 40),
-//            
-//            cmLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-//            cmLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-//            cmLabel.bottomAnchor.constraint(equalTo: mmLabel.bottomAnchor, constant: 0),
-//            cmLabel.heightAnchor.constraint(equalToConstant: 40),
-//            
-//            mLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-//            mLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-//            mLabel.bottomAnchor.constraint(equalTo: cmLabel.bottomAnchor, constant: 0),
-//            mLabel.heightAnchor.constraint(equalToConstant: 40)
+            inLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            inLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            inLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
+            inLabel.heightAnchor.constraint(equalToConstant: 40),
+            
+            ftLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            ftLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            ftLabel.bottomAnchor.constraint(equalTo: inLabel.topAnchor, constant: 0),
+            ftLabel.heightAnchor.constraint(equalToConstant: 40),
+            
+            mmLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            mmLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            mmLabel.bottomAnchor.constraint(equalTo: ftLabel.topAnchor, constant: 0),
+            mmLabel.heightAnchor.constraint(equalToConstant: 40),
+            
+            cmLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            cmLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            cmLabel.bottomAnchor.constraint(equalTo: mmLabel.topAnchor, constant: 0),
+            cmLabel.heightAnchor.constraint(equalToConstant: 40),
+            
+            mLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            mLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            mLabel.bottomAnchor.constraint(equalTo: cmLabel.topAnchor, constant: 0),
+            mLabel.heightAnchor.constraint(equalToConstant: 40)
         ])
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleInTap))
@@ -107,7 +107,14 @@ class ModelSettingType : UIView {
     var onInViewTapped: (() -> Void)?
     
     @objc private func handleInTap() {
+        inLabel.textColor = UIColor(red: 20/255.0, green: 151/255.0, blue: 236/255.0, alpha: 1.0)
+        cmLabel.textColor = .black
+        mmLabel.textColor = .black
+        ftLabel.textColor = .black
+        mLabel.textColor = .black
         onInViewTapped?()
+        
+        self.isHidden = true
     }
     
     let ftLabel: UILabel = {
@@ -122,7 +129,14 @@ class ModelSettingType : UIView {
     var onFtViewTapped: (() -> Void)?
     
     @objc private func handleFtTap() {
+        ftLabel.textColor = UIColor(red: 20/255.0, green: 151/255.0, blue: 236/255.0, alpha: 1.0)
+        cmLabel.textColor = .black
+        mmLabel.textColor = .black
+        mLabel.textColor = .black
+        inLabel.textColor = .black
         onFtViewTapped?()
+        
+        self.isHidden = true
     }
     
     let mmLabel: UILabel = {
@@ -137,7 +151,14 @@ class ModelSettingType : UIView {
     var onMmViewTapped: (() -> Void)?
     
     @objc private func handleMmTap() {
+        mmLabel.textColor = UIColor(red: 20/255.0, green: 151/255.0, blue: 236/255.0, alpha: 1.0)
+        cmLabel.textColor = .black
+        mLabel.textColor = .black
+        ftLabel.textColor = .black
+        inLabel.textColor = .black
         onMmViewTapped?()
+        
+        self.isHidden = true
     }
     
     let cmLabel: UILabel = {
@@ -152,14 +173,21 @@ class ModelSettingType : UIView {
     var onCmViewTapped: (() -> Void)?
     
     @objc private func handleCmTap() {
+        cmLabel.textColor = UIColor(red: 20/255.0, green: 151/255.0, blue: 236/255.0, alpha: 1.0)
+        mLabel.textColor = .black
+        mmLabel.textColor = .black
+        ftLabel.textColor = .black
+        inLabel.textColor = .black
         onCmViewTapped?()
+        
+        self.isHidden = true
     }
     
     let mLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textAlignment = .center
-        label.textColor = .black
+        label.textColor = UIColor(red: 20/255.0, green: 151/255.0, blue: 236/255.0, alpha: 1.0)
         label.text = "m"
         label.isUserInteractionEnabled = true;
         return label
@@ -167,6 +195,13 @@ class ModelSettingType : UIView {
     var onMViewTapped: (() -> Void)?
     
     @objc private func handleMTap() {
+        mLabel.textColor = UIColor(red: 20/255.0, green: 151/255.0, blue: 236/255.0, alpha: 1.0)
+        cmLabel.textColor = .black
+        mmLabel.textColor = .black
+        ftLabel.textColor = .black
+        inLabel.textColor = .black
         onMViewTapped?()
+        
+        self.isHidden = true
     }
 }

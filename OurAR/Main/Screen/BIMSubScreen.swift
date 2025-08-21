@@ -17,7 +17,6 @@ class BIMSubScreenView : BaseView
     var sliderView: SliderView! //
     var vjMainToolView: MainToolView! //主工具栏
     var vjSecondToolViews: [MainToolType: SecondToolView] = [:] //二级工具栏集
-    var vjSecondToolView : SecondToolView!
     
     var vjPropertyView: VJPropertyView! //属性面板
     var vjTagView: TagView! //标签面板
@@ -81,7 +80,6 @@ class BIMSubScreenView : BaseView
                 vjSecondToolViews[mainType] = secondToolView
                 addSubview(secondToolView)
                 secondToolView.isHidden = true
-                vjSecondToolView = secondToolView
             }
         }
         
@@ -114,9 +112,9 @@ class BIMSubScreenView : BaseView
         settingView.isHidden = true
         
         settingView.snp.makeConstraints { make in
-            make.left.equalTo(vjSecondToolView.snp.right).offset(-40);
-            make.bottom.equalTo(vjSecondToolView.snp.top).offset(-5);
-            make.size.equalTo(CGSizeMake(200, 300));
+            make.centerX.equalTo(vjMainToolView).offset(150);
+            make.bottom.equalTo(vjMainToolView.snp.top).offset(-60);
+            make.size.equalTo(CGSizeMake(200, 220));
         }
         
         settingDistanceView = ModelSettingDistance(frame:CGRectZero)
@@ -126,7 +124,7 @@ class BIMSubScreenView : BaseView
         settingDistanceView.snp.makeConstraints { make in
             make.centerX.equalTo(settingView);
             make.bottom.equalTo(settingView.snp.bottom).offset(-70);
-            make.size.equalTo(CGSizeMake(160, 100));
+            make.size.equalTo(CGSizeMake(160, 160));
         }
         
         settingTypeView = ModelSettingType(frame:CGRectZero)
@@ -135,8 +133,8 @@ class BIMSubScreenView : BaseView
         
         settingTypeView.snp.makeConstraints { make in
             make.centerX.equalTo(settingView);
-            make.bottom.equalTo(settingView.snp.bottom).offset(-170);
-            make.size.equalTo(CGSizeMake(160, 220));
+            make.bottom.equalTo(settingView.snp.top).offset(10);
+            make.size.equalTo(CGSizeMake(160, 240));
         }
         
         if getIsIphone() {

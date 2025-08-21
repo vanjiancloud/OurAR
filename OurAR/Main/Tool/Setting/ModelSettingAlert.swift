@@ -104,7 +104,7 @@ class ModelSettingAlert : UIView {
             bottomLabel.leadingAnchor.constraint(equalTo: bottomSubview.leadingAnchor, constant: 20),
             bottomLabel.centerYAnchor.constraint(equalTo: bottomSubview.centerYAnchor),
             
-            topSubview.bottomAnchor.constraint(equalTo: bottomSubview.bottomAnchor, constant: -40),
+            topSubview.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
             topSubview.heightAnchor.constraint(equalToConstant: 40),
             topSubview.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             topSubview.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),

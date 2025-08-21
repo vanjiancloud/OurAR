@@ -97,6 +97,14 @@ class FenJieView: GTView
         slider.tintColor = UIColor(red: 24/255, green: 172/255, blue: 251/255, alpha: 1)
         slider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
         addSubview(slider)
+    
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap))
+        tapGesture.cancelsTouchesInView = true
+        addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func handleBackgroundTap() {
+        
     }
     
     override func handleClose() {

@@ -408,20 +408,30 @@ class BIMSubScreenView : BaseView
             secondView.cancelhighlightAll() //取消二级菜单的高亮
         }
         switch toScreenMode {
-            case .AR:
-                enterPositionView?.isHidden = false
-                sliderView.isHidden =  false
-                needShowScaleAdjust = false
-                scaleAdjustView.isHidden = true
-                break
-            case .ThreeD:
-                enterPositionView?.isHidden = true
-                sliderView.isHidden =  true
-                scaleAdjustView.isHidden = true
-                break
-            case .None:
-                break
-            default:
+        case .AR:
+            enterPositionView?.isHidden = false
+            sliderView.isHidden =  false
+            needShowScaleAdjust = false
+            scaleAdjustView.isHidden = true
+            
+            settingView.snp.updateConstraints { make in
+                make.centerX.equalTo(vjMainToolView).offset(50);
+            }
+            
+            break
+        case .ThreeD:
+            enterPositionView?.isHidden = true
+            sliderView.isHidden =  true
+            scaleAdjustView.isHidden = true
+            
+            settingView.snp.updateConstraints { make in
+                make.centerX.equalTo(vjMainToolView).offset(150);
+            }
+            
+            break
+        case .None:
+            break
+        default:
                 break
         }
         //其他页面的数据重置

@@ -179,6 +179,7 @@ fileprivate func sendEventOfCeLiang(type: SecondToolType,params:[String:Any],com
 //                    print("\(#function),changeprecisionOrUnit,not found unit or precision")
 //                    completion(false)
 //                }
+                break
             default:
                 completion(false)
                 break

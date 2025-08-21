@@ -69,6 +69,14 @@ class GoujianshuView: MTSidebarView , UITableViewDataSource, UITableViewDelegate
                 make.left.right.bottom.equalTo(self)
             }
         }
+    
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap))
+        tapGesture.cancelsTouchesInView = true
+        addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func handleBackgroundTap() {
+        
     }
     
     // 实现VJMTSidebarView的函数

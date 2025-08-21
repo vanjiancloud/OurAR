@@ -66,6 +66,15 @@ class ModelSettingDistance : UIView {
         
         layer.shouldRasterize = true
         layer.rasterizationScale = UIScreen.main.scale
+    
+        
+        let tapXGesture = UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap))
+        tapGesture.cancelsTouchesInView = true
+        addGestureRecognizer(tapXGesture)
+    }
+    
+    @objc private func handleBackgroundTap() {
+        
     }
     
     override func layoutSubviews() {

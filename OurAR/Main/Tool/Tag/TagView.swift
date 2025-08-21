@@ -290,6 +290,13 @@ class TagView : MTSidebarView, UITableViewDataSource, UITableViewDelegate, TagCe
                 make.left.right.bottom.equalTo(self)
             }
         }
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap))
+        tapGesture.cancelsTouchesInView = true
+        addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func handleBackgroundTap() {
+        
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

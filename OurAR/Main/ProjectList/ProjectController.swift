@@ -111,7 +111,13 @@ class ProjectController: UIViewController, UIScrollViewDelegate {
                             projectItem.size = item["fileSize"] as? String
                             projectItem.status = item["applidStatus"] as? String
                             projectItem.currVersion = item["currVersion"] as? String
-                            projectItem.progress = item["progress"] as? String
+                            if let progress = item["progress"] as? Int {
+                                projectItem.progress = String(progress)
+                            } else if let progress = item["progress"] as? String {
+                                projectItem.progress = progress
+                            } else {
+                                projectItem.progress = nil // 或者默认值
+                            }
                             projectItem.applidStatus = item["applidStatus"] as? String
                             projectItem.projectCount = totalCountString
 

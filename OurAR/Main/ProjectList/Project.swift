@@ -326,6 +326,7 @@ fileprivate class projectItem: UIView {
     var createTimeLabel: UILabel!
     
     var btnModify: UIButton! //监听点击进行修改的btn
+    var progressLabel: UILabel!
     
     var id: String = ""
     var currVersion: String = ""
@@ -344,13 +345,13 @@ fileprivate class projectItem: UIView {
         icon.layer.cornerRadius = height * 0.25
         icon.image = UIImage(named: "projecticon")
         
-        nameLabel = UILabel(frame: CGRect(x: left_right_pad + height * 0.6 + 20, y: height * 0.25, width: width * 0.6, height: 16))
+        nameLabel = UILabel(frame: CGRect(x: left_right_pad + height * 0.6 + 20, y: height * 0.25, width: width * 0.5, height: 16))
         nameLabel.font = UIFont.systemFont(ofSize: 14)
         nameLabel.textColor = .black
         nameLabel.textAlignment = .left
         nameLabel.isUserInteractionEnabled = true
 
-        createTimeLabel = UILabel(frame: CGRect(x: left_right_pad + height * 0.6 + 20, y: height * 0.6, width: width * 0.6, height: 16))
+        createTimeLabel = UILabel(frame: CGRect(x: left_right_pad + height * 0.6 + 20, y: height * 0.6, width: width * 0.5, height: 16))
         createTimeLabel.font = UIFont.systemFont(ofSize: 12)
         createTimeLabel.textColor = VJTextColor_07
         createTimeLabel.textAlignment = .left
@@ -358,14 +359,22 @@ fileprivate class projectItem: UIView {
         let tapButton = UIButton(type: .custom)
         tapButton.frame = CGRect(
             x: nameLabel.frame.origin.x,
-            y: nameLabel.frame.origin.y - 10,
+            y: nameLabel.frame.origin.y - 20,
             width: nameLabel.frame.width,
             height: nameLabel.frame.height + 40
         )
         tapButton.addTarget(self, action: #selector(pressItem(_:)), for: .touchUpInside)
         addSubview(tapButton)
         
-        btnModify = UIButton(frame: CGRect(x: min(width - height * 0.1 - height * 0.5,width * 0.8), y:height * 0.1, width: height * 0.8, height: height * 0.8))
+        progressLabel = UILabel(frame: CGRect(x: min(width - height * 0.1 - height * 0.5,width * 0.81), y:height * 0.1 - 11 + height * 0.4, width: 50, height: 22))
+        progressLabel.font = UIFont.systemFont(ofSize: 12)
+        progressLabel.textColor = .white
+        progressLabel.textAlignment = .center
+        progressLabel.layer.cornerRadius = 22/2;
+        progressLabel.clipsToBounds = true
+        progressLabel.backgroundColor = UIColor(red: 0/255.0, green: 201/255.0, blue: 253/255.0, alpha: 1.0)
+        
+        btnModify = UIButton(frame: CGRect(x: min(width - height * 0.1 - height * 0.5,width * 0.8) - 50, y:height * 0.1, width: height * 0.8, height: height * 0.8))
         btnModify.backgroundColor = UIColor(white: 1, alpha: 0)
         btnModify.isUserInteractionEnabled = true
         btnModify.setTitle("•••", for: .normal)
@@ -375,6 +384,7 @@ fileprivate class projectItem: UIView {
         addSubview(icon)
         addSubview(nameLabel)
         addSubview(createTimeLabel)
+        addSubview(progressLabel)
         addSubview(btnModify)
         
         isUserInteractionEnabled = true
@@ -394,14 +404,22 @@ fileprivate class projectItem: UIView {
             applidStatus = project.applidStatus ?? ""
             if currVersion == "V5" {
                 nameLabel.textColor = VJTextColor_07
+                progressLabel.text = "\(progress)%";
+                progressLabel.backgroundColor = UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 1.0)
             } else {
                 if applidStatus == "2" {
                     nameLabel.textColor = .black
+                    progressLabel.text = "\(100)%"
+                    progressLabel.backgroundColor = UIColor(red: 0/255.0, green: 201/255.0, blue: 253/255.0, alpha: 1.0)
                 } else {
+                    progressLabel.text = "\(progress)%"
+                    
                     if progress != "100" {
                         nameLabel.textColor = VJTextColor_07
+                        progressLabel.backgroundColor = UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 1.0)
                     } else {
                         nameLabel.textColor = .black
+                        progressLabel.backgroundColor = UIColor(red: 0/255.0, green: 201/255.0, blue: 253/255.0, alpha: 1.0)
                     }
                 }
             }

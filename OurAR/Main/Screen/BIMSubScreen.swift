@@ -373,7 +373,13 @@ class BIMSubScreenView : BaseView
         if let secondView = vjSecondToolViews[mainType] {
             secondView.cancelhighlightAll()
             for type in secondTypes {
-                secondView.highlightTool(type)
+                if case .KJX(let keJianXingType) = type {
+                    if keJianXingType == .xianshiquanbu || keJianXingType == .geli || keJianXingType == .yincang {
+                        print("是")
+                    } else {
+                        secondView.highlightTool(type)
+                    }
+                }
             }
         }
     }

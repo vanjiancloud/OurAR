@@ -228,8 +228,9 @@ class BIMScreenSubController : UIViewController, MainToolProtocol,SocketEventPro
             if !clickedST.contains(type) {
                 clickedST.removeAll()
                 clickedST.append(type)
-                needUpdate = true
             }
+            
+            needUpdate = true
         }
         
         //更新

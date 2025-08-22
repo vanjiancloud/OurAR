@@ -16,6 +16,7 @@
 		016492BA2E4C70CC00EA70BE /* ModelSettingAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016492B92E4C70CC00EA70BE /* ModelSettingAlert.swift */; };
 		01CE9BE02E55A280001BE3F6 /* ModelSettingDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CE9BDF2E55A280001BE3F6 /* ModelSettingDistance.swift */; };
 		01CE9BE22E55B17D001BE3F6 /* ModelSettingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CE9BE12E55B17D001BE3F6 /* ModelSettingType.swift */; };
+		01D1E3892E585618005BC549 /* ManYou.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D1E3882E585618005BC549 /* ManYou.swift */; };
 		619D8D4F4A65E42C85BE117D /* Pods_OurAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C87F6B9FEFA9EDB3854E86 /* Pods_OurAR.framework */; };
 		9B084F782A734DA300C7E229 /* GoujianshuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B084F772A734DA300C7E229 /* GoujianshuView.swift */; };
 		9B084F7A2A734F0000C7E229 /* GJSItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B084F792A734F0000C7E229 /* GJSItem.swift */; };
@@ -106,6 +107,7 @@
 		016492B92E4C70CC00EA70BE /* ModelSettingAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSettingAlert.swift; sourceTree = "<group>"; };
 		01CE9BDF2E55A280001BE3F6 /* ModelSettingDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSettingDistance.swift; sourceTree = "<group>"; };
 		01CE9BE12E55B17D001BE3F6 /* ModelSettingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSettingType.swift; sourceTree = "<group>"; };
+		01D1E3882E585618005BC549 /* ManYou.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManYou.swift; sourceTree = "<group>"; };
 		98EF108317D5EA228FD4CE87 /* Pods-OurAR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OurAR.release.xcconfig"; path = "Target Support Files/Pods-OurAR/Pods-OurAR.release.xcconfig"; sourceTree = "<group>"; };
 		9B084F772A734DA300C7E229 /* GoujianshuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoujianshuView.swift; sourceTree = "<group>"; };
 		9B084F792A734F0000C7E229 /* GJSItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GJSItem.swift; sourceTree = "<group>"; };
@@ -211,6 +213,14 @@
 				015BEF082DD586F50037F57E /* iconfont.ttf */,
 			);
 			path = cloudarframework;
+			sourceTree = "<group>";
+		};
+		01D1E3872E5855EF005BC549 /* ManYou */ = {
+			isa = PBXGroup;
+			children = (
+				01D1E3882E585618005BC549 /* ManYou.swift */,
+			);
+			path = ManYou;
 			sourceTree = "<group>";
 		};
 		0EC5D4C6A0FDEE5C664B0B57 /* Pods */ = {
@@ -337,6 +347,7 @@
 		9B5E48F12A566E30008F2CCC /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				01D1E3872E5855EF005BC549 /* ManYou */,
 				9BE88C762A9598140000BC33 /* PopOver */,
 				9B7D00732A7B95150004D8C7 /* FenJie */,
 				9B3EB1262A78E45F003B5D59 /* Setting */,
@@ -627,6 +638,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01D1E3892E585618005BC549 /* ManYou.swift in Sources */,
 				9B5ADA912A79F6DF0008F8C2 /* QueryFunc.swift in Sources */,
 				9B71E4462A6D102100C8FA55 /* Tree.swift in Sources */,
 				9B9D197B2A556CA200BE5771 /* BIMScreenController.swift in Sources */,

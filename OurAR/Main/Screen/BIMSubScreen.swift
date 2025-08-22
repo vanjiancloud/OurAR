@@ -22,6 +22,7 @@ class BIMSubScreenView : BaseView
     var vjTagView: TagView! //标签面板
     var vjGJSView: GoujianshuView! //构件树面板
     var vjFenJieView: FenJieView! //分解面板
+    var vjManYouView: ManYou! //漫游面板
     var settingView : ModelSettingAlert! // 设置
     var settingDistanceView : ModelSettingDistance! // 设置
     var settingTypeView : ModelSettingType! // 设置
@@ -107,6 +108,13 @@ class BIMSubScreenView : BaseView
         addSubview(vjFenJieView)
         vjFenJieView.isHidden = true
         
+        //初始化漫游面板
+        vjManYouView = ManYou(frame: CGRect(x: 0, y: 0, width: 330, height: 160))
+        vjManYouView.center = CGPoint(x: self.bounds.width - 330/2, y: self.bounds.height - 160/2)
+        vjManYouView.layer.mask = makeMask(8,self.bounds,[.topLeft])
+        addSubview(vjManYouView)
+        vjManYouView.isHidden = true
+        
         settingView = ModelSettingAlert(frame:CGRectZero)
         addSubview(settingView)
         settingView.isHidden = true
@@ -188,6 +196,13 @@ class BIMSubScreenView : BaseView
                 make.width.equalTo(330)
                 make.height.equalTo(100)
             }
+            
+            vjManYouView.snp.makeConstraints { make in
+                make.right.equalTo(self).offset(-20)
+                make.bottom.equalTo(self).offset(-15)
+                make.width.equalTo(330)
+                make.height.equalTo(160)
+            }
         }
     }
     
@@ -230,7 +245,9 @@ class BIMSubScreenView : BaseView
         //对view进行一些初始处理
         switch type {
         case .MainView: break
-        case .PersonView: break
+        case .PersonView:
+            vjManYouView?.open()
+            break
         case .GouJianShu:
             vjGJSView?.open()
         case .ShuXing:
@@ -256,6 +273,7 @@ class BIMSubScreenView : BaseView
         vjTagView?.isHidden = true
         vjGJSView?.isHidden = true
         vjFenJieView?.isHidden = true
+        vjManYouView?.isHidden = true
         settingView?.isHidden = true
         settingDistanceView?.isHidden = true
         settingTypeView?.isHidden = true
@@ -268,7 +286,9 @@ class BIMSubScreenView : BaseView
     private func hiddenSecondView(_ type: MainToolType,_ Is: Bool = true) {
         switch type {
         case .MainView: break
-        case .PersonView: break
+        case .PersonView:
+            vjManYouView?.isHidden = Is
+            break
         case .GouJianShu:
             vjGJSView?.isHidden = Is
         case .ShuXing:
@@ -310,7 +330,7 @@ class BIMSubScreenView : BaseView
             hiddenMainTool = true
             break
         case .PersonView:
-            //TODO: 需要变动
+            hiddenMainTool = true
             break
         case .Celiang:
             break

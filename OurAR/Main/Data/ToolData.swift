@@ -192,8 +192,8 @@ func getSecondToolsByMainTool(_ toolType: MainToolType) -> [SecondToolType:Secon
     switch toolType {
     case .MainView: break
     case .PersonView:
-        info[SecondToolType.PVT(.FP)] = SecondToolInfo(.PVT(.FP), "firstperson", "FP")
-        info[SecondToolType.PVT(.TP)] = SecondToolInfo(.PVT(.TP), "thirdperson", "TP")
+//        info[SecondToolType.PVT(.FP)] = SecondToolInfo(.PVT(.FP), "firstperson", "FP")
+//        info[SecondToolType.PVT(.TP)] = SecondToolInfo(.PVT(.TP), "thirdperson", "TP")
         break
     case .GouJianShu: break
     case .ShuXing: break
@@ -276,7 +276,8 @@ func getSecondToolsByOrder(_ mainTool: MainToolType) -> [SecondToolType]? {
                 orders[type] = [.KJX(.yincang),.KJX(.geli),.KJX(.xianshiquanbu)]
                 break
             case .PersonView:
-                orders[type] = [.PVT(.FP),.PVT(.TP)]
+//                orders[type] = [.PVT(.FP),.PVT(.TP)]
+                orders[type] = []
                 break
             case .PouQie:
                 orders[type] = []

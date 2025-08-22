@@ -23,7 +23,7 @@ class GTView: UIView
         
         self.backgroundColor = VJViewBGColor
         
-        closeBtn = UIButton(frame: CGRect(x: left_right_pad, y: 0, width: closeBtnSize, height: closeBtnSize))
+        closeBtn = UIButton(frame: CGRect(x: self.bounds.width - left_right_pad - closeBtnSize, y: 0, width: closeBtnSize, height: closeBtnSize))
         closeBtn.setBackgroundImage(UIImage(named: "close"), for: .normal)
         closeBtn.center.y = headerHeight / 2
         closeBtn.contentMode = .scaleAspectFill

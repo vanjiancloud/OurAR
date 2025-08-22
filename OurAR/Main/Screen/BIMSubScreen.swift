@@ -379,6 +379,8 @@ class BIMSubScreenView : BaseView
                     } else {
                         secondView.highlightTool(type)
                     }
+                } else {
+                    secondView.highlightTool(type)
                 }
             }
         }

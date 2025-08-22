@@ -31,8 +31,22 @@ public func requestToken(request: inout DataRequest?,projectID: String,completio
     
     request = AF.request(url,method:.get, headers: headers).response { (response:AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         switch response.result {
@@ -84,8 +98,22 @@ public func requestIPwithHostID(request: inout DataRequest?,token: String,bimId:
     
     request = AF.request(url,method:.post,parameters: parms, headers: headers).response { (response:AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+       
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         switch response.result {

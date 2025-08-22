@@ -234,8 +234,22 @@ fileprivate func moveToMainView(completion: @escaping (Bool) -> Void) {
     
     AF.request(url,method:.get, headers: headers).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let (isSuccess,_) = asyncRespBool(result: response.result)
@@ -265,8 +279,22 @@ fileprivate func doAction(type: PersonViewType,completion: @escaping (Bool,Strin
     
     AF.request(url,method:.get, headers: headers).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let (isSuccess,msg) = asyncRespBool(result: response.result)
@@ -295,8 +323,22 @@ fileprivate func conChoiceVisible(type: KeJianXingType,completion: @escaping (Bo
     
     AF.request(url,method:.get, headers: headers).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let (isSuccess,msg) = asyncRespBool(result: response.result)
@@ -325,8 +367,22 @@ fileprivate func invertHidden(type: KeJianXingType,completion: @escaping (Bool,S
     
     AF.request(url,method:.post, headers: headers).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let (isSuccess,msg) = asyncRespBool(result: response.result)
@@ -356,8 +412,22 @@ fileprivate func displayAllActor(type: KeJianXingType,completion: @escaping (Boo
     AF.request(url,method:.post, headers: headers
     ).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let (isSuccess,msg) = asyncRespBool(result: response.result)
@@ -386,8 +456,22 @@ fileprivate func measurement(type: MeasurementType,completion: @escaping (Bool) 
     
     AF.request(url,method:.get, headers: headers).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let (isSuccess,_) = asyncRespBool(result: response.result)
@@ -416,8 +500,22 @@ fileprivate func closeMeasurement(completion: @escaping (Bool) -> Void) {
     
     AF.request(url,method:.get, headers: headers).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let (isSuccess,_) = asyncRespBool(result: response.result)
@@ -450,8 +548,22 @@ fileprivate func changeMeasureUnit(unit: MeasureUnitType,precision: MeasurePreci
     
     AF.request(url,method:.get, headers: headers).response { (response: AFDataResponse ) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let (isSuccess,_) = asyncRespBool(result: response.result)
@@ -479,8 +591,22 @@ func changeSettingMeasureUnit(unit: String,precision: String,completion: @escapi
     
     AF.request(url,method:.get, headers: headers).response { (response: AFDataResponse ) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let (isSuccess,_) = asyncRespBool(result: response.result)
@@ -535,8 +661,22 @@ func controlTagShow(show: Bool,completion: @escaping (Bool) -> Void) {
     
     AF.request(url,method: .post, headers: headers).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         print("control tag show: \(show)")
@@ -570,8 +710,22 @@ func queryTagList(tagGroupID: String,completion: @escaping (Result<[[String:Any]
     
     AF.request(url,method:.get, headers: headers).response { (response: AFDataResponse ) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         switch response.result {
@@ -628,8 +782,22 @@ func createTagFile(tagGroupID: String,completion: @escaping (Result<String,Error
     
     AF.request(url,method:.post,parameters: info,encoding: URLEncoding.default, headers: headers).response { (response:AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         switch response.result {
@@ -680,8 +848,22 @@ func createTagFolder(tagGroupID: String,completion: @escaping (Result <String,Er
     
     AF.request(url,method:.post,parameters:info,encoding: URLEncoding.default, headers: headers).response{ (response:AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let result = asyncRespJsonToAny(result: response.result)
@@ -724,8 +906,22 @@ func updateTagName(tagID: String,name: String,completion: @escaping (Bool,String
     
     AF.request(url,method:.post,parameters: info,encoding: URLEncoding.default, headers: headers).response {(response:AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let (success,msg) = asyncRespBool(result: response.result)
@@ -755,8 +951,22 @@ func deleteTag(tagID: String,completion: @escaping (Bool,String) -> Void) {
     
     AF.request(url,method:.post,parameters: info,encoding: URLEncoding.default, headers: headers).response {(response:AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let (success,msg) = asyncRespBool(result: response.result)
@@ -786,8 +996,22 @@ func handelTagFocusAction(tagID: String,completion: @escaping (Bool,String) -> V
     
     AF.request(url,method:.post,parameters: info,encoding: URLEncoding.default, headers: headers).response {(response:AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         print(response.result)
@@ -820,8 +1044,22 @@ func queryComponentList(taskId: String = car_UserInfo.taskID, uuid: String,appli
     
     AF.request(url,method:.get, headers: headers).response {(response:AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let result = asyncRespJsonToAny(result: response.result)
@@ -860,8 +1098,22 @@ func sendFocusModel(uuid: String,appliId: String = car_UserInfo.currProID,isFouc
     
     AF.request(url,method:.get, headers: headers).response {(response:AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let (isSuccess,msg) = asyncRespBool(result: response.result)
@@ -893,8 +1145,22 @@ func sendFocusCostomModel(uuid: String,isFoucs: Bool,completion: @escaping (Bool
     
     AF.request(url,method:.post,parameters: info,encoding: URLEncoding.default, headers: headers).response{(response:AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let (isSuccess,_) = asyncRespBool(result: response.result)
@@ -927,8 +1193,22 @@ func sendHiddenModel(uuid: String,appliId: String = car_UserInfo.currProID,isHid
     
     AF.request(url,method:.get,parameters: info,encoding: URLEncoding.default, headers: headers).response {(response:AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+       
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let (isSuccess,msg) = asyncRespBool(result: response.result)
@@ -965,8 +1245,22 @@ func sendHiddenCustomModel(uuid: String,isHidden: Bool,completion: @escaping (Bo
     
     AF.request(url, method: .post, headers: headers).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let (isSuccess, _) = asyncRespBool(result: response.result)
@@ -998,8 +1292,22 @@ func sendDeleteCustomModel(uuid: String,completion: @escaping (Bool) ->Void) {
     
     AF.request(url,method: .post,parameters: info,encoding: URLEncoding.default, headers: headers).response{(response:AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let (isSuccess,_) = asyncRespBool(result: response.result)
@@ -1028,8 +1336,22 @@ func sendModelQuit(completion: @escaping (Bool,String) -> Void) {
     
     AF.request(url,method:.get, headers: headers).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         switch response.result {
@@ -1069,8 +1391,22 @@ func requestExitByHostId(completion: @escaping (Bool) -> Void) {
     
     AF.request(url,method:.get, headers: headers).response { (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         switch response.result {
@@ -1136,8 +1472,22 @@ func sendFenJie(value: Int,completion: @escaping (Bool) ->Void) {
     
     AF.request(url,method:.get, headers: headers).response {(response:AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let (isSuccess,_) = asyncRespBool(result: response.result)
@@ -1167,8 +1517,22 @@ func sendDeleteProject(projectID: String,completion: @escaping(Bool) -> Void) {
     
     AF.request(url,method: .post,parameters: info,encoding: URLEncoding.default, headers: headers).response {(response:AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let (isSuccess,_) = asyncRespBool(result: response.result)
@@ -1197,8 +1561,22 @@ func sendModifyProject(projectID: String,name: String,completion: @escaping(Bool
     
     AF.request(url,method: .post,parameters: info,encoding: URLEncoding.default, headers: headers).response {(response:AFDataResponse) in
         let statusCode = response.response?.statusCode
-        if statusCode == 401 {
-            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
         }
         
         let (isSuccess,_) = asyncRespBool(result: response.result)

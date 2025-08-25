@@ -19,7 +19,7 @@ extension car_UserInfo
 
 extension car_URL
 {
-    static var javaWS: String = "wss://api.OurBim.com:11023"
+    static var javaWS: String = car_URL.javaWS
 }
 
 

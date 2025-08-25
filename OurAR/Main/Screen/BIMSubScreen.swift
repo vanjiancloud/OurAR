@@ -44,17 +44,20 @@ class BIMSubScreenView : BaseView
         vjSwitchModeView.isHidden = true
         addSubview(vjSwitchModeView)
         
-        sliderView = SliderView(x: 0, y: 300,width: 170,height: 38)
+        sliderView = SliderView(x: 0, y: 300,width: 140,height: 38)
         sliderView.minimumValue = 0
         sliderView.maximumValue = 1
         sliderView.value = 1
-        sliderView.center.x = vjSwitchModeView.center.x
         sliderView.isContinuous = false
         sliderView.setMinimumTrackImage(UIImage(named: "img_light_off_on"), for: .normal)
         sliderView.setMaximumTrackImage(UIImage(named: "img_light_off_back"), for: .normal)
         sliderView.setThumbImage(UIImage(named: "img_light_round"), for: .normal)
         sliderView.setThumbImage(UIImage(named: "img_light_round"), for: .highlighted)
         sliderView.transform = CGAffineTransformRotate(sliderView.transform, -M_PI/2)
+        DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+            self.sliderView.center.x = self.vjSwitchModeView.center.x
+        }
+            
         sliderView .addTarget(self, action: #selector(sliderValueChange), for: .valueChanged)
         sliderView.isHidden =  true
         addSubview(sliderView)

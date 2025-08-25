@@ -194,17 +194,22 @@ class ModelLoadViewController: UIViewController,SocketEventProtocol
                 if self.needLoadMode == .AR {
                     requestIPwithHostID(request: &self.modelLoadRequest, token: token, bimId: self.needLoadProject) { (result,msg) in
                         if result {
-                            requestExitByHostId { result in
-                                if result {
-                                    //now后面的单位是秒
-                                     DispatchQueue.main.asyncAfter(deadline: .now()+18) {
+                            DispatchQueue.main.asyncAfter(deadline: .now()+0) {
 //                                        print(Thread.current)
-                                         self.finishBlock!(true)
-                                    }
-                                }else {
-                                    self.modelLoadFinishProtocol?.handleModelLoadFinish(isSuccess: false, reason: "服务重启失败", screenType: .AR, project: self.needLoadProject)
-                                }
-                            }
+                                self.finishBlock!(true)
+                           }
+                            
+//                            requestExitByHostId { result in
+//                                if result {
+//                                    //now后面的单位是秒
+//                                     DispatchQueue.main.asyncAfter(deadline: .now()+18) {
+////                                        print(Thread.current)
+//                                         self.finishBlock!(true)
+//                                    }
+//                                }else {
+//                                    self.modelLoadFinishProtocol?.handleModelLoadFinish(isSuccess: false, reason: "服务重启失败", screenType: .AR, project: self.needLoadProject)
+//                                }
+//                            }
                         }else {
                             self.modelLoadFinishProtocol?.handleModelLoadFinish(isSuccess: false, reason: msg, screenType: .AR, project: self.needLoadProject)
                         }

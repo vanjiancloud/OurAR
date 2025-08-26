@@ -233,8 +233,44 @@ class VJPropertyView: UIView
             results.insert(["name":"构件ID","value":uuid], at: 1) //构件id
             self.fillingPropertyItems(&results)
             
-        } else if var object = json["object"] as? [[String:Any]?] {
-            self.fillingPropertyItems(&object)
+        } else {
+            // fallback: object 可能是任意类型
+            var results: [[String : Any]?] = []
+                
+                if let objectArray = json["object"] as? [[ [String: Any] ]] {
+                    // object 是 [[[String: Any]]]
+                    for item in objectArray {
+                        var dict: [String: Any] = [:]
+                        
+                        if let keyDict = item.first(where: { $0["key"] != nil }) {
+                            dict["name"] = keyDict["label"] as? String ?? keyDict["key"] as? String ?? ""
+                        }
+                        
+                        if let valueDict = item.first(where: { $0["value"] != nil }) {
+                            dict["value"] = valueDict["value"]
+                        }
+                        
+                        if !dict.isEmpty {
+                            results.append(dict)
+                        }
+                    }
+                } else if let objectArray = json["object"] as? [[String: Any]] {
+                    // object 是 [[String: Any]]
+                    for item in objectArray {
+                        var dict: [String: Any] = [:]
+                        dict["name"] = item["label"] as? String ?? item["key"] as? String ?? ""
+                        dict["value"] = item["value"]
+                        
+                        results.append(dict)
+                    }
+                } else if let objectDict = json["object"] as? [String: Any] {
+                    // object 是 [String: Any]
+                    for (key, value) in objectDict {
+                        results.append(["name": key, "value": "\(value)"])
+                    }
+                }
+                
+                self.fillingPropertyItems(&results)
         }
     }
 }

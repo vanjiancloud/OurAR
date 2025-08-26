@@ -64,20 +64,6 @@
             landmarkType = "9">
             <Locations>
                <Location
-                  uuid = "731B350B-DF08-4D5B-8B0E-85E7D470BC08 - 2943dc26735b564d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; Swift.String in OurAR.requestExitByHostId(completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1379"
-                  endingLineNumber = "1379">
-               </Location>
-               <Location
                   uuid = "731B350B-DF08-4D5B-8B0E-85E7D470BC08 - 91b7e7be1833b70f"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
@@ -154,36 +140,6 @@
             endingLineNumber = "1397"
             landmarkName = "requestExitByHostId(completion:)"
             landmarkType = "9">
-            <Locations>
-               <Location
-                  uuid = "990EA65C-4157-476D-86DE-D040B32DE5AE - 3e5a5977ad25d432"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Alamofire.DataResponse&lt;Swift.Optional&lt;Foundation.Data&gt;, Alamofire.AFError&gt;) -&gt; () in OurAR.requestExitByHostId(completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1398"
-                  endingLineNumber = "1398">
-               </Location>
-               <Location
-                  uuid = "990EA65C-4157-476D-86DE-D040B32DE5AE - 3e5a5977ad25d413"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Alamofire.DataResponse&lt;Swift.Optional&lt;Foundation.Data&gt;, Alamofire.AFError&gt;) -&gt; () in OurAR.requestExitByHostId(completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1397"
-                  endingLineNumber = "1397">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -296,20 +252,6 @@
             landmarkType = "9">
             <Locations>
                <Location
-                  uuid = "939DA996-927C-4AC6-9777-AE75B955EEFD - b6b2f881d3af95c1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; Swift.String in OurAR.changeMeasureUnit(unit: OurAR.MeasureUnitType, precision: OurAR.MeasurePrecisionType, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "536"
-                  endingLineNumber = "536">
-               </Location>
-               <Location
                   uuid = "939DA996-927C-4AC6-9777-AE75B955EEFD - 143bc686218a22a6"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
@@ -355,20 +297,6 @@
             landmarkName = "changeSettingMeasureUnit(unit:precision:completion:)"
             landmarkType = "9">
             <Locations>
-               <Location
-                  uuid = "BADA083F-7808-4D95-AF0A-23E511BFD92C - 8f04b3fd1a47ed7f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; Swift.String in OurAR.changeSettingMeasureUnit(unit: Swift.String, precision: Swift.String, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "579"
-                  endingLineNumber = "579">
-               </Location>
                <Location
                   uuid = "BADA083F-7808-4D95-AF0A-23E511BFD92C - 658c016ce6fc6d00"
                   shouldBeEnabled = "Yes"
@@ -416,20 +344,6 @@
             landmarkType = "9">
             <Locations>
                <Location
-                  uuid = "BB506CEB-F706-4F89-AAC9-50831BA370B5 - acc6a7f856407dbc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; Swift.String in OurAR.sendFocusModel(uuid: Swift.String, appliId: Swift.String, isFoucs: Swift.Bool, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1086"
-                  endingLineNumber = "1086">
-               </Location>
-               <Location
                   uuid = "BB506CEB-F706-4F89-AAC9-50831BA370B5 - 655c3d963f458bd5"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
@@ -476,20 +390,6 @@
             landmarkType = "9">
             <Locations>
                <Location
-                  uuid = "81A2CD4F-A978-465D-B6CE-31D785DD61E1 - 200f8e10b2208a7f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; Swift.String in OurAR.sendHiddenModel(uuid: Swift.String, appliId: Swift.String, isHidden: Swift.Bool, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1181"
-                  endingLineNumber = "1181">
-               </Location>
-               <Location
                   uuid = "81A2CD4F-A978-465D-B6CE-31D785DD61E1 - fd59ecc7b948d054"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
@@ -535,20 +435,6 @@
             landmarkName = "sendFenJie(value:completion:)"
             landmarkType = "9">
             <Locations>
-               <Location
-                  uuid = "267EFD10-CF91-493C-A197-6BB3D0490405 - a0e94abcdadc4594"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; Swift.String in OurAR.sendFenJie(value: Swift.Int, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1460"
-                  endingLineNumber = "1460">
-               </Location>
                <Location
                   uuid = "267EFD10-CF91-493C-A197-6BB3D0490405 - aa4560c677cd7c92"
                   shouldBeEnabled = "Yes"

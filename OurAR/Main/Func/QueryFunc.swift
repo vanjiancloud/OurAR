@@ -553,7 +553,10 @@ public func queryThreeDModelLoad(request: inout DataRequest?, token: String, pro
                 shouldPostNotification = true
             } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
                     let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
-                shouldPostNotification = true
+                        let message = jsonDict["message"] as? String ?? ""
+                        if !message.contains("余额不足") {
+                            shouldPostNotification = true
+                        }
             }
             
             if shouldPostNotification {

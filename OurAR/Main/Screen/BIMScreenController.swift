@@ -240,8 +240,20 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
             
         } else {
             print("模型启动失败-\(reason)")
-            SVProgressHUD.showInfo(withStatus: reason)
-            MLDelegateManager.notity()
+            
+            if reason.contains("余额不足") {
+                weak var weakSelf = self
+                let alert = UIAlertController(title: nil, message: reason, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "确定", style: .default, handler: { _ in
+                    MLDelegateManager.notity()
+                    weakSelf?.dismiss(animated: true)
+                }))
+                
+                weakSelf?.present(alert, animated: true, completion: nil)
+            } else {
+                SVProgressHUD.showInfo(withStatus: reason)
+                MLDelegateManager.notity()
+            }
         }
     }
     

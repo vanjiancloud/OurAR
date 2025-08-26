@@ -29,6 +29,7 @@ class ProjectController: UIViewController, UIScrollViewDelegate {
             self.queryCount()
         }
         project.scrollView.delegate = self
+        project.scrollView.alwaysBounceVertical = true
                 
         queryProjectList(page: currentPage)
         queryCount()

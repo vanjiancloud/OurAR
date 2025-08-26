@@ -163,10 +163,10 @@ fileprivate func sendEventOfCeLiang(type: SecondToolType,params:[String:Any],com
         if result {
             switch type {
             case .MMT(.distance):
-                measurement(type: .distance) { result in completion(result)}
+                measurement(type: .coordinate) { result in completion(result)}
                 break
             case .MMT(.coordinate):
-                measurement(type: .coordinate) { result in completion(result)}
+                measurement(type: .distance) { result in completion(result)}
                 break
             case .MMT(.angle):
                 measurement(type: .angle) { result in completion(result)}
@@ -439,6 +439,8 @@ fileprivate func displayAllActor(type: KeJianXingType,completion: @escaping (Boo
 fileprivate func measurement(type: MeasurementType,completion: @escaping (Bool) -> Void) {
     let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=\(String(describing: type))"
     
+    print("-------\(url)")
+    
     let accessToken: String = {
         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
             return ""
@@ -482,7 +484,7 @@ fileprivate func measurement(type: MeasurementType,completion: @escaping (Bool) 
 //MARK: 关闭测量
 fileprivate func closeMeasurement(completion: @escaping (Bool) -> Void) {
     let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=endMeasure"
-    
+    print("-------\(url)")
     let accessToken: String = {
         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
             return ""

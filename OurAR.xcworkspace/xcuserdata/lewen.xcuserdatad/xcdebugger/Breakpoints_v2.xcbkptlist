@@ -282,51 +282,5 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "267EFD10-CF91-493C-A197-6BB3D0490405"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OurAR/Main/Func/UserEventFunc.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1466"
-            endingLineNumber = "1466"
-            landmarkName = "sendFenJie(value:completion:)"
-            landmarkType = "9">
-            <Locations>
-               <Location
-                  uuid = "267EFD10-CF91-493C-A197-6BB3D0490405 - a0e94abcdadc468d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; Swift.String in OurAR.sendFenJie(value: Swift.Int, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1467"
-                  endingLineNumber = "1467">
-               </Location>
-               <Location
-                  uuid = "267EFD10-CF91-493C-A197-6BB3D0490405 - aa4560c677cd7fa8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "OurAR.sendFenJie(value: Swift.Int, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1466"
-                  endingLineNumber = "1466">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

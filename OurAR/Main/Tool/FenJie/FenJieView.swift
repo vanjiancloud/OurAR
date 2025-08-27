@@ -108,6 +108,17 @@ class FenJieView: GTView
     }
     
     override func handleClose() {
+        slider.setValue(0, animated: false)
+        fenjieValue.text = "0"
+        
+        sendFenJie(value: Int(slider.value), completion: {result in
+            if !self.isHidden && !result {
+                if let parentView = self.superview {
+                    showTip(tip: "指令下发失败", parentView: parentView,tipColor_bg_fail,tipColor_text_fail) {}
+                }
+            }
+        })
+        
         VJMTDelegateManager.notity(needClosedMainType: .FenJie)
     }
     

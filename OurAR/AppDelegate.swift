@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         car_UserInfo.userID = UserDefaults.standard.string(forKey: "userID") ?? ""
         car_UserInfo.imgUrl = UserDefaults.standard.string(forKey: "imgUrl") ?? ""
-        car_UserInfo.name = UserDefaults.standard.string(forKey: "userName") ?? "匿名"
+        car_UserInfo.name = UserDefaults.standard.string(forKey: "userName") ?? ""
         
         createAppWindow()
         

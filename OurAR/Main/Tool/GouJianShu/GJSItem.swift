@@ -108,6 +108,20 @@ class VJGJSItemCell: UITableViewCell
         }), for: .touchUpInside)
         contentView.addSubview(updownBtn)
         
+        let clickButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 45))
+        clickButton.center.y = self.bounds.height / 2
+        clickButton.contentMode = .scaleAspectFill
+        clickButton.addAction(UIAction(handler: { _ in
+            if let item = self.item {
+                if item._type != .file {
+                    GJSDelegateManager.notity(id: item._id, params: ["type": GJSCellBtnType.collpase,"collpase": !item._collpase])
+                }
+            } else {
+                print("gjs item is nil")
+            }
+            
+        }), for: .touchUpInside)
+        
         let bg_start_x: CGFloat = updownBtnSize + pad
         bgBtn = UIButton(frame: CGRect(x: bg_start_x, y: 0, width: self.bounds.width * 0.4, height: self.bounds.height))
         bgBtn.center.y = self.bounds.height / 2
@@ -157,6 +171,8 @@ class VJGJSItemCell: UITableViewCell
         
         highlightImg = UIImageView(frame: CGRect(x: updownBtnSize + pad, y: 0, width: self.bounds.width - updownBtnSize-pad, height: self.bounds.height))
         contentView.insertSubview(highlightImg, at: 0)
+        
+        contentView.addSubview(clickButton)
     }
     
     required init?(coder: NSCoder) {

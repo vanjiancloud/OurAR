@@ -255,11 +255,19 @@ class MainToolView: UIView
         self.layer.cornerRadius = height * 0.18
         self.layer.borderWidth = 0
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap))
+        tapGesture.cancelsTouchesInView = true
+        addGestureRecognizer(tapGesture)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    @objc private func handleBackgroundTap() {
+
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -438,11 +446,20 @@ class SecondToolView: UIView
         self.mainType = mainType
         
         initTools()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap))
+        tapGesture.cancelsTouchesInView = true
+        addGestureRecognizer(tapGesture)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    @objc private func handleBackgroundTap() {
+        
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

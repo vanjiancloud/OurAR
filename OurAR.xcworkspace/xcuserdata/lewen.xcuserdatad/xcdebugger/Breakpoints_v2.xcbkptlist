@@ -58,27 +58,13 @@
             filePath = "OurAR/Main/Func/UserEventFunc.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1379"
-            endingLineNumber = "1379"
+            startingLineNumber = "1385"
+            endingLineNumber = "1385"
             landmarkName = "requestExitByHostId(completion:)"
             landmarkType = "9">
             <Locations>
                <Location
-                  uuid = "731B350B-DF08-4D5B-8B0E-85E7D470BC08 - 91b7e7be1833b70f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "OurAR.requestExitByHostId(completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1379"
-                  endingLineNumber = "1379">
-               </Location>
-               <Location
-                  uuid = "731B350B-DF08-4D5B-8B0E-85E7D470BC08 - 2943dc26735b566c"
+                  uuid = "731B350B-DF08-4D5B-8B0E-85E7D470BC08 - 2943dc26735b51b6"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -88,8 +74,22 @@
                   urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1380"
-                  endingLineNumber = "1380">
+                  startingLineNumber = "1386"
+                  endingLineNumber = "1386">
+               </Location>
+               <Location
+                  uuid = "731B350B-DF08-4D5B-8B0E-85E7D470BC08 - 91b7e7be1833b0d5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OurAR.requestExitByHostId(completion: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "OurAR.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1385"
+                  endingLineNumber = "1385">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -104,8 +104,8 @@
             filePath = "OurAR/Main/Func/UserEventFunc.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1416"
-            endingLineNumber = "1416"
+            startingLineNumber = "1422"
+            endingLineNumber = "1422"
             landmarkName = "requestExitByHostId(completion:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -114,6 +114,70 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "20231D41-93F2-4FB9-8E26-1423D8E5F92D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OurAR/Main/Func/UserEventFunc.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1426"
+            endingLineNumber = "1426"
+            landmarkName = "requestExitByHostId(completion:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "990EA65C-4157-476D-86DE-D040B32DE5AE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OurAR/Main/Func/UserEventFunc.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1403"
+            endingLineNumber = "1403"
+            landmarkName = "requestExitByHostId(completion:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "53CB01DA-22DB-4D04-BC23-B4B4D8C740A3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OurAR/Main/Func/UserEventFunc.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1404"
+            endingLineNumber = "1404"
+            landmarkName = "requestExitByHostId(completion:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E54563C0-50AD-47A7-AF11-8B940E6F8F99"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OurAR/Main/Func/UserEventFunc.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1421"
+            endingLineNumber = "1421"
+            landmarkName = "requestExitByHostId(completion:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DBDE07D2-AD98-4F08-BB22-E83F4A334C3B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -129,70 +193,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "990EA65C-4157-476D-86DE-D040B32DE5AE"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OurAR/Main/Func/UserEventFunc.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1397"
-            endingLineNumber = "1397"
-            landmarkName = "requestExitByHostId(completion:)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "53CB01DA-22DB-4D04-BC23-B4B4D8C740A3"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OurAR/Main/Func/UserEventFunc.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1398"
-            endingLineNumber = "1398"
-            landmarkName = "requestExitByHostId(completion:)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E54563C0-50AD-47A7-AF11-8B940E6F8F99"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OurAR/Main/Func/UserEventFunc.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1415"
-            endingLineNumber = "1415"
-            landmarkName = "requestExitByHostId(completion:)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DBDE07D2-AD98-4F08-BB22-E83F4A334C3B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OurAR/Main/Func/UserEventFunc.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1414"
-            endingLineNumber = "1414"
-            landmarkName = "requestExitByHostId(completion:)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "E05B4D0D-5FF1-491B-A9CD-A2917EDFBBDB"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -200,27 +200,13 @@
             filePath = "OurAR/Main/Func/UserEventFunc.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
             landmarkName = "doAction(type:completion:)"
             landmarkType = "9">
             <Locations>
                <Location
-                  uuid = "E05B4D0D-5FF1-491B-A9CD-A2917EDFBBDB - 6eaa278e6ec9382d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "OurAR.doAction(type: OurAR.PersonViewType, completion: (Swift.Bool, Swift.String) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "265"
-                  endingLineNumber = "265">
-               </Location>
-               <Location
-                  uuid = "E05B4D0D-5FF1-491B-A9CD-A2917EDFBBDB - 506afa431b2c2b43"
+                  uuid = "E05B4D0D-5FF1-491B-A9CD-A2917EDFBBDB - 506afa431b2c2b85"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -230,8 +216,22 @@
                   urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "266"
-                  endingLineNumber = "266">
+                  startingLineNumber = "272"
+                  endingLineNumber = "272">
+               </Location>
+               <Location
+                  uuid = "E05B4D0D-5FF1-491B-A9CD-A2917EDFBBDB - 6eaa278e6ec93f6b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OurAR.doAction(type: OurAR.PersonViewType, completion: (Swift.Bool, Swift.String) -&gt; ()) -&gt; ()"
+                  moduleName = "OurAR.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "271"
+                  endingLineNumber = "271">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -246,27 +246,13 @@
             filePath = "OurAR/Main/Func/UserEventFunc.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "536"
-            endingLineNumber = "536"
+            startingLineNumber = "542"
+            endingLineNumber = "542"
             landmarkName = "changeMeasureUnit(unit:precision:completion:)"
             landmarkType = "9">
             <Locations>
                <Location
-                  uuid = "939DA996-927C-4AC6-9777-AE75B955EEFD - 143bc686218a22a6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "OurAR.changeMeasureUnit(unit: OurAR.MeasureUnitType, precision: OurAR.MeasurePrecisionType, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "536"
-                  endingLineNumber = "536">
-               </Location>
-               <Location
-                  uuid = "939DA996-927C-4AC6-9777-AE75B955EEFD - b6b2f881d3af941e"
+                  uuid = "939DA996-927C-4AC6-9777-AE75B955EEFD - b6b2f881d3af94d8"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -276,54 +262,22 @@
                   urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "537"
-                  endingLineNumber = "537">
+                  startingLineNumber = "543"
+                  endingLineNumber = "543">
                </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BADA083F-7808-4D95-AF0A-23E511BFD92C"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OurAR/Main/Func/UserEventFunc.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "579"
-            endingLineNumber = "579"
-            landmarkName = "changeSettingMeasureUnit(unit:precision:completion:)"
-            landmarkType = "9">
-            <Locations>
                <Location
-                  uuid = "BADA083F-7808-4D95-AF0A-23E511BFD92C - 658c016ce6fc6d00"
+                  uuid = "939DA996-927C-4AC6-9777-AE75B955EEFD - 143bc686218a23dc"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "OurAR.changeSettingMeasureUnit(unit: Swift.String, precision: Swift.String, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  symbolName = "OurAR.changeMeasureUnit(unit: OurAR.MeasureUnitType, precision: OurAR.MeasurePrecisionType, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
                   moduleName = "OurAR.debug.dylib"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "579"
-                  endingLineNumber = "579">
-               </Location>
-               <Location
-                  uuid = "BADA083F-7808-4D95-AF0A-23E511BFD92C - 8f04b3fd1a47ed9e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; Swift.String in OurAR.changeSettingMeasureUnit(unit: Swift.String, precision: Swift.String, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "580"
-                  endingLineNumber = "580">
+                  startingLineNumber = "542"
+                  endingLineNumber = "542">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -338,27 +292,13 @@
             filePath = "OurAR/Main/Func/UserEventFunc.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1086"
-            endingLineNumber = "1086"
+            startingLineNumber = "1092"
+            endingLineNumber = "1092"
             landmarkName = "sendFocusModel(uuid:appliId:isFoucs:completion:)"
             landmarkType = "9">
             <Locations>
                <Location
-                  uuid = "BB506CEB-F706-4F89-AAC9-50831BA370B5 - 655c3d963f458bd5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "OurAR.sendFocusModel(uuid: Swift.String, appliId: Swift.String, isFoucs: Swift.Bool, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1086"
-                  endingLineNumber = "1086">
-               </Location>
-               <Location
-                  uuid = "BB506CEB-F706-4F89-AAC9-50831BA370B5 - acc6a7f856407d9f"
+                  uuid = "BB506CEB-F706-4F89-AAC9-50831BA370B5 - acc6a7f856407ed5"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -368,8 +308,22 @@
                   urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1087"
-                  endingLineNumber = "1087">
+                  startingLineNumber = "1093"
+                  endingLineNumber = "1093">
+               </Location>
+               <Location
+                  uuid = "BB506CEB-F706-4F89-AAC9-50831BA370B5 - 655c3d963f45889b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OurAR.sendFocusModel(uuid: Swift.String, appliId: Swift.String, isFoucs: Swift.Bool, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "OurAR.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1092"
+                  endingLineNumber = "1092">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -384,27 +338,13 @@
             filePath = "OurAR/Main/Func/UserEventFunc.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1181"
-            endingLineNumber = "1181"
+            startingLineNumber = "1187"
+            endingLineNumber = "1187"
             landmarkName = "sendHiddenModel(uuid:appliId:isHidden:completion:)"
             landmarkType = "9">
             <Locations>
                <Location
-                  uuid = "81A2CD4F-A978-465D-B6CE-31D785DD61E1 - fd59ecc7b948d054"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "OurAR.sendHiddenModel(uuid: Swift.String, appliId: Swift.String, isHidden: Swift.Bool, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1181"
-                  endingLineNumber = "1181">
-               </Location>
-               <Location
-                  uuid = "81A2CD4F-A978-465D-B6CE-31D785DD61E1 - 200f8e10b2208a5e"
+                  uuid = "81A2CD4F-A978-465D-B6CE-31D785DD61E1 - 200f8e10b2208a90"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -414,8 +354,22 @@
                   urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1182"
-                  endingLineNumber = "1182">
+                  startingLineNumber = "1188"
+                  endingLineNumber = "1188">
+               </Location>
+               <Location
+                  uuid = "81A2CD4F-A978-465D-B6CE-31D785DD61E1 - fd59ecc7b948d09a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OurAR.sendHiddenModel(uuid: Swift.String, appliId: Swift.String, isHidden: Swift.Bool, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "OurAR.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1187"
+                  endingLineNumber = "1187">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -430,27 +384,13 @@
             filePath = "OurAR/Main/Func/UserEventFunc.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1460"
-            endingLineNumber = "1460"
+            startingLineNumber = "1466"
+            endingLineNumber = "1466"
             landmarkName = "sendFenJie(value:completion:)"
             landmarkType = "9">
             <Locations>
                <Location
-                  uuid = "267EFD10-CF91-493C-A197-6BB3D0490405 - aa4560c677cd7c92"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "OurAR.sendFenJie(value: Swift.Int, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1460"
-                  endingLineNumber = "1460">
-               </Location>
-               <Location
-                  uuid = "267EFD10-CF91-493C-A197-6BB3D0490405 - a0e94abcdadc4673"
+                  uuid = "267EFD10-CF91-493C-A197-6BB3D0490405 - a0e94abcdadc468d"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -460,8 +400,22 @@
                   urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1461"
-                  endingLineNumber = "1461">
+                  startingLineNumber = "1467"
+                  endingLineNumber = "1467">
+               </Location>
+               <Location
+                  uuid = "267EFD10-CF91-493C-A197-6BB3D0490405 - aa4560c677cd7fa8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OurAR.sendFenJie(value: Swift.Int, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "OurAR.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1466"
+                  endingLineNumber = "1466">
                </Location>
             </Locations>
          </BreakpointContent>

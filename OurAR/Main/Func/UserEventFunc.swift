@@ -168,8 +168,14 @@ fileprivate func sendEventOfCeLiang(type: SecondToolType,params:[String:Any],com
             case .MMT(.coordinate):
                 measurement(type: .distance) { result in completion(result)}
                 break
+            case .MMT(.minDistance):
+                measurement(type: .minDistance) { result in completion(result)}
+                break
             case .MMT(.angle):
                 measurement(type: .angle) { result in completion(result)}
+                break
+            case .MMT(.spaceArea):
+                measurement(type: .spaceArea) { result in completion(result)}
                 break
             case .MMT(.changePrecisionOrUnit):
 //                if let unit = params["unit"] as? MeasureUnitType,

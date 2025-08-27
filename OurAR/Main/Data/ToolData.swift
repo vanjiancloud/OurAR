@@ -104,8 +104,10 @@ enum PersonViewType : UInt8
 enum MeasurementType: UInt8 {
     case distance              = 0
     case coordinate                   = 1
-    case angle                      = 2
-    case changePrecisionOrUnit      = 3
+    case minDistance              = 2
+    case angle                      = 3
+    case spaceArea              = 4
+    case changePrecisionOrUnit      = 5
 }
 
 enum KeJianXingType: UInt8
@@ -200,7 +202,9 @@ func getSecondToolsByMainTool(_ toolType: MainToolType) -> [SecondToolType:Secon
     case .Celiang:
         info[SecondToolType.MMT(.distance)] = SecondToolInfo(.MMT(.distance),"measure_distance","distance")
         info[SecondToolType.MMT(.coordinate)] = SecondToolInfo(.MMT(.coordinate),"measure_coordinate","coordinate")
+        info[SecondToolType.MMT(.minDistance)] = SecondToolInfo(.MMT(.minDistance),"mer_disdis","minDistance")
         info[SecondToolType.MMT(.angle)] = SecondToolInfo(.MMT(.angle),"measure_angle","angle")
+        info[SecondToolType.MMT(.spaceArea)] = SecondToolInfo(.MMT(.spaceArea),"mer_area_area","spaceArea")
         info[SecondToolType.MMT(.changePrecisionOrUnit)] = SecondToolInfo(.MMT(.changePrecisionOrUnit),"measure_change","change")
         break
     case .BiaoQian: break
@@ -283,7 +287,7 @@ func getSecondToolsByOrder(_ mainTool: MainToolType) -> [SecondToolType]? {
                 orders[type] = []
                 break
             case .Celiang:
-                orders[type] = [.MMT(.distance),.MMT(.coordinate),.MMT(.angle),.MMT(.changePrecisionOrUnit)]
+                orders[type] = [.MMT(.distance),.MMT(.coordinate),.MMT(.minDistance),.MMT(.angle),.MMT(.spaceArea),.MMT(.changePrecisionOrUnit)]
                 break
             case .BiaoQian:
                 orders[type] = []

@@ -358,13 +358,12 @@ fileprivate class projectItem: UIView {
         
         let tapButton = UIButton(type: .custom)
         tapButton.frame = CGRect(
-            x: nameLabel.frame.origin.x,
-            y: nameLabel.frame.origin.y - 20,
-            width: nameLabel.frame.width,
-            height: nameLabel.frame.height + 40
+            x: nameLabel.frame.origin.x - 30,
+            y: nameLabel.frame.origin.y - 18,
+            width: nameLabel.frame.width + 40,
+            height: nameLabel.frame.height + 45
         )
         tapButton.addTarget(self, action: #selector(pressItem(_:)), for: .touchUpInside)
-        addSubview(tapButton)
         
         progressLabel = UILabel(frame: CGRect(x: min(width - height * 0.1 - height * 0.5,width * 0.81), y:height * 0.1 - 11 + height * 0.4, width: 50, height: 22))
         progressLabel.font = UIFont.systemFont(ofSize: 12)
@@ -385,6 +384,7 @@ fileprivate class projectItem: UIView {
         addSubview(nameLabel)
         addSubview(createTimeLabel)
         addSubview(progressLabel)
+        addSubview(tapButton)
         addSubview(btnModify)
         
         isUserInteractionEnabled = true

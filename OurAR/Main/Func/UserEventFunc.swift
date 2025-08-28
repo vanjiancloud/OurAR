@@ -1505,7 +1505,50 @@ func sendFenJie(value: Int,completion: @escaping (Bool) ->Void) {
 
 //MARK: 漫游
 func sendManYou(enableGravity: String, enableAllCollision: String, value: Int,completion: @escaping (Bool) ->Void) {
-    let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=switchViewMode&projectionMode=1&viewMode=3&enableGravity=\(enableGravity)&enableAllCollision=\(enableAllCollision)"
+    let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=switchViewMode&projectionMode=1&viewMode=1&enableGravity=\(enableGravity)&enableAllCollision=\(enableAllCollision)&speedLevel=\(value)"
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    AF.request(url,method:.get, headers: headers).response {(response:AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
+        }
+        
+        let (isSuccess,_) = asyncRespBool(result: response.result)
+        completion(isSuccess)
+    }
+}
+
+func closeManYou(enableGravity: String, enableAllCollision: String, value: Int,completion: @escaping (Bool) ->Void) {
+    let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=switchViewMode&projectionMode=2&viewMode=2&enableGravity=\(enableGravity)&enableAllCollision=\(enableAllCollision)&speedLevel=\(value)"
     
     let accessToken: String = {
         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {

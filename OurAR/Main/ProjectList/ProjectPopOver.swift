@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SVProgressHUD
 
 fileprivate let cell_left_right_pad: CGFloat = 15
 fileprivate let popCellIdentifier: String = "popcell"
@@ -377,7 +378,10 @@ class ProjectPopOverController: UIViewController
                 showEditAlert()
                 break
             case .enter:
-                if let id = projectInfo["id"] as? String {
+                let progress  = projectInfo["progress"] as? String ?? ""
+                if progress != "100" {
+                    SVProgressHUD.showInfo(withStatus: "模型未转换完成")
+                } else if let id = projectInfo["id"] as? String {
                     print(id)
                     let (isSuccess,reason) = enterBIMScreen(currViewController: self, needLoadProject: id, screenType: .AR)
                     if !isSuccess {

@@ -16,7 +16,7 @@ class ManYou: GTView {
     var rightButton: UIButton!
     
     init(frame: CGRect) {
-        super.init(frame: frame, titleName: "漫游导航")
+        super.init(frame: frame, titleName: "第一人称视角")
     }
     
     required init?(coder: NSCoder) {
@@ -107,7 +107,7 @@ class ManYou: GTView {
         addSubview(rightButton)
         rightButton.snp.makeConstraints { make in
             make.centerY.equalTo(leftButton)
-            make.left.equalTo(leftButton.snp.right).offset(12)
+            make.left.equalTo(leftButton.snp.right).offset(32)
             make.size.equalTo(CGSizeMake(55, 20))
         }
     
@@ -131,12 +131,35 @@ class ManYou: GTView {
     }
     
     override func handleClose() {
+        var enableGravity: String
+        var enableAllCollision: String
+        
+        if leftButton.isSelected {
+            enableGravity = "true"
+        } else {
+            enableGravity = "false"
+        }
+        
+        if rightButton.isSelected {
+            enableAllCollision = "true"
+        } else {
+            enableAllCollision = "false"
+        }
+        
+        closeManYou(enableGravity: enableGravity, enableAllCollision: enableAllCollision, value: Int(slider.value), completion: {result in
+            if !self.isHidden && !result {
+                if let parentView = self.superview {
+                    showTip(tip: "指令下发失败", parentView: parentView,tipColor_bg_fail,tipColor_text_fail) {}
+                }
+            }
+        })
+        
         VJMTDelegateManager.notity(needClosedMainType: .PersonView)
     }
     
     //MARK: 展示分解页面时调用
     func open() {
-
+        self.sendManYouAction()
     }
     
     func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage? {

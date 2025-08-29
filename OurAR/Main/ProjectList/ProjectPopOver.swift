@@ -215,6 +215,57 @@ class ProjectPopOverController: UIViewController
         registerGesture()
         
         updatePopPosition()
+        
+        setupInitialState()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // 在 viewWillAppear 中执行动画
+        animatePresentation()
+    }
+    
+    private func setupInitialState() {
+        // 初始状态
+        self.view.alpha = 0
+        self.triangleView.alpha = 0
+        self.triangleView.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+        self.projectPopView.alpha = 0
+        self.projectPopView.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+    }
+
+    private func animatePresentation() {
+        // 动画显示
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
+                       usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 0.5,
+                       options: .curveEaseOut) {
+            self.view.alpha = 1
+            self.triangleView.alpha = 1
+            self.triangleView.transform = .identity
+            self.projectPopView.alpha = 1
+            self.projectPopView.transform = .identity
+        }
+    }
+
+    // 添加隐藏动画
+    override func dismiss(animated: Bool, completion: (() -> Void)? = nil) {
+        if animated {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.view.alpha = 0
+                self.triangleView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+                self.triangleView.alpha = 0
+                self.projectPopView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+                self.projectPopView.alpha = 0
+                self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
+            }) { _ in
+                super.dismiss(animated: false, completion: completion)
+            }
+        } else {
+            super.dismiss(animated: false, completion: completion)
+        }
     }
     
     private func registerGesture() {
@@ -227,7 +278,7 @@ class ProjectPopOverController: UIViewController
     @objc private func handleTap(_ sender: UITapGestureRecognizer) {
         let location = sender.location(in: view)
         if !triangleView.frame.contains(location) {
-            dismiss(animated: true)
+            dismiss(animated: false)
         }
     }
     

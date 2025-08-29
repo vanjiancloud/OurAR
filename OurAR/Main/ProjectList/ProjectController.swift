@@ -192,7 +192,7 @@ class ProjectController: UIViewController, UIScrollViewDelegate {
         let projectPopOverController = ProjectPopOverController(targetView: targetView)
         projectPopOverController.modalPresentationStyle = .overFullScreen
         projectPopOverController.projectInfo = info
-        present(projectPopOverController, animated: true, completion: nil)
+        present(projectPopOverController, animated: false, completion: nil)
     }
 
 }

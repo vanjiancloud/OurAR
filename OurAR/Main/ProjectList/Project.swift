@@ -378,7 +378,7 @@ fileprivate class projectItem: UIView {
         btnModify.isUserInteractionEnabled = true
         btnModify.setTitle("•••", for: .normal)
         btnModify.setTitleColor(UIColor(red: 0.51, green: 0.51, blue: 0.51, alpha: 0.5), for: .normal)
-        btnModify.addTarget(self, action: #selector(pressModify), for: .touchDown)
+        btnModify.addTarget(self, action: #selector(pressModify), for: .touchUpInside)
         
         addSubview(icon)
         addSubview(nameLabel)

@@ -63,18 +63,35 @@ static const CGFloat SVProgressHUDLabelSpacing = 8.0f;
     BOOL _isInitializing;
 }
 
-+ (SVProgressHUD*)sharedView {
++ (SVProgressHUD *)sharedView {
     static dispatch_once_t once;
     
     static SVProgressHUD *sharedView;
 #if !defined(SV_APP_EXTENSIONS)
-    dispatch_once(&once, ^{ sharedView = [[self alloc] initWithFrame:[[[UIApplication sharedApplication] delegate] window].bounds]; });
+    dispatch_once(&once, ^{
+        sharedView = [[self alloc] initWithFrame:[[[UIApplication sharedApplication] delegate] window].bounds];
+        [sharedView setupShadow]; // 添加阴影设置
+    });
 #else
-    dispatch_once(&once, ^{ sharedView = [[self alloc] initWithFrame:[[UIScreen mainScreen] bounds]]; });
+    dispatch_once(&once, ^{
+        sharedView = [[self alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        [sharedView setupShadow]; // 添加阴影设置
+    });
 #endif
     return sharedView;
 }
 
+// 添加阴影设置方法
+- (void)setupShadow {
+    self.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.layer.shadowOffset = CGSizeMake(0, 2);
+    self.layer.shadowRadius = 6;
+    self.layer.shadowOpacity = 0.15;
+    self.layer.masksToBounds = NO;
+    
+    // 确保阴影不会覆盖圆角效果
+    self.layer.cornerRadius = 12; // 保持原有的圆角值，根据实际情况调整
+}
 
 #pragma mark - Setters
 

@@ -123,7 +123,7 @@ class BIMSubScreenView : BaseView
         settingView.isHidden = true
         
         settingView.snp.makeConstraints { make in
-            make.centerX.equalTo(vjMainToolView).offset(150);
+            make.centerX.equalTo(vjMainToolView);
             make.bottom.equalTo(vjMainToolView.snp.top).offset(-60);
             make.size.equalTo(CGSizeMake(200, 220));
         }
@@ -144,7 +144,7 @@ class BIMSubScreenView : BaseView
         
         settingTypeView.snp.makeConstraints { make in
             make.centerX.equalTo(settingView);
-            make.bottom.equalTo(settingView.snp.top).offset(10);
+            make.bottom.equalTo(settingView.snp.top).offset(50);
             make.size.equalTo(CGSizeMake(160, 240));
         }
         
@@ -445,20 +445,12 @@ class BIMSubScreenView : BaseView
             needShowScaleAdjust = false
             scaleAdjustView.isHidden = true
             
-            settingView.snp.updateConstraints { make in
-                make.centerX.equalTo(vjMainToolView).offset(50);
-            }
-            
             break
         case .ThreeD:
             enterPositionView?.isHidden = true
             sliderView.isHidden =  true
             scaleAdjustView.isHidden = true
-            
-            settingView.snp.updateConstraints { make in
-                make.centerX.equalTo(vjMainToolView).offset(150);
-            }
-            
+             
             break
         case .None:
             break

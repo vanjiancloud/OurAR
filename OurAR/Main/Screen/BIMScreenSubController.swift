@@ -255,42 +255,47 @@ class BIMScreenSubController : UIViewController, MainToolProtocol,SocketEventPro
                 
                 self.vjBIMScreenView.settingDistanceView.onBottomViewTapped = { [weak self] in
                     self?.vjBIMScreenView.settingView.bottomLabel.text = "0.01"
-                    self?.handleSetting()
                 }
                 
                 self.vjBIMScreenView.settingDistanceView.onMiddleViewTapped = { [weak self] in
                     self?.vjBIMScreenView.settingView.bottomLabel.text = "0.1"
-                    self?.handleSetting()
                 }
                 
                 self.vjBIMScreenView.settingDistanceView.onTopViewTapped = { [weak self] in
                     self?.vjBIMScreenView.settingView.bottomLabel.text = "0"
-                    self?.handleSetting()
                 }
                 
                 self.vjBIMScreenView.settingTypeView.onInViewTapped = { [weak self] in
                     self?.vjBIMScreenView.settingView.topLabel.text = "in"
-                    self?.handleSetting()
                 }
                 
                 self.vjBIMScreenView.settingTypeView.onFtViewTapped = { [weak self] in
                     self?.vjBIMScreenView.settingView.topLabel.text = "ft"
-                    self?.handleSetting()
                 }
                 
                 self.vjBIMScreenView.settingTypeView.onMmViewTapped = { [weak self] in
                     self?.vjBIMScreenView.settingView.topLabel.text = "mm"
-                    self?.handleSetting()
                 }
                 
                 self.vjBIMScreenView.settingTypeView.onCmViewTapped = { [weak self] in
                     self?.vjBIMScreenView.settingView.topLabel.text = "cm"
-                    self?.handleSetting()
                 }
                 
                 self.vjBIMScreenView.settingTypeView.onMViewTapped = { [weak self] in
                     self?.vjBIMScreenView.settingView.topLabel.text = "m"
+                }
+                
+                self.vjBIMScreenView.settingView.onConfirmTapped = { [weak self] in
                     self?.handleSetting()
+//                    self?.vjBIMScreenView.settingView.isHidden = true
+//                    self?.vjBIMScreenView.settingDistanceView.isHidden = true
+//                    self?.vjBIMScreenView.settingTypeView.isHidden = true
+                    
+//                    sendEventBySecondTypes(main: mainType, seconds: self?.clickedST ?? MeasurementType,params: [:]) {result,msg in
+//                        if !result {
+//
+//                        }
+//                    }
                 }
             } else {
                 self.vjBIMScreenView.settingView.isHidden = true
@@ -339,6 +344,7 @@ class BIMScreenSubController : UIViewController, MainToolProtocol,SocketEventPro
         }
     }
     
+    // 设置
     func handleSetting () {
         // 安全地获取文本值
         let unit = self.vjBIMScreenView.settingView.topLabel.text ?? "m"
@@ -348,6 +354,7 @@ class BIMScreenSubController : UIViewController, MainToolProtocol,SocketEventPro
         changeSettingMeasureUnit(unit: unit, precision: precision) { isSuccess in
             if isSuccess {
                 print("单位设置成功: \(unit)")
+                SVProgressHUD.showInfo(withStatus: "操作成功")
                 // 成功后的操作
             } else {
                 print("单位设置失败")

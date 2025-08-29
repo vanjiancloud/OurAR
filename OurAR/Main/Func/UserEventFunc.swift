@@ -104,9 +104,11 @@ func sendEventBySecondTypes(main: MainToolType,seconds: [SecondToolType],params:
         break
     case .Celiang:
         //测量只能存在一个secondToolType
+        valid = true
         if seconds.count == 1 {
-            valid = true
             sendEventOfCeLiang(type: seconds[0],params: params) { result in completion(result,"")}
+        } else {
+            closeMeasurement() {_ in }
         }
     case .BiaoQian:
         break

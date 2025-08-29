@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "position.png",
+      "filename" : "measure_distance 1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "position 1.png",
+      "filename" : "measure_distance.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "position 2.png",
+      "filename" : "measure_distance 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

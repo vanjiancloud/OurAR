@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "angle.png",
+      "filename" : "measure_angle 1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "angle 1.png",
+      "filename" : "measure_angle.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "angle 2.png",
+      "filename" : "measure_angle 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

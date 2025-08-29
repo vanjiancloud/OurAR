@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "gauge.png",
+      "filename" : "measure_coordinate 1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "gauge 1.png",
+      "filename" : "measure_coordinate.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "gauge 2.png",
+      "filename" : "measure_coordinate 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

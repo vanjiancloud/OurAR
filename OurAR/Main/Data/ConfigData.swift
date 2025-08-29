@@ -24,7 +24,7 @@ let tipColor_text_fail =  UIColor.white
 let tipColor_bg_warning = UIColor(red: 0, green: 0.7, blue: 0.7, alpha: 1)
 let tipColor_text_warning = UIColor.white
 
-let btnHighlightColor = UIColor.systemYellow
+let btnHighlightColor = UIColor(red: 254/255, green: 96/255, blue: 0/255, alpha: 1)
 
 
 let fileResource: String = "cloudar/file/" //文件资源

@@ -456,7 +456,7 @@ fileprivate class projectItem: UIView {
         print("press modify")
         // 打开修改页面
         if let controller = getControllerOfSubview(self) as? ProjectController {
-            controller.showPopView(targetView: self.btnModify!,info: ["name":self.nameLabel?.text ?? "","id":self.id])
+            controller.showPopView(targetView: self.btnModify!,info: ["name":self.nameLabel?.text ?? "","id":self.id, "progress" : progress])
         }
     }
 }

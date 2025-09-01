@@ -24,6 +24,7 @@ fileprivate struct PopCellInfo
     var type: PopCellType!
     var iconName: String!
     var cellName: String!
+    var progress: String!
     
     init(type: PopCellType!, iconName: String!, cellName: String!) {
         self.type = type

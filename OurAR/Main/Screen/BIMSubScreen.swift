@@ -112,21 +112,11 @@ class BIMSubScreenView : BaseView
         vjFenJieView.isHidden = true
         
         //初始化漫游面板
-//        vjManYouView = ManYou(frame: CGRect(x: 0, y: 0, width: 330, height: 160))
-//        vjManYouView.center = CGPoint(x: self.bounds.width - 330/2, y: self.bounds.height - 160/2)
-        
-        vjManYouView = ManYou(frame: CGRectZero)
-        vjManYouView.center = CGPoint(x: self.bounds.width - 330/2, y: self.bounds.height - 160/2)
-        vjManYouView.layer.mask = makeMask(8,self.bounds,[.topLeft, .topRight])
+        vjManYouView = ManYou(frame: CGRect(x: 0, y: 0, width: 460, height: 80))
+        vjManYouView.center = CGPoint(x: self.bounds.midX, y: self.bounds.maxY - 55)
+        vjManYouView.layer.mask = makeMask(8,vjManYouView.bounds,[.topLeft, .topRight])
         addSubview(vjManYouView)
         vjManYouView.isHidden = true
-        
-        vjManYouView.snp.makeConstraints { make in
-            make.centerX.equalTo(self)
-            make.bottom.equalTo(self).offset(-12)
-            make.width.equalTo(450)
-            make.height.equalTo(80)
-        }
         
         settingView = ModelSettingAlert(frame:CGRectZero)
         addSubview(settingView)

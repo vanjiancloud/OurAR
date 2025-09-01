@@ -36,8 +36,9 @@ class ManYou: GTView {
         titleName.textAlignment = .center
         addSubview(titleName)
         titleName.snp.makeConstraints { make in
-            make.centerY.equalTo(self)
+            make.centerY.equalTo(self).offset(10)
             make.left.equalTo(self.snp.left).offset(left_right_pad)
+            make.width.equalTo(60)
         }
         
         manYouName = UILabel(frame: CGRectZero)
@@ -47,9 +48,9 @@ class ManYou: GTView {
         manYouName.textColor = .white
         manYouName.textAlignment = .left
         addSubview(manYouName)
-        titleName.snp.makeConstraints { make in
+        manYouName.snp.makeConstraints { make in
             make.centerY.equalTo(titleName)
-            make.left.equalTo(titleName.snp.right).offset(20)
+            make.left.equalTo(titleName.snp.right).offset(10)
         }
         
         slider = UISlider(frame: CGRectZero)
@@ -61,7 +62,7 @@ class ManYou: GTView {
         addSubview(slider)
         slider.snp.makeConstraints { make in
             make.centerY.equalTo(titleName)
-            make.left.equalTo(manYouName.snp.right).offset(20)
+            make.left.equalTo(manYouName.snp.right).offset(15)
             make.width.equalTo(120)
             make.height.equalTo((self.bounds.height - headerHeight) * 0.45)
         }
@@ -107,7 +108,7 @@ class ManYou: GTView {
         addSubview(leftButton)
         leftButton.snp.makeConstraints { make in
             make.centerY.equalTo(slider)
-            make.left.equalTo(manYouValue.snp.right).offset(20)
+            make.left.equalTo(manYouValue.snp.right).offset(15)
             make.size.equalTo(CGSizeMake(55, 20))
         }
         

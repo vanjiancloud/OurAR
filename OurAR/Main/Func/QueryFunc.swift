@@ -387,6 +387,78 @@ func requestARModelLoad(request: inout DataRequest?,token:String,taskId:String,p
     }
 }
 
+//MARK: 加载进度
+ func getLoadingMessage(completion: @escaping (Result<Data,Error>) -> Void) {
+    let url = car_URL.urlPre + "launcherReceiveMsg/getLoadingMessageByTaskIdNew?taskId=\(car_UserInfo.taskID)"
+     
+     let accessToken: String = {
+         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+             return ""
+         }
+         if let str = value as? String {
+             return str
+         } else {
+             return "\(value)"
+         }
+     }()
+
+     let headers: HTTPHeaders = [
+         "accessToken": accessToken
+     ]
+     
+     AF.request(url,method: .get, headers: headers).response { (response: AFDataResponse) in
+         let statusCode = response.response?.statusCode
+         if statusCode == 401 {
+             NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+         }
+         
+         switch response.result {
+         case .success(let JSON):
+             do {
+                 completion(.success(JSON ?? Data()))
+             }
+         case .failure(let error):
+             completion(.failure(error))
+         }
+     }
+}
+
+//MARK: 请求加载背景图
+public func queryLoadImageInfo(type: String,completion: @escaping (Result<Data,Error>) -> Void) {
+    let url = car_URL.urlPre + "cloudServiceImg/isUploadImg?userId=\(car_UserInfo.userID)&type=\(type)"
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    AF.request(url,method: .get, headers: headers).response { (response: AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        if statusCode == 401 {
+            NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+        }
+        
+        switch response.result {
+        case .success(let JSON):
+            do {
+                completion(.success(JSON ?? Data()))
+            }
+        case .failure(let error):
+            completion(.failure(error))
+        }
+    }
+}
+
 //MARK: 以OurBim的方式请求加载AR模型
 public func queryARModelLoad(request: inout DataRequest?,token:String,projectID: String,completion: @escaping (Bool,String) -> Void) {
     //请求模型
@@ -515,6 +587,30 @@ public func queryPropertyInfo(projectID: String,actorID: String,completion: @esc
         case .failure(let error):
             completion(.failure(error))
         }
+    }
+}
+
+//MARK: 加载记录
+ func getStepFourLoadingMessage(completion: @escaping (Result<[[String:Any]],Error>) -> Void) {
+    let url = car_URL.urlPre + "ar/reloadStreamvrRecord?taskId=\(car_UserInfo.taskID)"
+     
+     let accessToken: String = {
+         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+             return ""
+         }
+         if let str = value as? String {
+             return str
+         } else {
+             return "\(value)"
+         }
+     }()
+
+     let headers: HTTPHeaders = [
+         "accessToken": accessToken
+     ]
+     
+     AF.request(url,method:.get, headers: headers).response { (response: AFDataResponse) in
+        
     }
 }
 

@@ -14,7 +14,9 @@ import CloudAR
 class ModelLoadView: UIView {
     
     var loadImg: UIImageView!
+    var LogImg: UIImageView!
     var loadLabel: UILabel!
+    var stepLabel: UILabel!
     var backBtn: BackBtnView!
     @objc var progressLabel: UILabel!
     @objc var progressTipsLabel: UILabel!
@@ -53,13 +55,21 @@ class ModelLoadView: UIView {
     private func initSubView() {
         // 1. 先初始化所有视图
         loadImg = UIImageView()
-        loadImg.image = UIImage(named: "loadbg")
+        loadImg.image = UIImage(named: "loading")
+        LogImg = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
+        LogImg.image = UIImage(named: "img_loadbg_logo")
         
         loadLabel = UILabel()
         loadLabel.font = UIFont.systemFont(ofSize: 18)
-        loadLabel.text = "模型场景加载中"
-        loadLabel.textColor = .black
+        loadLabel.text = "环境加载中"
+        loadLabel.textColor = .white
         loadLabel.textAlignment = .center
+        
+        stepLabel = UILabel()
+        stepLabel.font = UIFont.systemFont(ofSize: 18)
+        stepLabel.text = ""
+        stepLabel.textColor = .white
+        stepLabel.textAlignment = .center
         
         backBtn = BackBtnView(x: 0, y: 20, width: 40, height: 40)
         
@@ -74,6 +84,7 @@ class ModelLoadView: UIView {
         progressLabel.font = UIFont.systemFont(ofSize: 12)
         progressLabel.isHidden = false
         progressLabel.text = "0%"
+        progressLabel.isHidden = true;
 
         progressTipsLabel = UILabel()
         progressTipsLabel.font = UIFont.systemFont(ofSize: 12)
@@ -85,7 +96,9 @@ class ModelLoadView: UIView {
         
         // 2. 添加所有子视图
         addSubview(loadImg)
+        addSubview(LogImg)
         addSubview(loadLabel)
+        addSubview(stepLabel)
         addSubview(backBtn)
         addSubview(progressBgView)
         addSubview(progressLabel)
@@ -94,11 +107,16 @@ class ModelLoadView: UIView {
         
         // 3. 设置约束
         setupConstraints()
+        
+        self.loadImage()
+        self.loadLogoImage()
     }
     
     private func setupConstraints() {
+        LogImg.translatesAutoresizingMaskIntoConstraints = false
         loadImg.translatesAutoresizingMaskIntoConstraints = false
         loadLabel.translatesAutoresizingMaskIntoConstraints = false
+        stepLabel.translatesAutoresizingMaskIntoConstraints = false
         progressBgView.translatesAutoresizingMaskIntoConstraints = false
         progressLabel.translatesAutoresizingMaskIntoConstraints = false
         progressTipsLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -111,10 +129,20 @@ class ModelLoadView: UIView {
             loadImg.leadingAnchor.constraint(equalTo: leadingAnchor),
             loadImg.trailingAnchor.constraint(equalTo: trailingAnchor),
             
+            LogImg.widthAnchor.constraint(equalToConstant: 80),
+            LogImg.heightAnchor.constraint(equalToConstant:80),
+            LogImg.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant:-30),
+            LogImg.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            
             loadLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            loadLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            loadLabel.topAnchor.constraint(equalTo: LogImg.bottomAnchor, constant: 10),
             loadLabel.widthAnchor.constraint(equalToConstant: 200),
             loadLabel.heightAnchor.constraint(equalToConstant: 30),
+            
+            stepLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            stepLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30),
+            stepLabel.widthAnchor.constraint(equalToConstant: 300),
+            stepLabel.heightAnchor.constraint(equalToConstant: 30),
             
             backBtn.leadingAnchor.constraint(equalTo: leadingAnchor),
             backBtn.topAnchor.constraint(equalTo: topAnchor, constant: 30),
@@ -149,12 +177,12 @@ class ModelLoadView: UIView {
         autoresizingMask = [.flexibleWidth, .flexibleHeight]
         initSubView()
         
-        addSubview(activityIndicatorView)
-        NSLayoutConstraint.activate([
-            activityIndicatorView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            activityIndicatorView.bottomAnchor.constraint(equalTo: loadLabel.topAnchor, constant: -10)
-        ])
-        activityIndicatorView.startAnimating()
+//        addSubview(activityIndicatorView)
+//        NSLayoutConstraint.activate([
+//            activityIndicatorView.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            activityIndicatorView.bottomAnchor.constraint(equalTo: loadLabel.topAnchor, constant: -10)
+//        ])
+//        activityIndicatorView.startAnimating()
     }
 
     func show() {
@@ -163,5 +191,61 @@ class ModelLoadView: UIView {
 
     func hide() {
         isHidden = true
+    }
+    
+    private func loadImage() {
+        queryLoadImageInfo(type: "startUpBkgImg") { result in
+            switch result {
+            case .success(let JSON):
+                do {
+                    let JSONObject = try? JSONSerialization.jsonObject(with: JSON, options: .allowFragments)
+                    if let json = JSONObject as? [String:Any] {
+                        if let respCode = json["code"] as? Int,
+                            let data = json["data"] as? [String:Any]
+                        {
+                            if respCode == 0
+                            {
+                                if let info = data["data"] as? String,
+                                   let name = data["name"] as? String,
+                                   let uuid = data["uuid"] as? String
+                                {
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            case .failure(let Error):
+                print(Error)
+            }
+        }
+    }
+    
+    private func loadLogoImage() {
+        queryLoadImageInfo(type: "startUpLogo") { result in
+            switch result {
+            case .success(let JSON):
+                do {
+                    let JSONObject = try? JSONSerialization.jsonObject(with: JSON, options: .allowFragments)
+                    if let json = JSONObject as? [String:Any] {
+                        if let respCode = json["code"] as? Int,
+                            let data = json["data"] as? [String:Any]
+                        {
+                            if respCode == 0
+                            {
+                                if let info = data["data"] as? String,
+                                   let name = data["name"] as? String,
+                                   let uuid = data["uuid"] as? String
+                                {
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            case .failure(let Error):
+                print(Error)
+            }
+        }
     }
 }

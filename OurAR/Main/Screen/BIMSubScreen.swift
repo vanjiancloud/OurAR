@@ -415,9 +415,6 @@ class BIMSubScreenView : BaseView
     }
     //MARK: 监听模式的切换
     func listenSwitchScreenMode(toScreenMode: car_ScreenMode) {
-        vjSwitchModeView.isHidden = false
-        //一级菜单的重置
-        vjMainToolView!.isHidden = false
         var width = vjMainToolView!.resetFrame()
         if getIsIphone() {
             vjMainToolView.snp.updateConstraints { make in
@@ -438,16 +435,40 @@ class BIMSubScreenView : BaseView
             needShowScaleAdjust = false
             scaleAdjustView.isHidden = true
             
+            vjSwitchModeView.isHidden = false
+            //一级菜单的重置
+            vjMainToolView!.isHidden = false
+            
             break
         case .ThreeD:
             enterPositionView?.isHidden = true
             sliderView.isHidden =  true
             scaleAdjustView.isHidden = true
+            
+            vjSwitchModeView.isHidden = false
+            //一级菜单的重置
+            vjMainToolView!.isHidden = false
              
             break
         case .None:
+            enterPositionView?.isHidden = true
+            sliderView.isHidden =  true
+            needShowScaleAdjust = true
+            scaleAdjustView.isHidden = true
+            
+            vjSwitchModeView.isHidden = true
+            //一级菜单的重置
+            vjMainToolView!.isHidden = true
             break
         default:
+            enterPositionView?.isHidden = true
+            sliderView.isHidden =  true
+            needShowScaleAdjust = true
+            scaleAdjustView.isHidden = true
+            
+            vjSwitchModeView.isHidden = true
+            //一级菜单的重置
+            vjMainToolView!.isHidden = true
                 break
         }
         //其他页面的数据重置

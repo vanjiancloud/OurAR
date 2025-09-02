@@ -150,6 +150,8 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
     
     //MARK: 监听screenMode的切换 ar <---> threeD
     func handleSwitchScreenMode(toScreenMode: car_ScreenMode) {
+        vjBIMScreenSubController!.listenSwitchScreenMode(toScreenMode: .None)
+        
         // 关闭上一个模式的模型，发送关闭通知
         vjBIMScreenSubController!.view.isHidden = true
         modelLoadController!.view.isHidden = false

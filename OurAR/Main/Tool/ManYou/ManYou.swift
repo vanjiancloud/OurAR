@@ -102,9 +102,13 @@ class ManYou: GTView {
         leftButton.setTitleColor(.white, for: .normal)
         leftButton.setTitleColor(.white, for: .selected)
         leftButton.titleLabel?.font = .systemFont(ofSize: 14)
-        leftButton.addAction(UIAction(handler: {_ in
-            self.leftClick()
-        }),for: .touchUpInside)
+//        leftButton.addAction(UIAction(handler: {_ in
+//            self.leftClick()
+//        }),for: .touchUpInside)
+        let btnTap = UITapGestureRecognizer(target: self, action: #selector(mButtonTap(_:)))
+        btnTap.cancelsTouchesInView = true
+        btnTap.delegate = self
+        leftButton.addGestureRecognizer(btnTap)
         addSubview(leftButton)
         leftButton.snp.makeConstraints { make in
             make.centerY.equalTo(slider)
@@ -128,9 +132,14 @@ class ManYou: GTView {
         rightButton.setTitleColor(.white, for: .normal)
         rightButton.setTitleColor(.white, for: .selected)
         rightButton.titleLabel?.font = .systemFont(ofSize: 14)
-        rightButton.addAction(UIAction(handler: {_ in
-            self.rightClick()
-        }),for: .touchUpInside)
+//        rightButton.addAction(UIAction(handler: {_ in
+//            self.rightClick()
+//        }),for: .touchUpInside)
+        let rightTap = UITapGestureRecognizer(target: self, action: #selector(rightButtonTap(_:)))
+        rightTap.cancelsTouchesInView = true
+        rightTap.delegate = self
+        rightButton.addGestureRecognizer(rightTap)
+        
         addSubview(rightButton)
         rightButton.snp.makeConstraints { make in
             make.centerY.equalTo(leftButton)
@@ -141,6 +150,19 @@ class ManYou: GTView {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap))
         tapGesture.cancelsTouchesInView = true
         addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func mButtonTap(_ sender: UITapGestureRecognizer) {
+        self.leftClick()
+    }
+    
+    @objc func rightButtonTap(_ sender: UITapGestureRecognizer) {
+        self.rightClick()
+    }
+
+    // 保证只让按钮的 tap 生效，不跟别的手势冲突
+    override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
     }
     
     private func leftClick() {

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 //MARK: main tool 侧边栏的base view
-class MTSidebarView : UIView
+class MTSidebarView : UIView, UIGestureRecognizerDelegate
 {
     var closeBtn: CloseButtn! //关闭按钮
     var title: UILabel!
@@ -39,14 +39,27 @@ class MTSidebarView : UIView
         // closeBtn
         closeBtn = CloseButtn(frame: CGRect(x: bounds.width - left_right_offset - closeBtnSize, y: 0, width: closeBtnSize, height: closeBtnSize))
         closeBtn.center.y = title_btn_center_y
-        closeBtn.addAction(UIAction(handler: { _ in
-            //
-            self.handleClose()
-        }), for: .touchUpInside)
+//        closeBtn.addAction(UIAction(handler: { _ in
+//            //
+//            self.handleClose()
+//        }), for: .touchUpInside)
+        let btnTap = UITapGestureRecognizer(target: self, action: #selector(myButtonTap(_:)))
+        btnTap.cancelsTouchesInView = true
+        btnTap.delegate = self
+        closeBtn.addGestureRecognizer(btnTap)
         addSubview(closeBtn)
         
         initSubView()
     }
+    
+    @objc func myButtonTap(_ sender: UITapGestureRecognizer) {
+        self.handleClose()
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
+    }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

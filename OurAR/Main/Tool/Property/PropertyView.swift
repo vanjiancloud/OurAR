@@ -67,7 +67,7 @@ class PropertyItem: UIView
     }
 }
 
-class VJPropertyView: UIView
+class VJPropertyView: UIView, UIGestureRecognizerDelegate
 {
     var closeBtn: CloseButtn!
     var title: UILabel!
@@ -104,10 +104,14 @@ class VJPropertyView: UIView
         
         closeBtn = CloseButtn(frame: CGRect(x: bounds.width - left_right_offset - btnSize, y: 0, width: btnSize, height: btnSize))
         closeBtn.center.y = title_btn_center_y
-        closeBtn.addAction(UIAction(handler: { _ in
-            //关闭属性面板
-            VJMTDelegateManager.notity(needClosedMainType: .ShuXing)
-        }), for: .touchUpInside)
+//        closeBtn.addAction(UIAction(handler: { _ in
+//            //关闭属性面板
+//            VJMTDelegateManager.notity(needClosedMainType: .ShuXing)
+//        }), for: .touchUpInside)
+        let btnTap = UITapGestureRecognizer(target: self, action: #selector(myButtonTap(_:)))
+        btnTap.cancelsTouchesInView = true
+        btnTap.delegate = self
+        closeBtn.addGestureRecognizer(btnTap)
         addSubview(closeBtn)
         
         property_start_y = title_btn_center_y + max(title.bounds.height, closeBtn.bounds.height) / 2 + propertyItems_up_offset
@@ -123,6 +127,15 @@ class VJPropertyView: UIView
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap))
         tapGesture.cancelsTouchesInView = true
         addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func myButtonTap(_ sender: UITapGestureRecognizer) {
+        //关闭属性面板
+        VJMTDelegateManager.notity(needClosedMainType: .ShuXing)
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
     }
     
     @objc private func handleBackgroundTap() {

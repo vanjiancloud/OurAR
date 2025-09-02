@@ -56,7 +56,7 @@ class CloseButtn: UIButton
 }
 
 // 进入定位view
-class EnterPositionView: UIView
+class EnterPositionView: UIView, UIGestureRecognizerDelegate
 {
     var btn: UIButton!
 
@@ -70,10 +70,24 @@ class EnterPositionView: UIView
         btn.setBackgroundImage(UIImage(named: "enterposition"), for: .normal)
         btn.contentMode = .scaleAspectFill
         btn.center = CGPoint(x: width / 2, y: height / 2)
-        btn.addAction(UIAction(handler: {_ in
-            EPDelegateManager.notity()
-        }), for: .touchUpInside)
+//        btn.addAction(UIAction(handler: {_ in
+//            EPDelegateManager.notity()
+//        }), for: .touchDown)
+        
+        let btnTap = UITapGestureRecognizer(target: self, action: #selector(myButtonTap(_:)))
+        btnTap.cancelsTouchesInView = true
+        btnTap.delegate = self
+        btn.addGestureRecognizer(btnTap)
+        
         addSubview(btn)
+    }
+    
+    @objc func myButtonTap(_ sender: UITapGestureRecognizer) {
+        EPDelegateManager.notity()
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
     }
     
     required init?(coder: NSCoder) {
@@ -164,7 +178,7 @@ class SwitchModeView: UIView
 }
 
 //MARK: 主菜单底部工具按钮
-class MainToolBtn: UIView
+class MainToolBtn: UIView, UIGestureRecognizerDelegate
 {
     var btn: UIButton!
     var label: UILabel!
@@ -199,9 +213,15 @@ class MainToolBtn: UIView
         if !showLable() {
             btn.center.y = frame.height / 2
         }
-        btn.addAction(UIAction(handler: { _ in
-            VJMTDelegateManager.notity(mainType: self.toolType!)
-        }), for: .touchUpInside)
+//        btn.addAction(UIAction(handler: { _ in
+//            VJMTDelegateManager.notity(mainType: self.toolType!)
+//        }), for: .touchDown)
+        
+        let btnTap = UITapGestureRecognizer(target: self, action: #selector(myButtonTap(_:)))
+        btnTap.cancelsTouchesInView = true
+        btnTap.delegate = self
+        btn.addGestureRecognizer(btnTap)
+        
         addSubview(btn)
         
         if showLable() {
@@ -213,6 +233,15 @@ class MainToolBtn: UIView
             label.textColor = .white
             addSubview(label)
         }
+    }
+    
+    @objc func myButtonTap(_ sender: UITapGestureRecognizer) {
+        VJMTDelegateManager.notity(mainType: self.toolType!)
+    }
+
+    // 保证只让按钮的 tap 生效，不跟别的手势冲突
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -352,7 +381,7 @@ class MainToolView: UIView
 
 
 //MARK: 子工具按钮
-class SecondToolBtn: UIView
+class SecondToolBtn: UIView, UIGestureRecognizerDelegate
 {
     var btn: UIButton!
     var label: UILabel!
@@ -389,9 +418,17 @@ class SecondToolBtn: UIView
         if !showLable() {
             btn.center.y = frame.height / 2
         }
-        btn.addAction(UIAction(handler: { _ in
-            VJMTDelegateManager.notity(mainType:self.mainType!,secondType: self.type!)
-        }), for: .touchUpInside)
+//        btn.addAction(UIAction(handler: { _ in
+//            VJMTDelegateManager.notity(mainType:self.mainType!,secondType: self.type!)
+//        }), for: .touchDown)
+        
+        btn.isExclusiveTouch = true
+
+        let btnTap = UITapGestureRecognizer(target: self, action: #selector(myButtonTap(_:)))
+        btnTap.cancelsTouchesInView = true
+        btnTap.delegate = self
+        btn.addGestureRecognizer(btnTap)
+        
         addSubview(btn)
         
         if showLable() {
@@ -403,6 +440,15 @@ class SecondToolBtn: UIView
             label.textColor = .white
             addSubview(label)
         }
+    }
+    
+    @objc func myButtonTap(_ sender: UITapGestureRecognizer) {
+        VJMTDelegateManager.notity(mainType:self.mainType!,secondType: self.type!)
+    }
+
+    // 保证只让按钮的 tap 生效，不跟别的手势冲突
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
     }
     
     required init?(coder aDecoder: NSCoder) {

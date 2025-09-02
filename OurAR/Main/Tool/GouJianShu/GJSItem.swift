@@ -96,31 +96,40 @@ class VJGJSItemCell: UITableViewCell
         updownBtn.center.y = self.bounds.height / 2
         updownBtn.setImage(UIImage(named: "pullup"), for: .normal)
         updownBtn.contentMode = .scaleAspectFill
-        updownBtn.addAction(UIAction(handler: { _ in
-            if let item = self.item {
-                if item._type != .file {
-                    GJSDelegateManager.notity(id: item._id, params: ["type": GJSCellBtnType.collpase,"collpase": !item._collpase])
-                }
-            } else {
-                print("gjs item is nil")
-            }
-            
-        }), for: .touchUpInside)
+//        updownBtn.addAction(UIAction(handler: { _ in
+//            if let item = self.item {
+//                if item._type != .file {
+//                    GJSDelegateManager.notity(id: item._id, params: ["type": GJSCellBtnType.collpase,"collpase": !item._collpase])
+//                }
+//            } else {
+//                print("gjs item is nil")
+//            }
+//            
+//        }), for: .touchUpInside)
+        let upTap = UITapGestureRecognizer(target: self, action: #selector(upButtonTap(_:)))
+        upTap.cancelsTouchesInView = true
+        upTap.delegate = self
+        updownBtn.addGestureRecognizer(upTap)
         contentView.addSubview(updownBtn)
         
         let clickButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 45))
         clickButton.center.y = self.bounds.height / 2
         clickButton.contentMode = .scaleAspectFill
-        clickButton.addAction(UIAction(handler: { _ in
-            if let item = self.item {
-                if item._type != .file {
-                    GJSDelegateManager.notity(id: item._id, params: ["type": GJSCellBtnType.collpase,"collpase": !item._collpase])
-                }
-            } else {
-                print("gjs item is nil")
-            }
-            
-        }), for: .touchUpInside)
+//        clickButton.addAction(UIAction(handler: { _ in
+//            if let item = self.item {
+//                if item._type != .file {
+//                    GJSDelegateManager.notity(id: item._id, params: ["type": GJSCellBtnType.collpase,"collpase": !item._collpase])
+//                }
+//            } else {
+//                print("gjs item is nil")
+//            }
+//            
+//        }), for: .touchUpInside)
+        
+        let clickTap = UITapGestureRecognizer(target: self, action: #selector(clickButtonTap(_:)))
+        clickTap.cancelsTouchesInView = true
+        clickTap.delegate = self
+        clickButton.addGestureRecognizer(clickTap)
         
         let bg_start_x: CGFloat = updownBtnSize + pad
         bgBtn = UIButton(frame: CGRect(x: bg_start_x, y: 0, width: self.bounds.width * 0.4, height: self.bounds.height))
@@ -130,13 +139,17 @@ class VJGJSItemCell: UITableViewCell
         bgBtn.titleLabel?.textAlignment = .left
         bgBtn.titleLabel?.font  = .italicSystemFont(ofSize: 15)
         bgBtn.titleLabel?.textColor = .black
-        bgBtn.addAction(UIAction(handler: {_ in
-            if let item = self.item {
-                GJSDelegateManager.notity(id: item._id, params: ["type": GJSCellBtnType.choise])
-            } else {
-                print("tag item is nil")
-            }
-        }), for: .touchUpInside)
+//        bgBtn.addAction(UIAction(handler: {_ in
+//            if let item = self.item {
+//                GJSDelegateManager.notity(id: item._id, params: ["type": GJSCellBtnType.choise])
+//            } else {
+//                print("tag item is nil")
+//            }
+//        }), for: .touchUpInside)
+        let btnTap = UITapGestureRecognizer(target: self, action: #selector(myButtonTap(_:)))
+        btnTap.cancelsTouchesInView = true
+        btnTap.delegate = self
+        bgBtn.addGestureRecognizer(btnTap)
         contentView.addSubview(bgBtn)
         
         // 固定的
@@ -144,13 +157,17 @@ class VJGJSItemCell: UITableViewCell
         hiddenBtn = UIButton(frame: CGRect(x: 0, y: 0, width: gjsIconSize, height: gjsIconSize))
         hiddenBtn.center = CGPoint(x: hidden_center_x, y: self.bounds.height / 2)
         hiddenBtn.contentMode = .scaleAspectFill
-        hiddenBtn.addAction(UIAction(handler: {_ in
-            if let item = self.item {
-                GJSDelegateManager.notity(id: item._id, params: ["type": GJSCellBtnType.hidden,"hidden": !item._hiddenModel])
-            } else {
-                print("tag item is nil")
-            }
-        }), for: .touchUpInside)
+//        hiddenBtn.addAction(UIAction(handler: {_ in
+//            if let item = self.item {
+//                GJSDelegateManager.notity(id: item._id, params: ["type": GJSCellBtnType.hidden,"hidden": !item._hiddenModel])
+//            } else {
+//                print("tag item is nil")
+//            }
+//        }), for: .touchUpInside)
+        let hiddenTap = UITapGestureRecognizer(target: self, action: #selector(hiddenButtonTap(_:)))
+        hiddenTap.cancelsTouchesInView = true
+        hiddenTap.delegate = self
+        hiddenBtn.addGestureRecognizer(hiddenTap)
         contentView.addSubview(hiddenBtn)
         
         // 固定的
@@ -159,20 +176,73 @@ class VJGJSItemCell: UITableViewCell
         deleteBtn.center = CGPoint(x: delete_center_x, y: self.bounds.height / 2)
         deleteBtn.setBackgroundImage(UIImage(named: "delete"), for: .normal)
         deleteBtn.contentMode = .scaleAspectFill
-        deleteBtn.addAction(UIAction(handler: {_ in
-            if let item = self.item {
-                //NOTICE: 只有自定义构件才有删除按钮，这里可以不需要考虑这么多
-                GJSDelegateManager.notity(id: item._id, params: ["type": GJSCellBtnType.delete])
-            } else {
-                print("tag item is nil")
-            }
-        }), for: .touchUpInside)
+//        deleteBtn.addAction(UIAction(handler: {_ in
+//            if let item = self.item {
+//                //NOTICE: 只有自定义构件才有删除按钮，这里可以不需要考虑这么多
+//                GJSDelegateManager.notity(id: item._id, params: ["type": GJSCellBtnType.delete])
+//            } else {
+//                print("tag item is nil")
+//            }
+//        }), for: .touchUpInside)
+        let deletTap = UITapGestureRecognizer(target: self, action: #selector(deletButtonTap(_:)))
+        deletTap.cancelsTouchesInView = true
+        deletTap.delegate = self
+        deleteBtn.addGestureRecognizer(deletTap)
         contentView.addSubview(deleteBtn)
         
         highlightImg = UIImageView(frame: CGRect(x: updownBtnSize + pad, y: 0, width: self.bounds.width - updownBtnSize-pad, height: self.bounds.height))
         contentView.insertSubview(highlightImg, at: 0)
         
         contentView.addSubview(clickButton)
+    }
+    
+    @objc func myButtonTap(_ sender: UITapGestureRecognizer) {
+        if let item = self.item {
+            GJSDelegateManager.notity(id: item._id, params: ["type": GJSCellBtnType.choise])
+        } else {
+            print("tag item is nil")
+        }
+    }
+    
+    @objc func upButtonTap(_ sender: UITapGestureRecognizer) {
+        if let item = self.item {
+            if item._type != .file {
+                GJSDelegateManager.notity(id: item._id, params: ["type": GJSCellBtnType.collpase,"collpase": !item._collpase])
+            }
+        } else {
+            print("gjs item is nil")
+        }
+    }
+    
+    @objc func clickButtonTap(_ sender: UITapGestureRecognizer) {
+        if let item = self.item {
+            if item._type != .file {
+                GJSDelegateManager.notity(id: item._id, params: ["type": GJSCellBtnType.collpase,"collpase": !item._collpase])
+            }
+        } else {
+            print("gjs item is nil")
+        }
+    }
+    
+    @objc func hiddenButtonTap(_ sender: UITapGestureRecognizer) {
+        if let item = self.item {
+            GJSDelegateManager.notity(id: item._id, params: ["type": GJSCellBtnType.hidden,"hidden": !item._hiddenModel])
+        } else {
+            print("tag item is nil")
+        }
+    }
+    
+    @objc func deletButtonTap(_ sender: UITapGestureRecognizer) {
+        if let item = self.item {
+            //NOTICE: 只有自定义构件才有删除按钮，这里可以不需要考虑这么多
+            GJSDelegateManager.notity(id: item._id, params: ["type": GJSCellBtnType.delete])
+        } else {
+            print("tag item is nil")
+        }
+    }
+    
+    override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
     }
     
     required init?(coder: NSCoder) {

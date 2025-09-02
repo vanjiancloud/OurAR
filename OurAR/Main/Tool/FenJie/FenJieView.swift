@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class GTView: UIView
+class GTView: UIView, UIGestureRecognizerDelegate
 {
     var closeBtn: UIButton!
     var title: UILabel!
@@ -27,9 +27,13 @@ class GTView: UIView
         closeBtn.setBackgroundImage(UIImage(named: "close"), for: .normal)
         closeBtn.center.y = headerHeight / 2
         closeBtn.contentMode = .scaleAspectFill
-        closeBtn.addAction(UIAction(handler: {_ in
-            self.handleClose()
-        }), for: .touchUpInside)
+//        closeBtn.addAction(UIAction(handler: {_ in
+//            self.handleClose()
+//        }), for: .touchUpInside)
+        let btnTap = UITapGestureRecognizer(target: self, action: #selector(myButtonTap(_:)))
+        btnTap.cancelsTouchesInView = true
+        btnTap.delegate = self
+        closeBtn.addGestureRecognizer(btnTap)
         addSubview(closeBtn)
         
         title = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width * 0.5, height: titleHeight))
@@ -41,6 +45,14 @@ class GTView: UIView
         addSubview(title)
         
         initSubview()
+    }
+    
+    @objc func myButtonTap(_ sender: UITapGestureRecognizer) {
+        self.handleClose()
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
     }
     
     required init?(coder: NSCoder) {

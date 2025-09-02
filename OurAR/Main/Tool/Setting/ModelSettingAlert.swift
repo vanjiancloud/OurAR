@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ModelSettingAlert : UIView {
+class ModelSettingAlert : UIView, UIGestureRecognizerDelegate {
     let confirmButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.setTitle("确定", for: .normal)
@@ -111,7 +111,11 @@ class ModelSettingAlert : UIView {
         addSubview(bottomSubview)
         bottomSubview.translatesAutoresizingMaskIntoConstraints = false
         
-        confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+//        confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+        let btnTap = UITapGestureRecognizer(target: self, action: #selector(myButtonTap(_:)))
+        btnTap.cancelsTouchesInView = true
+        btnTap.delegate = self
+        confirmButton.addGestureRecognizer(btnTap)
         
         addSubview(confirmButton)
         confirmButton.translatesAutoresizingMaskIntoConstraints = false
@@ -188,8 +192,12 @@ class ModelSettingAlert : UIView {
         onTopViewTapped?()
     }
     
-    @objc private func confirmButtonTapped() {
+    @objc func myButtonTap(_ sender: UITapGestureRecognizer) {
         onConfirmTapped?()
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
     }
     
     override func layoutSubviews() {

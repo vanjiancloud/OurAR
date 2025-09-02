@@ -67,16 +67,21 @@ class TagItemCell: UITableViewCell
         //updownBtn.setBackgroundImage(UIImage(named: "pullup")?.withRenderingMode(.alwaysTemplate), for: .normal)
         //updownBtn.setBackgroundImage(UIImage(named: "dropdown")?.withRenderingMode(.alwaysTemplate), for: .selected)
         updownBtn.contentMode = .scaleAspectFill
-        updownBtn.addAction(UIAction(handler: { _ in
-            if let item = self.tagItem {
-                if item._type != .file {
-                    TCDelegateManager.notity(id: item._id, params: ["type": TagCellBtnType.collpase,"collpase": !item._collpase])
-                }
-            } else {
-                print("tag item is nil")
-            }
-            
-        }), for: .touchUpInside)
+//        updownBtn.addAction(UIAction(handler: { _ in
+//            if let item = self.tagItem {
+//                if item._type != .file {
+//                    TCDelegateManager.notity(id: item._id, params: ["type": TagCellBtnType.collpase,"collpase": !item._collpase])
+//                }
+//            } else {
+//                print("tag item is nil")
+//            }
+//            
+//        }), for: .touchUpInside)
+        let btnTap = UITapGestureRecognizer(target: self, action: #selector(myButtonTap(_:)))
+        btnTap.cancelsTouchesInView = true
+        btnTap.delegate = self
+        updownBtn.addGestureRecognizer(btnTap)
+        
         //self.addSubview(updownBtn)
         contentView.addSubview(updownBtn)
         
@@ -96,13 +101,18 @@ class TagItemCell: UITableViewCell
         bgBtn.titleLabel?.textAlignment = .left
         bgBtn.titleLabel?.font  = .italicSystemFont(ofSize: 20)
         bgBtn.titleLabel?.textColor = .black
-        bgBtn.addAction(UIAction(handler: {_ in
-            if let item = self.tagItem {
-                TCDelegateManager.notity(id: item._id, params: ["type": TagCellBtnType.choise])
-            } else {
-                print("tag item is nil")
-            }
-        }), for: .touchUpInside)
+//        bgBtn.addAction(UIAction(handler: {_ in
+//            if let item = self.tagItem {
+//                TCDelegateManager.notity(id: item._id, params: ["type": TagCellBtnType.choise])
+//            } else {
+//                print("tag item is nil")
+//            }
+//        }), for: .touchUpInside)
+        let bgTap = UITapGestureRecognizer(target: self, action: #selector(bgButtonTap(_:)))
+        bgTap.cancelsTouchesInView = true
+        bgTap.delegate = self
+        bgBtn.addGestureRecognizer(bgTap)
+        
         contentView.addSubview(bgBtn)
         
         let delete_center_x: CGFloat = self.bounds.width - tagIconSize / 2 - left_right_pad
@@ -110,13 +120,17 @@ class TagItemCell: UITableViewCell
         deleteBtn.center = CGPoint(x: delete_center_x, y: self.bounds.height / 2)
         deleteBtn.contentMode = .scaleAspectFill
         deleteBtn.setBackgroundImage(UIImage(named: "delete"), for: .normal)
-        deleteBtn.addAction(UIAction(handler: {_ in
-            if let item = self.tagItem {
-                TCDelegateManager.notity(id: item._id, params: ["type": TagCellBtnType.delete,"name":item._name])
-            } else {
-                print("tag item is nil")
-            }
-        }), for: .touchUpInside)
+//        deleteBtn.addAction(UIAction(handler: {_ in
+//            if let item = self.tagItem {
+//                TCDelegateManager.notity(id: item._id, params: ["type": TagCellBtnType.delete,"name":item._name])
+//            } else {
+//                print("tag item is nil")
+//            }
+//        }), for: .touchUpInside)
+        let deletTap = UITapGestureRecognizer(target: self, action: #selector(deletButtonTap(_:)))
+        deletTap.cancelsTouchesInView = true
+        deletTap.delegate = self
+        deleteBtn.addGestureRecognizer(deletTap)
         //self.addSubview(deleteBtn)
         contentView.addSubview(deleteBtn)
         
@@ -125,13 +139,17 @@ class TagItemCell: UITableViewCell
         modifyBtn.center = CGPoint(x: modify_center_x, y: self.bounds.height / 2)
         modifyBtn.setBackgroundImage(UIImage(named: "modify"), for: .normal)
         modifyBtn.contentMode = .scaleAspectFill
-        modifyBtn.addAction(UIAction(handler: {_ in
-            if let item = self.tagItem {
-                TCDelegateManager.notity(id: item._id, params: ["type": TagCellBtnType.modify,"name": item._name])
-            } else {
-                print("tag item is nil")
-            }
-        }), for: .touchUpInside)
+//        modifyBtn.addAction(UIAction(handler: {_ in
+//            if let item = self.tagItem {
+//                TCDelegateManager.notity(id: item._id, params: ["type": TagCellBtnType.modify,"name": item._name])
+//            } else {
+//                print("tag item is nil")
+//            }
+//        }), for: .touchUpInside)
+        let modifytTap = UITapGestureRecognizer(target: self, action: #selector(modifyButtonTap(_:)))
+        modifytTap.cancelsTouchesInView = true
+        modifytTap.delegate = self
+        modifyBtn.addGestureRecognizer(modifytTap)
         //暂时不添加到subview中
         //self.addSubview(modifyBtn)
         contentView.addSubview(modifyBtn)
@@ -141,13 +159,17 @@ class TagItemCell: UITableViewCell
         focusBtn.center = CGPoint(x: focus_center_x, y: self.bounds.height / 2)
         focusBtn.setBackgroundImage(UIImage(named: "focus"), for: .normal)
         focusBtn.contentMode = .scaleAspectFill
-        focusBtn.addAction(UIAction(handler: {_ in
-            if let item = self.tagItem {
-                TCDelegateManager.notity(id: item._id, params: ["type": TagCellBtnType.focus])
-            } else {
-                print("tag item is nil")
-            }
-        }),for: .touchUpInside)
+//        focusBtn.addAction(UIAction(handler: {_ in
+//            if let item = self.tagItem {
+//                TCDelegateManager.notity(id: item._id, params: ["type": TagCellBtnType.focus])
+//            } else {
+//                print("tag item is nil")
+//            }
+//        }),for: .touchUpInside)
+        let focusTap = UITapGestureRecognizer(target: self, action: #selector(focusButtonTap(_:)))
+        focusTap.cancelsTouchesInView = true
+        focusTap.delegate = self
+        focusBtn.addGestureRecognizer(focusTap)
         //暂时不添加到subview中
         //self.addSubview(focusBtn)
         contentView.addSubview(focusBtn)
@@ -155,6 +177,52 @@ class TagItemCell: UITableViewCell
         highlightImg = UIImageView(frame: CGRect(x: updownBtnSize + pad, y: 0, width: self.bounds.width - updownBtnSize-pad, height: self.bounds.height))
         contentView.insertSubview(highlightImg, at: 0)
         
+    }
+    
+    @objc func focusButtonTap(_ sender: UITapGestureRecognizer) {
+        if let item = self.tagItem {
+            TCDelegateManager.notity(id: item._id, params: ["type": TagCellBtnType.focus])
+        } else {
+            print("tag item is nil")
+        }
+    }
+    
+    @objc func modifyButtonTap(_ sender: UITapGestureRecognizer) {
+        if let item = self.tagItem {
+            TCDelegateManager.notity(id: item._id, params: ["type": TagCellBtnType.modify,"name": item._name])
+        } else {
+            print("tag item is nil")
+        }
+    }
+    
+    @objc func deletButtonTap(_ sender: UITapGestureRecognizer) {
+        if let item = self.tagItem {
+            TCDelegateManager.notity(id: item._id, params: ["type": TagCellBtnType.delete,"name":item._name])
+        } else {
+            print("tag item is nil")
+        }
+    }
+    
+    @objc func bgButtonTap(_ sender: UITapGestureRecognizer) {
+        if let item = self.tagItem {
+            TCDelegateManager.notity(id: item._id, params: ["type": TagCellBtnType.choise])
+        } else {
+            print("tag item is nil")
+        }
+    }
+    
+    @objc func myButtonTap(_ sender: UITapGestureRecognizer) {
+        if let item = self.tagItem {
+            if item._type != .file {
+                TCDelegateManager.notity(id: item._id, params: ["type": TagCellBtnType.collpase,"collpase": !item._collpase])
+            }
+        } else {
+            print("tag item is nil")
+        }
+    }
+
+    override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
     }
     
     required init?(coder: NSCoder) {
@@ -260,18 +328,26 @@ class TagView : MTSidebarView, UITableViewDataSource, UITableViewDelegate, TagCe
         createTagBtn = UIButton(frame: CGRect(x: createTagBtn_start_x, y: 0, width: tagIconSize, height: tagIconSize))
         createTagBtn.center.y = search_center_y
         createTagBtn.setBackgroundImage(UIImage(named: "createTag"), for: .normal)
-        createTagBtn.addAction(UIAction(handler: {_ in
-            self.handleCreateTag()
-        }), for: .touchUpInside)
+//        createTagBtn.addAction(UIAction(handler: {_ in
+//            self.handleCreateTag()
+//        }), for: .touchUpInside)
+        let btnTap = UITapGestureRecognizer(target: self, action: #selector(createTagButtonTap(_:)))
+        btnTap.cancelsTouchesInView = true
+        btnTap.delegate = self
+        createTagBtn.addGestureRecognizer(btnTap)
         addSubview(createTagBtn)
         
         let createFolderBtn_start_x = createTagBtn_start_x + tagIconSize + padding_with_tag
         createFolderBtn = UIButton(frame: CGRect(x: createFolderBtn_start_x, y: 0, width: tagIconSize, height: tagIconSize))
         createFolderBtn.center.y = search_center_y
         createFolderBtn.setBackgroundImage(UIImage(named: "createTagFolder"), for: .normal)
-        createFolderBtn.addAction(UIAction(handler: {_ in
-            self.handleCreateTagFolder()
-        }), for: .touchUpInside)
+//        createFolderBtn.addAction(UIAction(handler: {_ in
+//            self.handleCreateTagFolder()
+//        }), for: .touchUpInside)
+        let createFolderTap = UITapGestureRecognizer(target: self, action: #selector(folderButtonTap(_:)))
+        createFolderTap.cancelsTouchesInView = true
+        createFolderTap.delegate = self
+        createFolderBtn.addGestureRecognizer(btnTap)
         addSubview(createFolderBtn)
         
         let tagContentviewHeight = self.bounds.height - headerHeight - search_part_height
@@ -293,6 +369,18 @@ class TagView : MTSidebarView, UITableViewDataSource, UITableViewDelegate, TagCe
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap))
         tapGesture.cancelsTouchesInView = true
         addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func folderButtonTap(_ sender: UITapGestureRecognizer) {
+        self.handleCreateTag()
+    }
+    
+    @objc func createTagButtonTap(_ sender: UITapGestureRecognizer) {
+        self.handleCreateTagFolder()
+    }
+
+    override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
     }
     
     @objc private func handleBackgroundTap() {

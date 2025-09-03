@@ -227,6 +227,9 @@ class ModelLoadViewController: UIViewController,SocketEventProtocol {
                 print("token -- \(token)")
                 if self.needLoadMode == .AR {
                     self.modelLoadView.loadLabel.text = "环境加载中"
+                    self.arrLoadMessage = []
+                    self.loadNumber = 0
+                    
                     self.getLoadingLabel()
                     self.getStepFourLoadingLabel()
                     

@@ -349,7 +349,7 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
         // 使用可选绑定安全处理 AR 控制器
         if let arController = arModelController {
             removeARController(arController)
-            arModelController = nil  // 重要：解除强引用
+//            arModelController = nil  // 重要：解除强引用 // sdk  更新以后就不需要这里了。  否则卡死
         }
         
         // 处理其他子控制器

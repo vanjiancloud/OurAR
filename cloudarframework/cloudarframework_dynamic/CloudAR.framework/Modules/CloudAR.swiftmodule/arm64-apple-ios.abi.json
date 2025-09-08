@@ -2715,6 +2715,43 @@
             "moduleName": "CloudAR"
           },
           {
+            "kind": "Var",
+            "name": "RightClick",
+            "printedName": "RightClick",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(CloudAR.car_InputType.Type) -> CloudAR.car_InputType",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "car_InputType",
+                    "printedName": "CloudAR.car_InputType",
+                    "usr": "s:7CloudAR13car_InputTypeO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "CloudAR.car_InputType.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "car_InputType",
+                        "printedName": "CloudAR.car_InputType",
+                        "usr": "s:7CloudAR13car_InputTypeO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:7CloudAR13car_InputTypeO10RightClickyA2CmF",
+            "mangledName": "$s7CloudAR13car_InputTypeO10RightClickyA2CmF",
+            "moduleName": "CloudAR"
+          },
+          {
             "kind": "Constructor",
             "name": "init",
             "printedName": "init(rawValue:)",
@@ -3819,6 +3856,84 @@
         "declKind": "Func",
         "usr": "s:7CloudAR18car_sendPanGesture5point4size5state10completionySo7CGPointV_So6CGSizeVAA0C11_InputStateOys6ResultOySDySSypGs5Error_pGctF",
         "mangledName": "$s7CloudAR18car_sendPanGesture5point4size5state10completionySo7CGPointV_So6CGSizeVAA0C11_InputStateOys6ResultOySDySSypGs5Error_pGctF",
+        "moduleName": "CloudAR",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "funcSelfKind": "NonMutating"
+      },
+      {
+        "kind": "Function",
+        "name": "car_sendRightClickGesture",
+        "printedName": "car_sendRightClickGesture(point:size:completion:)",
+        "children": [
+          {
+            "kind": "TypeNominal",
+            "name": "Void",
+            "printedName": "()"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "CGPoint",
+            "printedName": "CoreFoundation.CGPoint",
+            "usr": "c:@S@CGPoint"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "CGSize",
+            "printedName": "CoreFoundation.CGSize",
+            "usr": "c:@S@CGSize"
+          },
+          {
+            "kind": "TypeFunc",
+            "name": "Function",
+            "printedName": "(Swift.Result<[Swift.String : Any], Swift.Error>) -> ()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Result",
+                "printedName": "Swift.Result<[Swift.String : Any], Swift.Error>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : Any]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ProtocolComposition",
+                        "printedName": "Any"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Error",
+                    "printedName": "Swift.Error",
+                    "usr": "s:s5ErrorP"
+                  }
+                ],
+                "usr": "s:s6ResultO"
+              }
+            ]
+          }
+        ],
+        "declKind": "Func",
+        "usr": "s:7CloudAR25car_sendRightClickGesture5point4size10completionySo7CGPointV_So6CGSizeVys6ResultOySDySSypGs5Error_pGctF",
+        "mangledName": "$s7CloudAR25car_sendRightClickGesture5point4size10completionySo7CGPointV_So6CGSizeVys6ResultOySDySSypGs5Error_pGctF",
         "moduleName": "CloudAR",
         "declAttributes": [
           "AccessControl",
@@ -34484,23 +34599,9 @@
     {
       "filePath": "\/Users\/chaochao\/Documents\/ARSDK\/CloudAR3.2.0\/CloudAR\/Main\/Funcs\/InputEventFunctions.swift",
       "kind": "IntegerLiteral",
-      "offset": 1721,
+      "offset": 1823,
       "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/chaochao\/Documents\/ARSDK\/CloudAR3.2.0\/CloudAR\/Main\/Funcs\/InputEventFunctions.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1755,
-      "length": 1,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/chaochao\/Documents\/ARSDK\/CloudAR3.2.0\/CloudAR\/Main\/Funcs\/InputEventFunctions.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1789,
-      "length": 1,
-      "value": "2"
+      "value": "3"
     },
     {
       "filePath": "\/Users\/chaochao\/Documents\/ARSDK\/CloudAR3.2.0\/CloudAR\/Main\/Funcs\/InputEventFunctions.swift",
@@ -34522,11 +34623,46 @@
       "offset": 1789,
       "length": 1,
       "value": "2"
+    },
+    {
+      "filePath": "\/Users\/chaochao\/Documents\/ARSDK\/CloudAR3.2.0\/CloudAR\/Main\/Funcs\/InputEventFunctions.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1823,
+      "length": 1,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/chaochao\/Documents\/ARSDK\/CloudAR3.2.0\/CloudAR\/Main\/Funcs\/InputEventFunctions.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1721,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/chaochao\/Documents\/ARSDK\/CloudAR3.2.0\/CloudAR\/Main\/Funcs\/InputEventFunctions.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1755,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/chaochao\/Documents\/ARSDK\/CloudAR3.2.0\/CloudAR\/Main\/Funcs\/InputEventFunctions.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1789,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/chaochao\/Documents\/ARSDK\/CloudAR3.2.0\/CloudAR\/Main\/Funcs\/InputEventFunctions.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1823,
+      "length": 1,
+      "value": "3"
     },
     {
       "filePath": "\/Users\/chaochao\/Documents\/ARSDK\/CloudAR3.2.0\/CloudAR\/Main\/Funcs\/InputEventFunctions.swift",
       "kind": "FloatLiteral",
-      "offset": 8588,
+      "offset": 8622,
       "length": 3,
       "value": "2.0"
     },

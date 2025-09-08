@@ -71,6 +71,7 @@ public enum car_InputType : Swift.UInt8 {
   case Click
   case DoubleClick
   case Pan
+  case RightClick
   public init?(rawValue: Swift.UInt8)
   public typealias RawValue = Swift.UInt8
   public var rawValue: Swift.UInt8 {
@@ -83,6 +84,7 @@ public enum car_FError : Swift.Error {
 public func car_sendEventToEngine(info: inout [Swift.String : Any], completion: @escaping (Swift.Result<[Swift.String : Any], any Swift.Error>) -> Swift.Void)
 public func car_sendClickGesture(point: CoreFoundation.CGPoint, size: CoreFoundation.CGSize, completion: @escaping (Swift.Result<[Swift.String : Any], any Swift.Error>) -> Swift.Void)
 public func car_sendPanGesture(point: CoreFoundation.CGPoint, size: CoreFoundation.CGSize, state: CloudAR.car_InputState, completion: @escaping (Swift.Result<[Swift.String : Any], any Swift.Error>) -> Swift.Void)
+public func car_sendRightClickGesture(point: CoreFoundation.CGPoint, size: CoreFoundation.CGSize, completion: @escaping (Swift.Result<[Swift.String : Any], any Swift.Error>) -> Swift.Void)
 public func car_sendJobExecute(key: Swift.String, completion: @escaping (Swift.Result<[Swift.String : Any], any Swift.Error>) -> Swift.Void)
 public func car_sendPlaceEvent(confirmPlace: Swift.Bool, completion: @escaping (Swift.Result<[Swift.String : Any], any Swift.Error>) -> Swift.Void)
 @objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class ARPositionView : UIKit.UIView {

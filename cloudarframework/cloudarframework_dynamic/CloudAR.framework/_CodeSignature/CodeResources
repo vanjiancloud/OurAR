@@ -26,15 +26,15 @@
 		</data>
 		<key>Modules/CloudAR.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		Ak1IU1pNlgE0tjYLEgyhrGFMIHA=
+		D3f6xxifdcyJrar1pXBYqL7n3pQ=
 		</data>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		vXJJ8fIFYJd76MN4Kl+1+tXUJc8=
+		e70iVnV9VohmP1JKuXd7nVNUQls=
 		</data>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
-		ZUsscojtSHv8Zuvla6YU9kTPfss=
+		3qFREy71XfCPgP+iB1I90IQLuxk=
 		</data>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
@@ -42,11 +42,11 @@
 		</data>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
-		ZUsscojtSHv8Zuvla6YU9kTPfss=
+		3qFREy71XfCPgP+iB1I90IQLuxk=
 		</data>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		Z+rqlrAsC87gEcTPkB7VFQlb4wA=
+		TzpqPa5Z2vNWvRHDu9OmSVXee8w=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -147,21 +147,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			1kDnyQRdtnbH4pfNeJVWgxa8FhkU/yloTgZpRSy9F8A=
+			4RSSZ87obFHY+mWLvUEeXKsQOIjr2SG70JkVVqzVWXs=
 			</data>
 		</dict>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			HFZaCXnVs34AtiPB/8NxPVHG3niAIaAgS4bc6H+9vjc=
+			kCkRGWNXrlTn9nVV4C4uP0s8FHXBSPT+m5Grd8gsL/8=
 			</data>
 		</dict>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			87PkfvDOYAXsVkdZEnpR/5D5N1g/56P3RjzndSwWRqE=
+			4fUvc4oRWz6V27KZsN5WFwyF3ypQ45FuauA1dHAumiw=
 			</data>
 		</dict>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.swiftdoc</key>
@@ -175,14 +175,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			87PkfvDOYAXsVkdZEnpR/5D5N1g/56P3RjzndSwWRqE=
+			4fUvc4oRWz6V27KZsN5WFwyF3ypQ45FuauA1dHAumiw=
 			</data>
 		</dict>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			FqtX2zjgd1B65TDShwe+Ii3fabmC4kNr9i3TEb+y1d0=
+			ZbiZsfdhxUsQP1CY/c/2fTj8TtUcj45Ya06Y+D/U7xE=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

@@ -195,9 +195,16 @@ class BIMSubScreenView : BaseView
             }
             vjFenJieView.snp.makeConstraints { make in
                 make.right.equalTo(self).offset(-20)
-                make.bottom.equalTo(self).offset(-15)
+                make.bottom.equalTo(self).offset(-12)
                 make.width.equalTo(330)
                 make.height.equalTo(100)
+            }
+            
+            vjManYouView.snp.makeConstraints { make in
+                make.centerX.equalTo(self)
+                make.bottom.equalTo(self).offset(-12)
+                make.width.equalTo(460)
+                make.height.equalTo(80)
             }
         }
     }

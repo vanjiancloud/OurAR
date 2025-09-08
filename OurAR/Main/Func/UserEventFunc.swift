@@ -1550,7 +1550,7 @@ func sendManYou(enableGravity: String, enableAllCollision: String, value: Int,co
 }
 
 func closeManYou(enableGravity: String, enableAllCollision: String, value: Int,completion: @escaping (Bool) ->Void) {
-    let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=switchViewMode&projectionMode=2&viewMode=2&enableGravity=\(enableGravity)&enableAllCollision=\(enableAllCollision)&speedLevel=\(value)"
+    let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=switchViewMode&projectionMode=1&viewMode=2&enableGravity=\(enableGravity)&enableAllCollision=\(enableAllCollision)&speedLevel=\(value)"
     
     let accessToken: String = {
         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {

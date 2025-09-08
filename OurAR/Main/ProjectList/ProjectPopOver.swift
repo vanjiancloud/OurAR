@@ -467,11 +467,12 @@ class ProjectPopOverController: UIViewController
     private func showEditAlert() {
         modifyAlert = UIAlertController(title: "提示", message: "", preferredStyle: .alert)
         modifyAlert?.addTextField { textField in
-            textField.placeholder = self.projectInfo["name"] as? String ?? ""
+            textField.text = self.projectInfo["name"] as? String ?? ""
         }
         // 添加取消动作
         let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
             self.modifyAlert = nil
+            self.dismiss(animated: false)
         }
         modifyAlert?.addAction(cancelAction)
         
@@ -506,11 +507,9 @@ class ProjectPopOverController: UIViewController
     private func handleModifyProject(name: String,id: String) {
         sendModifyProject(projectID: id, name: name){ result in
             showTip(tip: result ? "修改成功" : "修改失败" , parentView: self.view, result ? tipColor_bg_success : tipColor_bg_fail, result ? tipColor_text_success : tipColor_text_fail, completion: {})
-            if result {
-                if let controller = self.presentingViewController as? ProjectController {
-                    self.dismiss(animated: true)
-                    controller.queryProjectList(page: 1)
-                }
+            if let controller = self.presentingViewController as? ProjectController {
+                self.dismiss(animated: true)
+                controller.queryProjectList(page: 1)
             }
         }
     }

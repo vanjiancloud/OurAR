@@ -297,7 +297,18 @@ class BIMScreenSubController : UIViewController, MainToolProtocol,SocketEventPro
 //                        }
 //                    }
                 }
+            } else if clickedST.first(where: {
+                if case .MMT(.spaceArea) = $0 {
+                    return true
+                }
+                return false
+            }) != nil {
+                self.vjBIMScreenView.araEndView.isHidden = false;
+                self.vjBIMScreenView.araEndView.onConfirmTapped = {
+                    car_sendRightClickGesture(point: CGPointMake(0, 0), size: CGSizeMake(0, 0), completion: {_ in })
+                }
             } else {
+                self.vjBIMScreenView.araEndView.isHidden = true;
                 self.vjBIMScreenView.settingView.isHidden = true
                 self.vjBIMScreenView.settingDistanceView.isHidden = true
                 self.vjBIMScreenView.settingTypeView.isHidden = true

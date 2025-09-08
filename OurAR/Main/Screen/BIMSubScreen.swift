@@ -24,6 +24,7 @@ class BIMSubScreenView : BaseView
     var vjFenJieView: FenJieView! //分解面板
     var vjManYouView: ManYou! //漫游面板
     var settingView : ModelSettingAlert! // 设置
+    var araEndView : ModelAreaEnd! // 面积
     var settingDistanceView : ModelSettingDistance! // 设置
     var settingTypeView : ModelSettingType! // 设置
     
@@ -126,6 +127,16 @@ class BIMSubScreenView : BaseView
             make.centerX.equalTo(vjMainToolView);
             make.bottom.equalTo(vjMainToolView.snp.top).offset(-60);
             make.size.equalTo(CGSizeMake(200, 220));
+        }
+        
+        araEndView = ModelAreaEnd(frame:CGRectZero)
+        addSubview(araEndView)
+        araEndView.isHidden = true
+        
+        araEndView.snp.makeConstraints { make in
+            make.bottom.equalTo(vjMainToolView.snp.top).offset(-5);
+            make.right.equalTo(vjMainToolView.snp.right)
+            make.size.equalTo(CGSizeMake(40, 40));
         }
         
         settingDistanceView = ModelSettingDistance(frame:CGRectZero)
@@ -278,6 +289,7 @@ class BIMSubScreenView : BaseView
         vjFenJieView?.isHidden = true
         vjManYouView?.isHidden = true
         settingView?.isHidden = true
+        araEndView?.isHidden = true
         settingDistanceView?.isHidden = true
         settingTypeView?.isHidden = true
     }

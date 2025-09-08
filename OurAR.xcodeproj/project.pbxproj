@@ -14,6 +14,7 @@
 		015BEF0E2DD587030037F57E /* CloudAR.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 015BEF042DD586F50037F57E /* CloudAR.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		015BEF0F2DD587060037F57E /* StreamSdk.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 015BEF062DD586F50037F57E /* StreamSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		016492BA2E4C70CC00EA70BE /* ModelSettingAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016492B92E4C70CC00EA70BE /* ModelSettingAlert.swift */; };
+		018368E72E6EC6EC000F93AB /* ModelAreaEnd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018368E62E6EC6EC000F93AB /* ModelAreaEnd.swift */; };
 		01CE9BE02E55A280001BE3F6 /* ModelSettingDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CE9BDF2E55A280001BE3F6 /* ModelSettingDistance.swift */; };
 		01CE9BE22E55B17D001BE3F6 /* ModelSettingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CE9BE12E55B17D001BE3F6 /* ModelSettingType.swift */; };
 		01D1E3892E585618005BC549 /* ManYou.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D1E3882E585618005BC549 /* ManYou.swift */; };
@@ -105,6 +106,7 @@
 		015BEF062DD586F50037F57E /* StreamSdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = StreamSdk.framework; sourceTree = "<group>"; };
 		015BEF082DD586F50037F57E /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		016492B92E4C70CC00EA70BE /* ModelSettingAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSettingAlert.swift; sourceTree = "<group>"; };
+		018368E62E6EC6EC000F93AB /* ModelAreaEnd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAreaEnd.swift; sourceTree = "<group>"; };
 		01CE9BDF2E55A280001BE3F6 /* ModelSettingDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSettingDistance.swift; sourceTree = "<group>"; };
 		01CE9BE12E55B17D001BE3F6 /* ModelSettingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSettingType.swift; sourceTree = "<group>"; };
 		01D1E3882E585618005BC549 /* ManYou.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManYou.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				016492B92E4C70CC00EA70BE /* ModelSettingAlert.swift */,
 				01CE9BDF2E55A280001BE3F6 /* ModelSettingDistance.swift */,
 				01CE9BE12E55B17D001BE3F6 /* ModelSettingType.swift */,
+				018368E62E6EC6EC000F93AB /* ModelAreaEnd.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -646,6 +649,7 @@
 				9BE88C982A9632210000BC33 /* ServerAddressSettingView.swift in Sources */,
 				9B7D763B2A70EB9600CAFF37 /* TagCellProcotol.swift in Sources */,
 				9B71E4392A6CD79B00C8FA55 /* SidebarBaseView.swift in Sources */,
+				018368E72E6EC6EC000F93AB /* ModelAreaEnd.swift in Sources */,
 				9B57BC132A53E9A800CE9820 /* ViewController.swift in Sources */,
 				9B7D00772A7BB1E40004D8C7 /* FenJieView.swift in Sources */,
 				9B5E493D2A56B70C008F2CCC /* UserEventFunc.swift in Sources */,

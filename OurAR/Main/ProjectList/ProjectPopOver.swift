@@ -430,16 +430,28 @@ class ProjectPopOverController: UIViewController
                 showEditAlert()
                 break
             case .enter:
-                let progress  = projectInfo["progress"] as? String ?? ""
-                if progress != "100" {
-                    SVProgressHUD.showInfo(withStatus: "模型未转换完成")
-                } else if let id = projectInfo["id"] as? String {
-                    print(id)
-                    let (isSuccess,reason) = enterBIMScreen(currViewController: self, needLoadProject: id, screenType: .AR)
-                    if !isSuccess {
-                        showTip(tip: reason, parentView: self.view, tipColor_bg_fail, tipColor_text_fail){}
+                let applidStatus = projectInfo["applidStatus"] ?? ""
+                if applidStatus as! String == "2" {
+                    if let id = projectInfo["id"] as? String {
+                        print(id)
+                        let (isSuccess,reason) = enterBIMScreen(currViewController: self, needLoadProject: id, screenType: .AR)
+                        if !isSuccess {
+                            showTip(tip: reason, parentView: self.view, tipColor_bg_fail, tipColor_text_fail){}
+                        }
+                    }
+                } else {
+                    let progress  = projectInfo["progress"] as? String ?? ""
+                    if progress != "100"  {
+                        SVProgressHUD.showInfo(withStatus: "模型未转换完成")
+                    } else if let id = projectInfo["id"] as? String {
+                        print(id)
+                        let (isSuccess,reason) = enterBIMScreen(currViewController: self, needLoadProject: id, screenType: .AR)
+                        if !isSuccess {
+                            showTip(tip: reason, parentView: self.view, tipColor_bg_fail, tipColor_text_fail){}
+                        }
                     }
                 }
+                
                 break
             }
         }

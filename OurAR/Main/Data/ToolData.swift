@@ -83,7 +83,7 @@ struct MainToolsInfo
         info[.KeJianXing]     = MainToolInfo(.KeJianXing,.Both,"kejianxing","可见性")
         info[.PersonView]     = MainToolInfo(.PersonView,.ThreeD,"personview","视角切换")
         info[.PouQie]         = MainToolInfo(.PouQie,.None,"pouqie","剖切")
-        info[.Celiang]        = MainToolInfo(.Celiang,.Both,"celiang","测量")
+        info[.Celiang]        = MainToolInfo(.Celiang,.ThreeD,"celiang","测量")
         info[.BiaoQian]       = MainToolInfo(.BiaoQian,.Both,"biaoqian","标签")
         info[.FenJie]         = MainToolInfo(.FenJie,.Both,"fenjie","分解")
         info[.GouJianShu]     = MainToolInfo(.GouJianShu,.Both,"goujianshu","构件树")

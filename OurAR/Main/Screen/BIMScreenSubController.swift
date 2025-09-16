@@ -303,7 +303,7 @@ class BIMScreenSubController : UIViewController, MainToolProtocol,SocketEventPro
                 }
                 return false
             }) != nil {
-                self.vjBIMScreenView.araEndView.isHidden = false;
+                self.vjBIMScreenView.araEndView.isHidden = true;
                 self.vjBIMScreenView.araEndView.onConfirmTapped = {
                     car_sendRightClickGesture(point: CGPointMake(0, 0), size: CGSizeMake(0, 0), completion: {_ in })
                 }

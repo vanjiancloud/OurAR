@@ -204,7 +204,7 @@ func getSecondToolsByMainTool(_ toolType: MainToolType) -> [SecondToolType:Secon
         info[SecondToolType.MMT(.coordinate)] = SecondToolInfo(.MMT(.coordinate),"measure_coordinate","coordinate")
         info[SecondToolType.MMT(.minDistance)] = SecondToolInfo(.MMT(.minDistance),"mer_disdis","minDistance")
         info[SecondToolType.MMT(.angle)] = SecondToolInfo(.MMT(.angle),"measure_angle","angle")
-        info[SecondToolType.MMT(.spaceArea)] = SecondToolInfo(.MMT(.spaceArea),"mer_area_area","spaceArea")
+//        info[SecondToolType.MMT(.spaceArea)] = SecondToolInfo(.MMT(.spaceArea),"mer_area_area","spaceArea")
         info[SecondToolType.MMT(.changePrecisionOrUnit)] = SecondToolInfo(.MMT(.changePrecisionOrUnit),"measure_change","change")
         break
     case .BiaoQian: break

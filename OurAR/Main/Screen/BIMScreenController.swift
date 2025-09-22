@@ -322,9 +322,9 @@ class BIMScreenController : UIViewController,SwitchScreenModeProtocol,ModelLaunc
 //        controller.mtlView?.isPaused = true  // 暂停Metal渲染
         
         // 阶段2：切断数据流（关键步骤）
-        controller.notityConnectProtocol = nil  // 断开网络连接
-        controller.arPositionProtocol = nil    // 停止位置更新
-        controller.notifyClientStateUpdateProtocol = nil
+//        controller.notityConnectProtocol = nil  // 断开网络连接
+//        controller.arPositionProtocol = nil    // 停止位置更新
+//        controller.notifyClientStateUpdateProtocol = nil
         
         // 阶段3：主线程异步释放（避免阻塞）
 //        DispatchQueue.main.async { [weak controller] in

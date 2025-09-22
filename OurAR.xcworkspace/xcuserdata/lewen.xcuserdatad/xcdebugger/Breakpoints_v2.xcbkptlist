@@ -8,104 +8,12 @@
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
             uuid = "5AE214E6-2829-45D6-9097-CFD69B92FF22"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             breakpointStackSelectionBehavior = "1"
             scope = "1"
             stopOnStyle = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E05B4D0D-5FF1-491B-A9CD-A2917EDFBBDB"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OurAR/Main/Func/UserEventFunc.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "273"
-            endingLineNumber = "273"
-            landmarkName = "doAction(type:completion:)"
-            landmarkType = "9">
-            <Locations>
-               <Location
-                  uuid = "E05B4D0D-5FF1-491B-A9CD-A2917EDFBBDB - 6eaa278e6ec93f25"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "OurAR.doAction(type: OurAR.PersonViewType, completion: (Swift.Bool, Swift.String) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "273"
-                  endingLineNumber = "273">
-               </Location>
-               <Location
-                  uuid = "E05B4D0D-5FF1-491B-A9CD-A2917EDFBBDB - 506afa431b2c2a4b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; Swift.String in OurAR.doAction(type: OurAR.PersonViewType, completion: (Swift.Bool, Swift.String) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "274"
-                  endingLineNumber = "274">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "939DA996-927C-4AC6-9777-AE75B955EEFD"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OurAR/Main/Func/UserEventFunc.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "544"
-            endingLineNumber = "544"
-            landmarkName = "changeMeasureUnit(unit:precision:completion:)"
-            landmarkType = "9">
-            <Locations>
-               <Location
-                  uuid = "939DA996-927C-4AC6-9777-AE75B955EEFD - 143bc686218a239e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "OurAR.changeMeasureUnit(unit: OurAR.MeasureUnitType, precision: OurAR.MeasurePrecisionType, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "544"
-                  endingLineNumber = "544">
-               </Location>
-               <Location
-                  uuid = "939DA996-927C-4AC6-9777-AE75B955EEFD - b6b2f881d3af9b16"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; Swift.String in OurAR.changeMeasureUnit(unit: OurAR.MeasureUnitType, precision: OurAR.MeasurePrecisionType, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "OurAR.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lewen/Desktop/OurAR/OurAR/Main/Func/UserEventFunc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "545"
-                  endingLineNumber = "545">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

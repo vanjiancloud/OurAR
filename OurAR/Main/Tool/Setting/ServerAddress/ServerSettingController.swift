@@ -102,7 +102,22 @@ class ServerSettingController: UIViewController, UITableViewDataSource, UITableV
         var list: [[String:Any]] = []
         info["current"] = self.current
         config.forEach{(item) in
-            let one: [String:Any] = ["id":item.id!,"name":item.name!,"javaServer":item.javaServer!,"cloudServer":item.cloudServer!,"javaWS":item.javaWS!]
+            guard let id = item.id,
+                  let name = item.name,
+                  let javaServer = item.javaServer,
+                  let cloudServer = item.cloudServer,
+                  let javaWS = item.javaWS else {
+                print("Missing required field in config item: \(item)")
+                return // 或者使用默认值
+            }
+            
+            let one: [String:Any] = [
+                "id": id,
+                "name": name,
+                "javaServer": javaServer,
+                "cloudServer": cloudServer,
+                "javaWS": javaWS
+            ]
             list.append(one)
         }
         info["list"] = list

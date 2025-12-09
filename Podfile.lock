@@ -3,12 +3,16 @@ PODS:
   - SnapKit (5.0.0)
   - Starscream (4.0.8)
   - SVProgressHUD (2.2.5)
+  - SwiftyRSA (1.7.0):
+    - SwiftyRSA/ObjC (= 1.7.0)
+  - SwiftyRSA/ObjC (1.7.0)
 
 DEPENDENCIES:
   - Alamofire (= 5.7.1)
   - SnapKit (= 5.0.0)
   - Starscream (~> 4.0.4)
   - SVProgressHUD (~> 2.2)
+  - SwiftyRSA
 
 SPEC REPOS:
   trunk:
@@ -16,13 +20,15 @@ SPEC REPOS:
     - SnapKit
     - Starscream
     - SVProgressHUD
+    - SwiftyRSA
 
 SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   Starscream: 19b5533ddb925208db698f0ac508a100b884a1b9
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  SwiftyRSA: 8c6dd1ea7db1b8dc4fb517a202f88bb1354bc2c6
 
-PODFILE CHECKSUM: 501776cb009d67f29e4746d8d5b672127102251c
+PODFILE CHECKSUM: bddd02121e19cf2f6f91949d6ebade5bda38fb80
 
 COCOAPODS: 1.16.2

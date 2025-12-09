@@ -10,6 +10,7 @@ import UIKit
 import CloudAR
 import Alamofire
 import SVProgressHUD
+import Security
 
 class LoginController: UIViewController {
     var loginView: LoginView! //登录页
@@ -184,7 +185,16 @@ class LoginController: UIViewController {
         
         //从登录页面跳转到主页面
         //登录方式 1.手机号 2.邮箱
-        let url = car_URL.urlPre + "UserCenter/login?loginName=\(name!)&password=\(password!)"
+        let publicKeyBase64 = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMH55ATRceEqIXArpY50zx9dRrGGsKkbe1eXoZJArfWNfYadch0GY9euMgGk1dmDB/Y5E2R+7QRCjzspGGL7WDcCAwEAAQ=="
+        
+        // 1. 加密密码
+        let mdString = encrypt(password!, publicKeyBase64: publicKeyBase64) ?? ""
+
+        // 2. 对加密后的字符串进行URL编码（关键步骤！）
+        let encodedPassword = mdString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? mdString
+        
+        
+        let url = car_URL.urlPre + "UserCenter/login?loginName=\(name!)&password=\(encodedPassword)"
         
         UserDefaults.standard.set(name!,forKey: "username")
         UserDefaults.standard.set(password!,forKey: "password")

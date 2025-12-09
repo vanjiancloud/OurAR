@@ -8,7 +8,7 @@
 import Foundation
 import CloudAR
 import Alamofire
-import Security
+import SwiftyRSA
 
 //MARK: 请求项目列表
 public func queryApplicationList(page: Int, completion: @escaping (Result<Data, Error>) -> Void) {
@@ -245,6 +245,33 @@ public func queryTokenForLoadModel(request: inout DataRequest?,auth: String,pass
     }
 }
 
+//func encrypt(_ txt: String, publicKeyBase64: String) -> String? {
+//    do {
+//        // 2. 准备明文消息
+//        let clearMessage = try ClearMessage(string: txt, using: .utf8)
+//        
+//        // 3. 从Base64字符串创建公钥对象
+//        // jsencrypt密钥通常是PEM格式，需要加上头尾标记
+//        let pemKey = """
+//        -----BEGIN PUBLIC KEY-----
+//        \(publicKeyBase64)
+//        -----END PUBLIC KEY-----
+//        """
+//        let publicKey = try PublicKey(pemEncoded: pemKey)
+//        
+//        // 4. 执行加密，填充方式使用PKCS1
+//        let encryptedMessage = try clearMessage.encrypted(with: publicKey, padding: .PKCS1)
+//        
+//        // 5. 返回Base64编码的密文
+//        return encryptedMessage.base64String
+//    } catch {
+//        // 6. 捕获并打印错误
+//        print("加密失败: \(error.localizedDescription)")
+//        return nil
+//    }
+//}
+//
+
 func encrypt(_ txt: String, publicKeyBase64: String) -> String? {
     // 1. 准备待加密的字符串数据
     guard let dataToEncrypt = txt.data(using: .utf8) else {
@@ -262,7 +289,7 @@ func encrypt(_ txt: String, publicKeyBase64: String) -> String? {
     let keyAttributes: [String: Any] = [
         kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
         kSecAttrKeyClass as String: kSecAttrKeyClassPublic,
-        kSecAttrKeySizeInBits as String: 1024 // 根据你公钥的长度调整，这里是1024位
+        kSecAttrKeySizeInBits as String: 512 // 根据你公钥的长度调整，这里是1024位
     ]
     
     guard let publicKey = SecKeyCreateWithData(publicKeyData as CFData, keyAttributes as CFDictionary, nil) else {
@@ -890,7 +917,16 @@ func sendVerificationCode(phone: String,type: VerificationType,completion: @esca
 }
 //MARK: 注册新用户
 func registerUser(phone: String,psd: String,verificationCode: String,completion: @escaping (Bool,String) -> Void) {
-    let url = car_URL.urlPre + "UserCenter/addUser?mobile=\(phone)&password=\(psd)&code=\(verificationCode)"
+    // 使用方法示例：
+    let publicKeyBase64 = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMH55ATRceEqIXArpY50zx9dRrGGsKkbe1eXoZJArfWNfYadch0GY9euMgGk1dmDB/Y5E2R+7QRCjzspGGL7WDcCAwEAAQ=="
+    
+    // 1. 加密密码
+    let mdString = encrypt(psd, publicKeyBase64: publicKeyBase64) ?? ""
+
+    // 2. 对加密后的字符串进行URL编码（关键步骤！）
+    let encodedPassword = mdString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? mdString
+    
+    let url = car_URL.urlPre + "UserCenter/addUser?mobile=\(phone)&password=\(encodedPassword)&code=\(verificationCode)"
     
     let accessToken: String = {
         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
@@ -933,7 +969,16 @@ func registerUser(phone: String,psd: String,verificationCode: String,completion:
 }
 //MARK: 重置密码
 func resetPassword(phone: String,psd: String,verificationCode: String,completion: @escaping (Bool,String) -> Void) {
-    let url = car_URL.urlPre + "UserCenter/updatePassword?mobile=\(phone)&password=\(psd)&code=\(verificationCode)"
+    // 使用方法示例：
+    let publicKeyBase64 = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMH55ATRceEqIXArpY50zx9dRrGGsKkbe1eXoZJArfWNfYadch0GY9euMgGk1dmDB/Y5E2R+7QRCjzspGGL7WDcCAwEAAQ=="
+    
+    // 1. 加密密码
+    let mdString = encrypt(psd, publicKeyBase64: publicKeyBase64) ?? ""
+
+    // 2. 对加密后的字符串进行URL编码（关键步骤！）
+    let encodedPassword = mdString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? mdString
+    
+    let url = car_URL.urlPre + "UserCenter/updatePassword?mobile=\(phone)&password=\(encodedPassword)&code=\(verificationCode)"
     print("\(url)")
     
     let accessToken: String = {

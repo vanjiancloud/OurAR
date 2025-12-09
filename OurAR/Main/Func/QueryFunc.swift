@@ -8,6 +8,7 @@
 import Foundation
 import CloudAR
 import Alamofire
+import Security
 
 //MARK: 请求项目列表
 public func queryApplicationList(page: Int, completion: @escaping (Result<Data, Error>) -> Void) {
@@ -169,7 +170,20 @@ public func queryAddress(request: inout DataRequest?,completion: @escaping (Resu
 //MARK: 获取token，用于请求模型
 public func queryTokenForLoadModel(request: inout DataRequest?,auth: String,password: String,projectID: String,completion: @escaping (Result<String,Error>) -> Void)
 {
-    let url = car_URL.urlPre + "OurBim/getAccessToken?appid=\(projectID)&auth=\(auth)&password=\(password)"
+    
+    // 使用方法示例：
+    let publicKeyBase64 = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMH55ATRceEqIXArpY50zx9dRrGGsKkbe1eXoZJArfWNfYadch0GY9euMgGk1dmDB/Y5E2R+7QRCjzspGGL7WDcCAwEAAQ=="
+    
+    // 1. 加密密码
+    let mdString = encrypt(password, publicKeyBase64: publicKeyBase64) ?? ""
+
+    // 2. 对加密后的字符串进行URL编码（关键步骤！）
+    let encodedPassword = mdString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? mdString
+
+    // 3. 构造URL时使用 encodedPassword
+    let url = car_URL.urlPre + "OurBim/getAccessToken?appid=\(projectID)&auth=\(auth)&password=\(encodedPassword)"
+
+    // 使用这个url进行网络请求
     
     let accessToken: String = {
         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
@@ -229,6 +243,54 @@ public func queryTokenForLoadModel(request: inout DataRequest?,auth: String,pass
             completion(.failure(error))
         }
     }
+}
+
+func encrypt(_ txt: String, publicKeyBase64: String) -> String? {
+    // 1. 准备待加密的字符串数据
+    guard let dataToEncrypt = txt.data(using: .utf8) else {
+        print("Failed to convert string to data.")
+        return nil
+    }
+    
+    // 2. 将Base64格式的公钥字符串转换为Data
+    guard let publicKeyData = Data(base64Encoded: publicKeyBase64) else {
+        print("Failed to decode Base64 public key.")
+        return nil
+    }
+    
+    // 3. 将公钥Data转换为SecKey对象
+    let keyAttributes: [String: Any] = [
+        kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
+        kSecAttrKeyClass as String: kSecAttrKeyClassPublic,
+        kSecAttrKeySizeInBits as String: 1024 // 根据你公钥的长度调整，这里是1024位
+    ]
+    
+    guard let publicKey = SecKeyCreateWithData(publicKeyData as CFData, keyAttributes as CFDictionary, nil) else {
+        print("Failed to create SecKey from public key data.")
+        return nil
+    }
+    
+    // 4. 设置加密算法（这里使用PKCS1填充）
+    let algorithm: SecKeyAlgorithm = .rsaEncryptionPKCS1
+    
+    // 检查算法是否支持该密钥
+    guard SecKeyIsAlgorithmSupported(publicKey, .encrypt, algorithm) else {
+        print("Algorithm not supported for this key.")
+        return nil
+    }
+    
+    // 5. 执行加密
+    var error: Unmanaged<CFError>?
+    guard let encryptedData = SecKeyCreateEncryptedData(publicKey,
+                                                        algorithm,
+                                                        dataToEncrypt as CFData,
+                                                        &error) as Data? else {
+        print("Encryption failed: \(error?.takeRetainedValue().localizedDescription ?? "Unknown error")")
+        return nil
+    }
+    
+    // 6. 将加密后的Data转换为Base64字符串返回
+    return encryptedData.base64EncodedString()
 }
 
 //

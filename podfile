@@ -13,7 +13,7 @@ platform:ios,'15.0'
       pod 'Alamofire', '5.7.1'
       pod 'SVProgressHUD' , '~> 2.2'
       pod 'SnapKit', '5.0.0'
-      pod 'Starscream', '~> 4.0.4'
+      pod 'Starscream', '~> 4.0.8'
       pod 'SwiftyRSA'
 #post_install do |installer|
 #    installer.pods_project.targets.each do |target|

@@ -79,6 +79,9 @@ class ServerSettingController: UIViewController, UITableViewDataSource, UITableV
             let baseServer = ServerInfo()
             baseServer.javaServer = car_URL.urlPre
             baseServer.cloudServer = car_URL.xrUrlPre
+            if (car_URL.javaWS.isEmpty) {
+                car_URL.javaWS = "wss://api.ourbim.com:11023/vjapi"
+            }
             baseServer.javaWS = car_URL.javaWS
             baseServer.name = "默认服务配置"
             self.current = baseServer.id

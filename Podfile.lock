@@ -10,7 +10,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (= 5.7.1)
   - SnapKit (= 5.0.0)
-  - Starscream (~> 4.0.4)
+  - Starscream (~> 4.0.8)
   - SVProgressHUD (~> 2.2)
   - SwiftyRSA
 
@@ -29,6 +29,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyRSA: 8c6dd1ea7db1b8dc4fb517a202f88bb1354bc2c6
 
-PODFILE CHECKSUM: bddd02121e19cf2f6f91949d6ebade5bda38fb80
+PODFILE CHECKSUM: 1a7d6579f6c3c15af00b0958dd4655a318df880d
 
 COCOAPODS: 1.16.2

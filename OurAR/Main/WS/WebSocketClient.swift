@@ -75,8 +75,14 @@ class WebSocketClient : WebSocketDelegate,ModelLaunchProtocol
         }
     }
     
-    private func validOfURL() -> (Bool,String) {
-        return (!car_UserInfo.taskID.isEmpty,"\(car_URL.javaWS)/vjapi/websocket/\(car_UserInfo.taskID)")
+    private func validOfURL() -> (Bool, String) {
+        let baseURL = car_URL.javaWS.isEmpty ? "wss://api.ourbim.com:11023/vjapi" : car_URL.javaWS
+        
+        if (car_URL.javaWS.isEmpty) {
+            car_URL.javaWS = "wss://api.ourbim.com:11023/vjapi"
+        }
+        
+        return (!car_UserInfo.taskID.isEmpty, "\(baseURL)/websocket/\(car_UserInfo.taskID)")
     }
     
     //MARK: 普通连接

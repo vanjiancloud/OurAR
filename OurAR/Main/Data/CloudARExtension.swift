@@ -23,6 +23,9 @@ extension car_URL
 }
 
 
+//"wss://api.ourbim.com:11023/vjapi"
+
+
 extension car_EngineStatus {
     static let mainToolsInfo: MainToolsInfo = MainToolsInfo()
     static var personview: PersonViewType = .TP //默认第三人称

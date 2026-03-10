@@ -76,7 +76,7 @@ class WebSocketClient : WebSocketDelegate,ModelLaunchProtocol
     }
     
     private func validOfURL() -> (Bool, String) {
-        let baseURL = car_URL.javaWS.isEmpty ? "wss://api.ourbim.com:11023/vjapi/" : car_URL.javaWS
+        let baseURL = car_URL.javaWS.isEmpty ? "wss://api.ourbim.com:11023/vjapi" : car_URL.javaWS
         
         if (car_URL.javaWS.isEmpty) {
             car_URL.javaWS = "wss://api.ourbim.com:11023/vjapi"

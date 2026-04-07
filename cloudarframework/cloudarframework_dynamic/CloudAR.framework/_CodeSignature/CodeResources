@@ -4,49 +4,37 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Alamofire.xcworkspace/contents.xcworkspacedata</key>
-		<data>
-		OB7DP5SlG715FHfTtfhFiyEgd6o=
-		</data>
-		<key>Alamofire.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist</key>
-		<data>
-		31/nObizq2nPGjKoiBxIoWYuA0A=
-		</data>
-		<key>Alamofire.xcworkspace/xcuserdata/chaochao.xcuserdatad/UserInterfaceState.xcuserstate</key>
-		<data>
-		wO4/t85z//Lo/LZWTjnYcecOwrw=
-		</data>
 		<key>Headers/CloudAR-Swift.h</key>
 		<data>
-		V+4zbA3pD2Xdm68LB09kos0XkrQ=
+		0f1aJ54bN/AXtyfqG4OFlQxoqmw=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		SLAOXVxoshh4cu4+d0POxlx059E=
+		CjIn9f6K718Hxuv2XanyimlH6sM=
 		</data>
 		<key>Modules/CloudAR.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		D3f6xxifdcyJrar1pXBYqL7n3pQ=
+		bKG8xmE0O94P472ElggJK/29RL0=
 		</data>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		e70iVnV9VohmP1JKuXd7nVNUQls=
+		PVHrwi7+k0iEM2bnUo4szcFGF5g=
 		</data>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
-		3qFREy71XfCPgP+iB1I90IQLuxk=
+		JAfsm3N4ERCkWzoq12K9TY8xGvQ=
 		</data>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
-		3HINDWqtVn0rwL1i8RLNUG/HRqg=
+		YAz87pFs3BN6QcshYSr5UvYuZZk=
 		</data>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
-		3qFREy71XfCPgP+iB1I90IQLuxk=
+		JAfsm3N4ERCkWzoq12K9TY8xGvQ=
 		</data>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		TzpqPa5Z2vNWvRHDu9OmSVXee8w=
+		TSEcSuPW0zy9oEjcOLGT96+bQyQ=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -66,7 +54,7 @@
 		</data>
 		<key>default.metallib</key>
 		<data>
-		8kBAdp+x+/w2BMOKsWfPZQwDkoM=
+		MdddDlPQT4l4yvxbVjNLvmjYaQo=
 		</data>
 		<key>downArrow.png</key>
 		<data>
@@ -115,74 +103,53 @@
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Alamofire.xcworkspace/contents.xcworkspacedata</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			7zwLzzQCJfkt5cRE7O3XpZnUT7ikw3Znckut7L9FnZg=
-			</data>
-		</dict>
-		<key>Alamofire.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			36D5u4W5XMupxoEa2t+MtAf7XVIIjonbg+vDCOxEhUI=
-			</data>
-		</dict>
-		<key>Alamofire.xcworkspace/xcuserdata/chaochao.xcuserdatad/UserInterfaceState.xcuserstate</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			gMzgxjIR9T8WXEZqiiLasM3CKcdr6UYRG+aCkvzLo30=
-			</data>
-		</dict>
 		<key>Headers/CloudAR-Swift.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vbUTYkJXyQA+Up7nv3nUqjuH3LkHxMOdYtlGWFJnlSE=
+			cYQxouKs3OFKcNiLeCLwPzGGYHcVANyVM0Q/FDXZQ7w=
 			</data>
 		</dict>
 		<key>Modules/CloudAR.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			4RSSZ87obFHY+mWLvUEeXKsQOIjr2SG70JkVVqzVWXs=
+			8+wM3bxOsjQZyQJrOECYOd0ZXFkSE0kYB6gnU9kUTjQ=
 			</data>
 		</dict>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			kCkRGWNXrlTn9nVV4C4uP0s8FHXBSPT+m5Grd8gsL/8=
+			zQTGnJaLs9DerotINaFmnLostBrX2Qw4UaFZNALPtyI=
 			</data>
 		</dict>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			4fUvc4oRWz6V27KZsN5WFwyF3ypQ45FuauA1dHAumiw=
+			S3aUSqMOB+sAHExbr8lWrBS8QDELfqWlcV8CR/hbGQY=
 			</data>
 		</dict>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			YwZrIdkiJ0cEQ2dRuHIUDjG089jmyEEnno1UWlwJ/kQ=
+			7CuDoleRaKhGdnnewu2w6kIMbbjSluZqh4bkb0LFNek=
 			</data>
 		</dict>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			4fUvc4oRWz6V27KZsN5WFwyF3ypQ45FuauA1dHAumiw=
+			S3aUSqMOB+sAHExbr8lWrBS8QDELfqWlcV8CR/hbGQY=
 			</data>
 		</dict>
 		<key>Modules/CloudAR.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZbiZsfdhxUsQP1CY/c/2fTj8TtUcj45Ya06Y+D/U7xE=
+			g03OemC4s0GxkbgLSXJRMGZNCP8jbqvHy5QoZGtUpEo=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
@@ -217,7 +184,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			rl0iZHpOqmMJxAbi5EzpZewoM5fXQlnzlsYuQhHR4XM=
+			beoAgZ1n7PGIyMLLbrHilqbTENa1l/eVdk+0WtBhy0o=
 			</data>
 		</dict>
 		<key>downArrow.png</key>

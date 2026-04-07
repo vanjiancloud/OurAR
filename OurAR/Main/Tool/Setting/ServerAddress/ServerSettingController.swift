@@ -310,7 +310,7 @@ class ServerSettingController: UIViewController, UITableViewDataSource, UITableV
             textField.placeholder = "XR服务: https://xx.xx.xx:2/api/"
         }
         addAlert?.addTextField() { textField in
-            textField.placeholder = "WebSocket: ws://192.168.1.1:11011"
+            textField.placeholder = "WebSocket: ws://192.168.1.1:11011/"
         }
         // 添加取消动作
         let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
@@ -367,8 +367,13 @@ class ServerSettingController: UIViewController, UITableViewDataSource, UITableV
             textField.text = info.cloudServer
         }
         modifyAlert?.addTextField() { textField in
-            textField.placeholder = "WebSocket: ws://192.168.1.1:11011"
-            textField.text = info.javaWS
+            textField.placeholder = "WebSocket: ws://192.168.1.1:11011/"
+            let ws = info.javaWS ?? ""
+            if ws == "wss://api.ourbim.com:11023/vjapi" {
+                textField.text = "wss://api.ourbim.com:11023/vjapi/"
+            } else {
+                textField.text = ws // 其他值原样显示
+            }
         }
         // 添加取消动作
         let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in

@@ -58,7 +58,7 @@ class ManYou: GTView {
         slider.minimumValue = 0
         slider.maximumValue = 8
         slider.tintColor = UIColor(red: 24/255, green: 172/255, blue: 251/255, alpha: 1)
-        slider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
+        slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
         addSubview(slider)
         slider.snp.makeConstraints { make in
             make.centerY.equalTo(titleName)
@@ -227,30 +227,15 @@ class ManYou: GTView {
         }
     }
     
-    @objc private func sliderValueChanged(_ slider: UISlider?,for event: UIEvent?) {
-        guard let slider = slider else { return }
-           
-        // 实时取整（关键修改）
+    @objc private func sliderValueChanged(_ slider: UISlider) {
         let roundedValue = round(slider.value)
-        if slider.value != roundedValue {
-            slider.value = roundedValue
-        }
+        slider.value = roundedValue
         
-        if let touchEvent = event?.allTouches?.first {
-            switch touchEvent.phase {
-            case .began:
-                break
-            case .cancelled:
-                break
-            case .moved:
-                manYouValue.text = String(Int(slider.value))
-                break
-            case .ended:
-                print("slider end")
-                self.sendManYouAction()
-            default:
-                break
-            }
+        manYouValue.text = String(Int(roundedValue))
+        
+        if slider.isTracking == false {
+            print("slider end")
+            self.sendManYouAction()
         }
     }
     

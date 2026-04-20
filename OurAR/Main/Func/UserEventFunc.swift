@@ -223,7 +223,8 @@ func asyncRespBool(result: Result<Data?,AFError>) -> (Bool,String) {
 
 //MARK: 移到主视图
 fileprivate func moveToMainView(completion: @escaping (Bool) -> Void) {
-    let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=cameraPosAll"
+    let url = car_URL.urlPre + "OurBim/body/doAction?taskId=\(car_UserInfo.taskID)"
+    let info: [String:Any] = ["action": "cameraPosAll"]
     
     let accessToken: String = {
         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
@@ -240,7 +241,8 @@ fileprivate func moveToMainView(completion: @escaping (Bool) -> Void) {
         "accessToken": accessToken
     ]
     
-    AF.request(url,method:.get, headers: headers).response { (response: AFDataResponse) in
+    //   post + body
+    AF.request(url,method:.post,parameters: info,encoding: JSONEncoding.default, headers: headers).response{(response:AFDataResponse) in
         let statusCode = response.response?.statusCode
         
         if let data = response.data {
@@ -268,7 +270,10 @@ fileprivate func moveToMainView(completion: @escaping (Bool) -> Void) {
 //MARK: 人称
 fileprivate func doAction(type: PersonViewType,completion: @escaping (Bool,String) -> Void) {
     let viewMode = type == .FP ? "2" : "1"
-    let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=switchViewMode&viewMode=\(viewMode)&projectionMode=1"
+    let url = car_URL.urlPre + "OurBim/body/doAction?taskId=\(car_UserInfo.taskID)"
+    var info: [String:Any] = ["action": "switchViewMode"]
+    info["viewMode"] = viewMode
+    info["projectionMode"] = 1
     
     let accessToken: String = {
         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
@@ -285,7 +290,8 @@ fileprivate func doAction(type: PersonViewType,completion: @escaping (Bool,Strin
         "accessToken": accessToken
     ]
     
-    AF.request(url,method:.get, headers: headers).response { (response: AFDataResponse) in
+    //   post + body
+    AF.request(url,method:.post,parameters: info,encoding: JSONEncoding.default, headers: headers).response{ (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
         
         if let data = response.data {
@@ -445,9 +451,8 @@ fileprivate func displayAllActor(type: KeJianXingType,completion: @escaping (Boo
 
 //MARK: 进行测量
 fileprivate func measurement(type: MeasurementType,completion: @escaping (Bool) -> Void) {
-    let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=\(String(describing: type))"
-    
-    print("-------\(url)")
+    let url = car_URL.urlPre + "OurBim/body/doAction?taskId=\(car_UserInfo.taskID)"
+    let info: [String:Any] = ["action": String(describing: type)]
     
     let accessToken: String = {
         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
@@ -464,7 +469,8 @@ fileprivate func measurement(type: MeasurementType,completion: @escaping (Bool) 
         "accessToken": accessToken
     ]
     
-    AF.request(url,method:.get, headers: headers).response { (response: AFDataResponse) in
+    //   post + body
+    AF.request(url,method:.post,parameters: info,encoding: JSONEncoding.default, headers: headers).response{ (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
         
         if let data = response.data {
@@ -491,8 +497,9 @@ fileprivate func measurement(type: MeasurementType,completion: @escaping (Bool) 
 
 //MARK: 关闭测量
 fileprivate func closeMeasurement(completion: @escaping (Bool) -> Void) {
-    let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=endMeasure"
-    print("-------\(url)")
+    let url = car_URL.urlPre + "OurBim/body/doAction?taskId=\(car_UserInfo.taskID)"
+    let info: [String:Any] = ["action": "endMeasure"]
+    
     let accessToken: String = {
         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
             return ""
@@ -508,7 +515,8 @@ fileprivate func closeMeasurement(completion: @escaping (Bool) -> Void) {
         "accessToken": accessToken
     ]
     
-    AF.request(url,method:.get, headers: headers).response { (response: AFDataResponse) in
+    //   post + body
+    AF.request(url,method:.post,parameters: info,encoding: JSONEncoding.default, headers: headers).response{ (response: AFDataResponse) in
         let statusCode = response.response?.statusCode
         
         if let data = response.data {
@@ -539,7 +547,10 @@ fileprivate func closeMeasurement(completion: @escaping (Bool) -> Void) {
  precision:  0 / 0.1 / 0.01
  */
 fileprivate func changeMeasureUnit(unit: MeasureUnitType,precision: MeasurePrecisionType,completion: @escaping (Bool) -> Void) {
-    let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=changePrecisionOrUnit&unit=\(unit.rawValue)&precision=\(precision.rawValue)"
+    let url = car_URL.urlPre + "OurBim/body/doAction?taskId=\(car_UserInfo.taskID)"
+    var info: [String:Any] = ["action": "changePrecisionOrUnit"]
+    info["unit"] = unit.rawValue
+    info["precision"] = precision.rawValue
     
     let accessToken: String = {
         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
@@ -556,7 +567,8 @@ fileprivate func changeMeasureUnit(unit: MeasureUnitType,precision: MeasurePreci
         "accessToken": accessToken
     ]
     
-    AF.request(url,method:.get, headers: headers).response { (response: AFDataResponse ) in
+    //   post + body
+    AF.request(url,method:.post,parameters: info,encoding: JSONEncoding.default, headers: headers).response{ (response: AFDataResponse ) in
         let statusCode = response.response?.statusCode
         
         if let data = response.data {
@@ -582,7 +594,10 @@ fileprivate func changeMeasureUnit(unit: MeasureUnitType,precision: MeasurePreci
 }
 
 func changeSettingMeasureUnit(unit: String,precision: String,completion: @escaping (Bool) -> Void) {
-    let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=changePrecisionOrUnit&unit=\(unit)&precision=\(precision)"
+    let url = car_URL.urlPre + "OurBim/body/doAction?taskId=\(car_UserInfo.taskID)"
+    var info: [String:Any] = ["action": "changePrecisionOrUnit"]
+    info["unit"] = unit
+    info["precision"] = precision
     
     let accessToken: String = {
         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
@@ -599,7 +614,8 @@ func changeSettingMeasureUnit(unit: String,precision: String,completion: @escapi
         "accessToken": accessToken
     ]
     
-    AF.request(url,method:.get, headers: headers).response { (response: AFDataResponse ) in
+    //   post + body
+    AF.request(url,method:.post,parameters: info,encoding: JSONEncoding.default, headers: headers).response{ (response: AFDataResponse ) in
         let statusCode = response.response?.statusCode
         
         if let data = response.data {
@@ -1088,8 +1104,10 @@ func queryComponentList(taskId: String = car_UserInfo.taskID, uuid: String,appli
 
 //MARK: Focus普通构件
 func sendFocusModel(uuid: String,appliId: String = car_UserInfo.currProID,isFoucs: Bool,completion: @escaping (Bool) ->Void) {
-    //https://api.OurBim.com:11022/vjapi/OurBim/doAction?taskid=1139943772189097984&projectId=BIM2021101814063750&mn=vanjian2&action=selectComponent
-    let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&projectId=\(appliId)&mn=\(uuid)&action=\(isFoucs ? "selectComponent" : "cancelSelectComponen")"
+    let url = car_URL.urlPre + "OurBim/body/doAction?taskId=\(car_UserInfo.taskID)"
+    var info: [String:Any] = ["projectId": appliId]
+    info["mn"] = uuid
+    info["action"] = isFoucs ? "selectComponent" : "cancelSelectComponen"
     
     let accessToken: String = {
         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
@@ -1106,7 +1124,8 @@ func sendFocusModel(uuid: String,appliId: String = car_UserInfo.currProID,isFouc
         "accessToken": accessToken
     ]
     
-    AF.request(url,method:.get, headers: headers).response {(response:AFDataResponse) in
+    //   post + body
+    AF.request(url,method:.post,parameters: info,encoding: JSONEncoding.default, headers: headers).response{(response:AFDataResponse) in
         let statusCode = response.response?.statusCode
         
         if let data = response.data {
@@ -1180,9 +1199,8 @@ func sendFocusCostomModel(uuid: String,isFoucs: Bool,completion: @escaping (Bool
 
 //MARK: 隐藏模型
 func sendHiddenModel(uuid: String,appliId: String = car_UserInfo.currProID,isHidden: Bool,completion: @escaping (Bool) -> Void) {
-    let url = car_URL.urlPre + "OurBim/doAction"
-    var info: [String:Any] = ["taskid": car_UserInfo.taskID]
-    info["projectId"] = appliId
+    let url = car_URL.urlPre + "OurBim/body/doAction?taskId=\(car_UserInfo.taskID)"
+    var info: [String:Any] = ["projectId": appliId]
     info["action"] = isHidden ? "hideComponents" : "showComponents"
     info["mn"] = uuid == "god" ? "vanjian" : uuid
     
@@ -1201,7 +1219,8 @@ func sendHiddenModel(uuid: String,appliId: String = car_UserInfo.currProID,isHid
         "accessToken": accessToken
     ]
     
-    AF.request(url,method:.get,parameters: info,encoding: URLEncoding.default, headers: headers).response {(response:AFDataResponse) in
+    //   post + body
+    AF.request(url,method:.post,parameters: info,encoding: JSONEncoding.default, headers: headers).response{(response:AFDataResponse) in
         let statusCode = response.response?.statusCode
        
         if let data = response.data {
@@ -1462,8 +1481,9 @@ func sendModelQuit(screenType: car_ScreenMode) {
 
 //MARK: 分解
 func sendFenJie(value: Int,completion: @escaping (Bool) ->Void) {
-    //https://api.OurBim.com:11022/vjapi/OurBim/doAction?taskid=1136964760961548288&action=splitModel&splitValue=4
-    let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=splitModel&splitValue=\(value)"
+    let url = car_URL.urlPre + "OurBim/body/doAction?taskId=\(car_UserInfo.taskID)"
+    var info: [String:Any] = ["action": "splitModel"]
+    info["splitValue"] = value
     
     let accessToken: String = {
         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
@@ -1480,7 +1500,8 @@ func sendFenJie(value: Int,completion: @escaping (Bool) ->Void) {
         "accessToken": accessToken
     ]
     
-    AF.request(url,method:.get, headers: headers).response {(response:AFDataResponse) in
+    //   post + body
+    AF.request(url,method:.post,parameters: info,encoding: JSONEncoding.default, headers: headers).response{(response:AFDataResponse) in
         let statusCode = response.response?.statusCode
         
         if let data = response.data {
@@ -1507,7 +1528,13 @@ func sendFenJie(value: Int,completion: @escaping (Bool) ->Void) {
 
 //MARK: 漫游
 func sendManYou(enableGravity: String, enableAllCollision: String, value: Int,completion: @escaping (Bool) ->Void) {
-    let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=switchViewMode&projectionMode=1&viewMode=1&enableGravity=\(enableGravity)&enableAllCollision=\(enableAllCollision)&speedLevel=\(value)"
+    let url = car_URL.urlPre + "OurBim/body/doAction?taskId=\(car_UserInfo.taskID)"
+    var info: [String:Any] = ["action": "switchViewMode"]
+    info["projectionMode"] = 1
+    info["viewMode"] = 1
+    info["enableGravity"] = enableGravity
+    info["enableAllCollision"] = enableAllCollision
+    info["speedLevel"] = value
     
     let accessToken: String = {
         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
@@ -1524,7 +1551,8 @@ func sendManYou(enableGravity: String, enableAllCollision: String, value: Int,co
         "accessToken": accessToken
     ]
     
-    AF.request(url,method:.get, headers: headers).response {(response:AFDataResponse) in
+    //   post + body
+    AF.request(url,method:.post,parameters: info,encoding: JSONEncoding.default, headers: headers).response{(response:AFDataResponse) in
         let statusCode = response.response?.statusCode
         
         if let data = response.data {
@@ -1550,7 +1578,13 @@ func sendManYou(enableGravity: String, enableAllCollision: String, value: Int,co
 }
 
 func closeManYou(enableGravity: String, enableAllCollision: String, value: Int,completion: @escaping (Bool) ->Void) {
-    let url = car_URL.urlPre + "OurBim/doAction?taskid=\(car_UserInfo.taskID)&action=switchViewMode&projectionMode=1&viewMode=2&enableGravity=\(enableGravity)&enableAllCollision=\(enableAllCollision)&speedLevel=\(value)"
+    let url = car_URL.urlPre + "OurBim/body/doAction?taskId=\(car_UserInfo.taskID)"
+    var info: [String:Any] = ["action": "switchViewMode"]
+    info["projectionMode"] = 1
+    info["viewMode"] = 2
+    info["enableGravity"] = enableGravity
+    info["enableAllCollision"] = enableAllCollision
+    info["speedLevel"] = value
     
     let accessToken: String = {
         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
@@ -1567,7 +1601,8 @@ func closeManYou(enableGravity: String, enableAllCollision: String, value: Int,c
         "accessToken": accessToken
     ]
     
-    AF.request(url,method:.get, headers: headers).response {(response:AFDataResponse) in
+    //   post + body
+    AF.request(url,method:.post,parameters: info,encoding: JSONEncoding.default, headers: headers).response{(response:AFDataResponse) in
         let statusCode = response.response?.statusCode
         
         if let data = response.data {

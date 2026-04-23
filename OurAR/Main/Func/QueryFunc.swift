@@ -1075,7 +1075,10 @@ func resetPassword(phone: String,psd: String,verificationCode: String,completion
     // 2. 对加密后的字符串进行URL编码（关键步骤！）
     let encodedPassword = mdString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? mdString
     
-    let url = car_URL.urlPre + "UserCenter/updatePassword?mobile=\(phone)&password=\(encodedPassword)&code=\(verificationCode)"
+    var url = car_URL.urlPre + "UserCenter/updatePassword?mobile=\(phone)&password=\(encodedPassword)&code=\(verificationCode)"
+    if car_isEmail(phone) {
+        url = car_URL.urlPre + "UserCenter/updatePasswordEmail?email=\(phone)&password=\(encodedPassword)&code=\(verificationCode)"
+    }
     print("\(url)")
     
     let accessToken: String = {
@@ -1121,6 +1124,50 @@ func resetPassword(phone: String,psd: String,verificationCode: String,completion
 //MARK: 判断验证码
 func judgeMsg(phone: String,verificationCode: String,completion: @escaping (Bool,String) -> Void) {
     let url = car_URL.urlPre + "UserCenter/judgeMsg?mobile=\(phone)&code=\(verificationCode)"
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    AF.request(url,method: .post, headers: headers).response { (response: AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
+        }
+        
+        let (isSuccess,msg) = asyncRespBool(result: response.result)
+        completion(isSuccess,msg)
+    }
+}
+
+//MARK: 判断邮箱验证码
+func judgeEmailMsg(phone: String,verificationCode: String,completion: @escaping (Bool,String) -> Void) {
+    let url = car_URL.urlPre + "UserCenter/judgeEmail?email=\(phone)&code=\(verificationCode)"
     
     let accessToken: String = {
         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {

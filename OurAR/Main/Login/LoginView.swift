@@ -889,27 +889,36 @@ class ForgetView: UIView
             // 获取重置验证码
             if let phone = self.phone.text.text,!phone.isEmpty
             {
+                let isPhone = car_isPhone(phone)
+                let isEmail = car_isEmail(phone)
+                
+                if !isEmail && !isPhone {
+                    showTip(tip: "请输入正确的手机号/邮箱", parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                    
+                    return
+                }
+                
                 if car_isPhone(phone) {
-                    // 判断手机号是否不存在
-                    phoneIsExist(phone: phone, completion: {(isSuccess,msg) in
+                    sendVerificationCode(phone:phone, type: .changePSD) { (isSuccess,reason) in
                         if isSuccess {
-                            sendVerificationCode(phone:phone, type: .changePSD) { (isSuccess,reason) in
-                                if isSuccess {
-                                    self.verification.countDown(true)
-                                    showTip(tip: "获取成功", parentView: self.superview ?? self, tipColor_bg_success, tipColor_text_success, completion: {})
-                                } else {
-                                    showTip(tip: reason, parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
-                                }
-                            }
+                            self.verification.countDown(true)
+                            showTip(tip: "获取成功", parentView: self.superview ?? self, tipColor_bg_success, tipColor_text_success, completion: {})
                         } else {
-                            showTip(tip: msg, parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                            showTip(tip: reason, parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
                         }
-                    })
+                    }
                 } else {
-                    showTip(tip: "手机号格式不正确", parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                    sendEmailVerificationCode(phone:phone, type: .login) { (isSuccess,reason) in
+                        if isSuccess {
+                            self.verification.countDown(true)
+                            showTip(tip: "获取成功", parentView: self.superview ?? self, tipColor_bg_success, tipColor_text_success, completion: {})
+                        } else {
+                            showTip(tip: reason, parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                        }
+                    }
                 }
             } else {
-                showTip(tip: "请输入手机号", parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                showTip(tip: "请输入手机号/邮箱", parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
             }
         }), for: .touchUpInside)
         verification.text.placeholder = "验证码"
@@ -923,44 +932,81 @@ class ForgetView: UIView
         nextStep.addAction(UIAction(handler: {[weak self]_ in
             if let phone = self?.phone.text.text,let code = self?.verification.text.text {
                 if phone.isEmpty || code.isEmpty {
-                    showTip(tip: "手机号或验证码不能为空", parentView: (self?.superview ?? self)!, tipColor_bg_fail, tipColor_text_fail, completion: {})
-                } else if !car_isPhone(phone) {
-                    showTip(tip: "手机号格式不正确", parentView: (self?.superview ?? self)!, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                    showTip(tip: "手机号/邮箱或验证码不能为空", parentView: (self?.superview ?? self)!, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                } else if !car_isPhone(phone) && !car_isEmail(phone) {
+                    showTip(tip: "手机号/邮箱格式不正确", parentView: (self?.superview ?? self)!, tipColor_bg_fail, tipColor_text_fail, completion: {})
                 } else {
-                    judgeMsg(phone: phone, verificationCode: code, completion: {(isSuccess,reason) in
-                        if isSuccess {
-                            // 进入到设置新密码页
-                            self?.phone?.removeFromSuperview()
-                            self?.verification?.removeFromSuperview()
-                            self?.nextStep?.removeFromSuperview()
-                            self?.addSubview(self!.psd)
-                            self?.addSubview(self!.psdAgain)
-                            self?.addSubview(self!.confirm)
-                            self?.psd?.text.text = ""
-                            self?.psdAgain?.text.text = ""
-                            self?.psd?.text.isSecureTextEntry = true
-                            self?.psdAgain?.text.isSecureTextEntry = true
-                            if getIsIphone() {
-                                self?.psd.snp.makeConstraints { make in
-                                    make.top.equalTo(self!.label.snp.bottom).offset(30)
-                                    make.left.right.equalTo(self!.label)
-                                    make.height.equalTo(45)
+                    if car_isPhone(phone) {
+                        judgeMsg(phone: phone, verificationCode: code, completion: {(isSuccess,reason) in
+                            if isSuccess {
+                                // 进入到设置新密码页
+                                self?.phone?.removeFromSuperview()
+                                self?.verification?.removeFromSuperview()
+                                self?.nextStep?.removeFromSuperview()
+                                self?.addSubview(self!.psd)
+                                self?.addSubview(self!.psdAgain)
+                                self?.addSubview(self!.confirm)
+                                self?.psd?.text.text = ""
+                                self?.psdAgain?.text.text = ""
+                                self?.psd?.text.isSecureTextEntry = true
+                                self?.psdAgain?.text.isSecureTextEntry = true
+                                if getIsIphone() {
+                                    self?.psd.snp.makeConstraints { make in
+                                        make.top.equalTo(self!.label.snp.bottom).offset(30)
+                                        make.left.right.equalTo(self!.label)
+                                        make.height.equalTo(45)
+                                    }
+                                    self?.psdAgain.snp.makeConstraints { make in
+                                        make.top.equalTo(self!.psd.snp.bottom).offset(20)
+                                        make.left.right.equalTo(self!.label)
+                                        make.height.equalTo(45)
+                                    }
+                                    self?.confirm.snp.makeConstraints { make in
+                                        make.top.equalTo(self!.psdAgain.snp.bottom).offset(20)
+                                        make.left.right.equalTo(self!.label)
+                                        make.height.equalTo(45)
+                                    }
                                 }
-                                self?.psdAgain.snp.makeConstraints { make in
-                                    make.top.equalTo(self!.psd.snp.bottom).offset(20)
-                                    make.left.right.equalTo(self!.label)
-                                    make.height.equalTo(45)
-                                }
-                                self?.confirm.snp.makeConstraints { make in
-                                    make.top.equalTo(self!.psdAgain.snp.bottom).offset(20)
-                                    make.left.right.equalTo(self!.label)
-                                    make.height.equalTo(45)
-                                }
+                            } else {
+                                showTip(tip: reason, parentView: (self?.superview ?? self)!, tipColor_bg_fail, tipColor_text_fail, completion: {})
                             }
-                        } else {
-                            showTip(tip: reason, parentView: (self?.superview ?? self)!, tipColor_bg_fail, tipColor_text_fail, completion: {})
-                        }
-                    })
+                        })
+                    } else {
+                        judgeEmailMsg(phone: phone, verificationCode: code, completion: {(isSuccess,reason) in
+                            if isSuccess {
+                                // 进入到设置新密码页
+                                self?.phone?.removeFromSuperview()
+                                self?.verification?.removeFromSuperview()
+                                self?.nextStep?.removeFromSuperview()
+                                self?.addSubview(self!.psd)
+                                self?.addSubview(self!.psdAgain)
+                                self?.addSubview(self!.confirm)
+                                self?.psd?.text.text = ""
+                                self?.psdAgain?.text.text = ""
+                                self?.psd?.text.isSecureTextEntry = true
+                                self?.psdAgain?.text.isSecureTextEntry = true
+                                if getIsIphone() {
+                                    self?.psd.snp.makeConstraints { make in
+                                        make.top.equalTo(self!.label.snp.bottom).offset(30)
+                                        make.left.right.equalTo(self!.label)
+                                        make.height.equalTo(45)
+                                    }
+                                    self?.psdAgain.snp.makeConstraints { make in
+                                        make.top.equalTo(self!.psd.snp.bottom).offset(20)
+                                        make.left.right.equalTo(self!.label)
+                                        make.height.equalTo(45)
+                                    }
+                                    self?.confirm.snp.makeConstraints { make in
+                                        make.top.equalTo(self!.psdAgain.snp.bottom).offset(20)
+                                        make.left.right.equalTo(self!.label)
+                                        make.height.equalTo(45)
+                                    }
+                                }
+                            } else {
+                                showTip(tip: reason, parentView: (self?.superview ?? self)!, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                            }
+                        })
+                    }
                 }
             }
         }), for: .touchUpInside)

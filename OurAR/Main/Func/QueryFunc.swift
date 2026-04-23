@@ -915,6 +915,51 @@ func sendVerificationCode(phone: String,type: VerificationType,completion: @esca
         completion(isSuccess,msg)
     }
 }
+
+//MARK: 发送邮箱验证码
+func sendEmailVerificationCode(phone: String,type: VerificationType,completion: @escaping (Bool,String) -> Void) {
+    let url = car_URL.urlPre + "UserCenter/sendMsgEmailCode?email=\(phone)&type=\(type.rawValue)"
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    AF.request(url,method: .post, headers: headers).response { (response: AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
+        }
+        
+        let (isSuccess,msg) = asyncRespBool(result: response.result)
+        completion(isSuccess,msg)
+    }
+}
+
 //MARK: 注册新用户
 func registerUser(phone: String,psd: String,verificationCode: String,completion: @escaping (Bool,String) -> Void) {
     // 使用方法示例：
@@ -927,6 +972,58 @@ func registerUser(phone: String,psd: String,verificationCode: String,completion:
     let encodedPassword = mdString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? mdString
     
     let url = car_URL.urlPre + "UserCenter/addUser?mobile=\(phone)&password=\(encodedPassword)&code=\(verificationCode)"
+    
+    let accessToken: String = {
+        guard let value = UserDefaults.standard.object(forKey: "accessToken") else {
+            return ""
+        }
+        if let str = value as? String {
+            return str
+        } else {
+            return "\(value)"
+        }
+    }()
+
+    let headers: HTTPHeaders = [
+        "accessToken": accessToken
+    ]
+    
+    AF.request(url,method: .post, headers: headers).response { (response: AFDataResponse) in
+        let statusCode = response.response?.statusCode
+        
+        if let data = response.data {
+            let JSONObject = try? JSONSerialization.jsonObject(with: data)
+            
+            var shouldPostNotification = false
+            
+            if statusCode == 401 || statusCode == 503 || statusCode == nil {
+                shouldPostNotification = true
+            } else if statusCode == 200, let jsonDict = JSONObject as? [String: Any],
+                    let businessCode = jsonDict["code"] as? Int, businessCode == 503 {
+                shouldPostNotification = true
+            }
+            
+            if shouldPostNotification {
+                NotificationCenter.default.post(name: Notification.Name("OANetworkUnauthorized"), object: nil)
+            }
+        }
+        
+        let (isSuccess,msg) = asyncRespBool(result: response.result)
+        completion(isSuccess,isSuccess ? "注册成功" : msg)
+    }
+}
+//MARK: 注册新邮箱用户
+func registerEmailUser(phone: String,psd: String,verificationCode: String,completion: @escaping (Bool,String) -> Void) {
+    // 使用方法示例：
+    let publicKeyBase64 = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMH55ATRceEqIXArpY50zx9dRrGGsKkbe1eXoZJArfWNfYadch0GY9euMgGk1dmDB/Y5E2R+7QRCjzspGGL7WDcCAwEAAQ=="
+    
+    // 1. 加密密码
+    let mdString = encrypt(psd, publicKeyBase64: publicKeyBase64) ?? ""
+
+    // 2. 对加密后的字符串进行URL编码（关键步骤！）
+    let encodedPassword = mdString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? mdString
+    
+    let url = car_URL.urlPre + "UserCenter/addUserEmail?email=\(phone)&password=\(encodedPassword)&code=\(verificationCode)"
     
     let accessToken: String = {
         guard let value = UserDefaults.standard.object(forKey: "accessToken") else {

@@ -241,6 +241,7 @@ class LoginController: UIViewController {
         let codeIsEmpty = registerCode?.count ?? 0 == 0
         let psdIsSame = password == passwordAgain
         let isPhone = psdIsEmpty ? false : car_isPhone(phone!)
+        let isEmail = psdIsEmpty ? false : car_isEmail(phone!)
         if phoneIsEmpty {
             tip = "手机号不能为空"
         } else if codeIsEmpty {
@@ -253,8 +254,8 @@ class LoginController: UIViewController {
             tip = "请先同意服务协议"
         } else if password?.count ?? 0 < 6 {
             tip = "密码长度应在6位以上"
-        } else if !isPhone {
-            tip = "手机号格式错误"
+        } else if !isPhone && !isEmail {
+            tip = "手机号/邮箱格式错误"
         } else {
             canRegister = true
         }
@@ -265,14 +266,26 @@ class LoginController: UIViewController {
         }
         
         self.registerView?.confirm?.isEnabled = false
-        registerUser(phone: phone!, psd: password!, verificationCode: registerCode!, completion: {(isSuccess,reason) in
-            self.registerView?.confirm?.isEnabled = true
-            showTip(tip: reason, parentView: self.view, isSuccess ? tipColor_bg_success : tipColor_bg_fail, isSuccess ? tipColor_text_success : tipColor_text_fail, completion: {
-                if isSuccess {
-                    self.handleEnterPage(0,info: ["phone": phone!])
-                }
+        
+        if isPhone {
+            registerUser(phone: phone!, psd: password!, verificationCode: registerCode!, completion: {(isSuccess,reason) in
+                self.registerView?.confirm?.isEnabled = true
+                showTip(tip: reason, parentView: self.view, isSuccess ? tipColor_bg_success : tipColor_bg_fail, isSuccess ? tipColor_text_success : tipColor_text_fail, completion: {
+                    if isSuccess {
+                        self.handleEnterPage(0,info: ["phone": phone!])
+                    }
+                })
             })
-        })
+        } else {
+            registerEmailUser(phone: phone!, psd: password!, verificationCode: registerCode!, completion: {(isSuccess,reason) in
+                self.registerView?.confirm?.isEnabled = true
+                showTip(tip: reason, parentView: self.view, isSuccess ? tipColor_bg_success : tipColor_bg_fail, isSuccess ? tipColor_text_success : tipColor_text_fail, completion: {
+                    if isSuccess {
+                        self.handleEnterPage(0,info: ["phone": phone!])
+                    }
+                })
+            })
+        }
     }
     
     func handleEnterPage(_ index: Int,info: [String:Any] = [:]) {

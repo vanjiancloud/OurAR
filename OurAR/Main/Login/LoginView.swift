@@ -133,13 +133,6 @@ fileprivate class PhoneView: UIView
         img.contentMode = .scaleAspectFit
         addSubview(img)
         
-        let countryCode = UILabel(frame: CGRect(x: imgCenterX + imgSize * 0.5 + 15, y: 0, width: 40, height: font))
-        countryCode.center.y = bounds.height / 2
-        countryCode.text = "+86 |"
-        countryCode.contentMode = .left
-        countryCode.textAlignment = .left
-        addSubview(countryCode)
-        
         let text_start_x: CGFloat = imgCenterX + imgSize * 0.5 + 15 + 40 + 15
         text = UITextField(frame: CGRect(x: text_start_x, y: 0, width: bounds.width - text_start_x, height: bounds.height))
         text.textAlignment = .left
@@ -151,7 +144,7 @@ fileprivate class PhoneView: UIView
         addSubview(text)
         text.snp.makeConstraints { make in
             make.centerY.height.equalTo(self)
-            make.left.equalTo(countryCode.snp.right).offset(10)
+            make.left.equalTo(img.snp.right).offset(10)
             make.right.equalTo(self).offset(-20)
         }
     }
@@ -414,45 +407,63 @@ class LoginView: UIView
         let pad_seg: CGFloat = 70
         
         name = InputView(frame: CGRect(x: 0, y: pad_seg, width: inputWidth, height: inputHeight), imgCenter, imgSize, textStartX, font: font, "user")
-        name?.text.placeholder = "账号"
+        name?.text.placeholder = "请输入手机号/邮箱"
         addSubview(name)
         
         psd = InputView(frame: CGRect(x: 0, y: (inputHeight + input_pad_updown) * 1 + pad_seg, width: inputWidth, height: inputHeight), imgCenter, imgSize, textStartX, font: font, "secure",true)
-        psd?.text.placeholder = "密码"
+        psd?.text.placeholder = "请输入登录密码"
         addSubview(psd)
         
         phone = PhoneView(frame: CGRect(x: 0, y: pad_seg, width: inputWidth, height: inputHeight), imgCenter, imgSize, font: font, "phone")
-        phone?.text.placeholder = "手机号码"
+        phone?.text.placeholder = "请输入手机号/邮箱"
         addSubview(phone)
         phone.isHidden = true
         
         verification = VerificationView(frame: CGRect(x: 0, y: (inputHeight + input_pad_updown) * 1 + pad_seg, width: inputWidth, height: inputHeight), imgCenter, imgSize, textStartX, font: font, "message")
         verification?.text.placeholder = "验证码"
-        verification.btn.addAction(UIAction(handler: {_ in
-            // 短信验证码
-            if let phone = self.phone.text.text,
-               !phone.isEmpty {
-                if car_isPhone(phone) {
-                    phoneIsExist(phone: phone, completion: {(isSuccess,reason) in
-                        if isSuccess {
-                            sendVerificationCode(phone: phone, type: .login, completion: {(isSuccess,msg) in
-                                if isSuccess {
-                                    self.verification?.countDown(true)
-                                    showTip(tip: "获取成功", parentView: self.superview ?? self, tipColor_bg_success, tipColor_text_success, completion: {})
-                                } else {
-                                    showTip(tip: msg, parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
-                                }
-                            })
-                        } else {
-                            showTip(tip: reason, parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
-                        }
-                    })
-                } else {
-                    showTip(tip: "手机号格式不正确", parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
-                }
-            } else {
-                showTip(tip: "请输入手机号", parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+        verification.btn.addAction(UIAction(handler: { [weak self] _ in
+            guard let self = self else { return }
+            
+            guard let inputText = self.phone.text.text,
+                  !inputText.isEmpty else {
+                showTip(tip: "请输入手机号或邮箱", parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                return
             }
+            
+            let isPhone = car_isPhone(inputText)
+            let isEmail = car_isEmail(inputText)
+            
+            if !isPhone && !isEmail {
+                showTip(tip: "请输入正确的手机号或邮箱", parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                return
+            }
+            phoneIsExist(phone: inputText, completion: { [weak self] isSuccess,reason in
+                guard let self = self else { return }
+                
+                if isSuccess {
+                    if isPhone {
+                        sendVerificationCode(phone: inputText, type: .login, completion: {(isSuccess,msg) in
+                            if isSuccess {
+                                self.verification?.countDown(true)
+                                showTip(tip: "获取成功", parentView: self.superview ?? self, tipColor_bg_success, tipColor_text_success, completion: {})
+                            } else {
+                                showTip(tip: msg, parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                            }
+                        })
+                    } else {
+                        sendEmailVerificationCode(phone: inputText, type: .emailRegister, completion: {(isSuccess,msg) in
+                            if isSuccess {
+                                self.verification?.countDown(true)
+                                showTip(tip: "获取成功", parentView: self.superview ?? self, tipColor_bg_success, tipColor_text_success, completion: {})
+                            } else {
+                                showTip(tip: msg, parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                            }
+                        })
+                    }
+                } else {
+                    showTip(tip: reason, parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                }
+            })
         }), for: .touchUpInside)
         addSubview(verification)
         verification.isHidden = true
@@ -686,38 +697,55 @@ class RegisterView: UIView
         let font: CGFloat = 15
         
         phone = PhoneView(frame: CGRect(x: input_start_x, y: 0, width: inputWidth, height: inputHeight), imgCenter, imgSize, font: font,"phone")
-        phone?.text.placeholder = "手机号码"
+        phone?.text.placeholder = "手机号码/邮箱"
         addSubview(phone)
         
         verification = VerificationView(frame: CGRect(x: input_start_x, y: (inputHeight + input_pad_updown) * 1, width: inputWidth, height: inputHeight), imgCenter, imgSize, textStartX, font: font, "message")
-        verification.btn.addAction(UIAction(handler: {_ in
-            // 获取验证码
-            if let phone = self.phone.text.text,!phone.isEmpty
-            {
-                if car_isPhone(phone) {
-                    // 判断手机号是否不存在
-                    phoneNotExist(phone: phone, completion: {(isSuccess,msg) in
-                        if isSuccess {
-                            sendVerificationCode(phone:phone, type: .register) { (isSuccess,reason) in
-                                if isSuccess {
-                                    self.verification.countDown(true)
-                                    showTip(tip: "获取成功", parentView: self.superview ?? self, tipColor_bg_success, tipColor_text_success, completion: {})
-                                } else {
-                                    showTip(tip: reason, parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
-                                }
-                            }
-                        } else {
-                            showTip(tip: msg, parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
-                        }
-                    })
-                } else {
-                    showTip(tip: "手机号格式不正确", parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
-                }
-            } else {
-                showTip(tip: "请输入手机号", parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+        verification.btn.addAction(UIAction(handler: { [weak self] _ in
+            guard let self = self else { return }
+            
+            guard let inputText = self.phone.text.text,
+                  !inputText.isEmpty else {
+                showTip(tip: "请输入手机号或邮箱", parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                return
             }
             
+            let isPhone = car_isPhone(inputText)
+            let isEmail = car_isEmail(inputText)
+            
+            if !isPhone && !isEmail {
+                showTip(tip: "请输入正确的手机号或邮箱", parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                return
+            }
+            phoneNotExist(phone: inputText, completion: { [weak self] isSuccess,reason in
+                guard let self = self else { return }
+                
+                if isSuccess {
+                    if isPhone {
+                        sendVerificationCode(phone: inputText, type: .register, completion: {(isSuccess,msg) in
+                            if isSuccess {
+                                self.verification?.countDown(true)
+                                showTip(tip: "获取成功", parentView: self.superview ?? self, tipColor_bg_success, tipColor_text_success, completion: {})
+                            } else {
+                                showTip(tip: msg, parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                            }
+                        })
+                    } else {
+                        sendEmailVerificationCode(phone: inputText, type: .emailRegister, completion: {(isSuccess,msg) in
+                            if isSuccess {
+                                self.verification?.countDown(true)
+                                showTip(tip: "获取成功", parentView: self.superview ?? self, tipColor_bg_success, tipColor_text_success, completion: {})
+                            } else {
+                                showTip(tip: msg, parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                            }
+                        })
+                    }
+                } else {
+                    showTip(tip: reason, parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                }
+            })
         }), for: .touchUpInside)
+        
         verification?.text.placeholder = "验证码"
         addSubview(verification)
         
@@ -853,7 +881,7 @@ class ForgetView: UIView
         addSubview(label)
         
         phone = PhoneView(frame: CGRect(x: input_start_x, y:(inputHeight + input_pad_updown) * 0 + label_pad , width: inputWidth, height: inputHeight), imgCenter, imgSize, font: font, "phone")
-        phone.text.placeholder = "手机号码"
+        phone.text.placeholder = "手机号码/邮箱"
         addSubview(phone)
         
         verification = VerificationView(frame: CGRect(x: input_start_x, y: (inputHeight + input_pad_updown) * 1 + label_pad, width: inputWidth, height: inputHeight), imgCenter, imgSize, textStartX, font: font, "message")

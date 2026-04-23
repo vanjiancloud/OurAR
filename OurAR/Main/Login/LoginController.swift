@@ -214,7 +214,7 @@ class LoginController: UIViewController {
             tip = "手机号不能为空"
         } else if codeIsEmpty {
             tip = "验证码不能为空"
-        } else if !car_isPhone(phone!) {
+        } else if !car_isPhone(phone!) && !car_isEmail(phone!) {
             tip = "手机号格式不正确"
         } else {
             canLogin = true
@@ -227,7 +227,10 @@ class LoginController: UIViewController {
         }
         
         // 手机验证码登录
-        let url = car_URL.urlPre + "UserCenter/loginMobile?mobile=\(phone!)&code=\(code!)"
+        var url = car_URL.urlPre + "UserCenter/loginMobile?mobile=\(phone!)&code=\(code!)"
+        if car_isEmail(phone!) {
+            url = car_URL.urlPre + "UserCenter/loginEmailCode?loginName=\(phone!)&code=\(code!)"
+        }
         UserDefaults.standard.set(phone!,forKey: "mobile")
         
         login(url: url)

@@ -437,11 +437,12 @@ class LoginView: UIView
                 showTip(tip: "请输入正确的手机号或邮箱", parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
                 return
             }
-            phoneIsExist(phone: inputText, completion: { [weak self] isSuccess,reason in
-                guard let self = self else { return }
-                
-                if isSuccess {
-                    if isPhone {
+            
+            if isPhone {
+                phoneIsExist(phone: inputText, completion: { [weak self] isSuccess,reason in
+                    guard let self = self else { return }
+                    
+                    if isSuccess {
                         sendVerificationCode(phone: inputText, type: .login, completion: {(isSuccess,msg) in
                             if isSuccess {
                                 self.verification?.countDown(true)
@@ -451,19 +452,19 @@ class LoginView: UIView
                             }
                         })
                     } else {
-                        sendEmailVerificationCode(phone: inputText, type: .emailRegister, completion: {(isSuccess,msg) in
-                            if isSuccess {
-                                self.verification?.countDown(true)
-                                showTip(tip: "获取成功", parentView: self.superview ?? self, tipColor_bg_success, tipColor_text_success, completion: {})
-                            } else {
-                                showTip(tip: msg, parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
-                            }
-                        })
+                        showTip(tip: reason, parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
                     }
-                } else {
-                    showTip(tip: reason, parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
-                }
-            })
+                })
+            } else {
+                sendEmailVerificationCode(phone: inputText, type: .register, completion: {(isSuccess,msg) in
+                    if isSuccess {
+                        self.verification?.countDown(true)
+                        showTip(tip: "获取成功", parentView: self.superview ?? self, tipColor_bg_success, tipColor_text_success, completion: {})
+                    } else {
+                        showTip(tip: msg, parentView: self.superview ?? self, tipColor_bg_fail, tipColor_text_fail, completion: {})
+                    }
+                })
+            }
         }), for: .touchUpInside)
         addSubview(verification)
         verification.isHidden = true
